@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-node-binance-scraper
+  namespace: backend
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: node-binance-scraper-metrics
+  namespaceSelector:
+    matchNames:
+      - backend
+  endpoints:
+    - port: "tcp-prometheus"
+      interval: 10s
+      scrapeTimeout: 5s
+      path: /api/metrics
+      scheme: http
+  jobLabel: "node-binance-scraper-metrics"
+  targetLabels:
+    - node-binance-scraper-metrics

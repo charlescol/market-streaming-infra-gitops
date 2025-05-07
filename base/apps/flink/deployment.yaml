@@ -1,0 +1,103 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  name: flink-cluster
+  namespace: backend
+spec:
+  image: flink-microstructures-extractor:2.1.5
+  flinkVersion: v1_20
+  serviceAccount: flink
+  flinkConfiguration:
+    state.checkpoints.dir: file:///flink-data/checkpoints
+    state.savepoints.dir: file:///flink-data/savepoints
+    high-availability: org.apache.flink.kubernetes.highavailability.KubernetesHaServicesFactory
+    high-availability.storageDir: file:///flink-data/ha
+    taskmanager.numberOfTaskSlots: "1"
+    metrics.reporter.prom.factory.class: org.apache.flink.metrics.prometheus.PrometheusReporterFactory
+    metrics.reporter.prom.port: "8082"
+    metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
+    metrics.reporters: prom
+    env.java.opts.jobmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
+    env.java.opts.taskmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
+    state.backend.type: rocksdb
+
+  logConfiguration:
+    "log4j-console.properties": |
+      status = WARN
+      name = Log4j2Config
+      appenders = Console, Async
+
+      appender.Console.type = Console
+      appender.Console.name = Console
+      appender.Console.target = SYSTEM_OUT
+      appender.Console.layout.type = PatternLayout
+      appender.Console.layout.pattern = %d{ISO8601} %-5level [%X{flink-job-id}] [%X{key}] - %msg%n
+
+      appender.Async.type = Async
+      appender.Async.name = Async
+      appender.Async.includeThreadContext = true
+      appender.Async.appenderRef.type = AppenderRef
+      appender.Async.appenderRef.ref = Console
+
+      rootLogger.level = INFO
+      rootLogger.appenderRef.Async.ref = Async
+
+  jobManager:
+    resource:
+      memory: "1024m"
+      cpu: 0.5
+  taskManager:
+    resource:
+      memory: "1536m"
+      cpu: 0.5
+  podTemplate:
+    spec:
+      containers:
+        - name: flink-main-container
+          env:
+            - name: KAFKA_TOPIC_BINANCE_DEPTH_UPDATE
+              value: "binance-depthUpdate-raw"
+            - name: KAFKA_TOPIC_BINANCE_MICROSTRUCTURE
+              value: "binance-microstructure-raw"
+            - name: ORDER_BOOK_MAX_DEPTH
+              value: "1000"
+            - name: ORDER_BOOK_SNAPSHOT_DEPTH
+              value: "1500"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
+            - name: SCHEMA_REGISTRY_URL
+              value: "http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"
+            - name: JAVA_TOOL_OPTIONS
+              value: "--add-opens=java.base/java.util=ALL-UNNAMED"
+            - name: MAX_GAPS_BEFORE_SNAPSHOT
+              value: "2"
+            - name: KAFKA_SOURCE_PROPS_PATH
+              value: "/opt/flink/kafka-config/kafka-source.properties"
+            - name: KAFKA_SINK_PROPS_PATH
+              value: "/opt/flink/kafka-config/kafka-sink.properties"
+            - name: ENABLE_METRICS_VERBOSE
+              value: "true"
+            - name: TRACKED_SYMBOL
+              value: "BTCUSDT"
+
+          volumeMounts:
+            - mountPath: /flink-data
+              name: flink-volume
+
+            - name: kafka-config-volume
+              mountPath: /opt/flink/kafka-config
+      volumes:
+        - name: flink-volume
+          hostPath:
+            path: /tmp/flink
+            type: Directory
+
+        - name: kafka-config-volume
+          configMap:
+            name: config-flink-kafka
+
+  job:
+    jarURI: local:///opt/flink/usrlib/app.jar
+    parallelism: 1
+    upgradeMode: last-state
+    state: running
