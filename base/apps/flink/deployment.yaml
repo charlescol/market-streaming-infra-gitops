@@ -4,7 +4,7 @@ metadata:
   name: flink-cluster
   namespace: backend
 spec:
-  image: flink-microstructures-extractor:2.1.5
+  image: flink-microstructures-extractor:2.2.0
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
