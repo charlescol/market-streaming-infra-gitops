@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tokio-binance-scraper
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tokio-binance-scraper
+      template:
+    metadata:
+      labels:
+        app: tokio-binance-scraper
+        spec:
+      containers:
+        - name: node
+          image: tokio-binance-scraper:0.0.1
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: config-tokio-binance-scraper
