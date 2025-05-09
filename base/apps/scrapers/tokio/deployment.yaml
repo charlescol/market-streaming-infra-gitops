@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: tokio
-          image: tokio-binance-scraper:0.0.6
+          image: tokio-binance-scraper:0.0.7
           ports:
             - containerPort: 9000
           imagePullPolicy: Never
