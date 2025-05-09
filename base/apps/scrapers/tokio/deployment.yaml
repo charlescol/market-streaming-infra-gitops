@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: tokio-binance-scraper
-      template:
+  template:
     metadata:
       labels:
         app: tokio-binance-scraper
