@@ -15,10 +15,18 @@ spec:
     spec:
       containers:
         - name: node
-          image: tokio-binance-scraper:0.0.1
+          image: tokio-binance-scraper:0.0.3
           ports:
             - containerPort: 3000
           imagePullPolicy: Never
           envFrom:
             - configMapRef:
                 name: config-tokio-binance-scraper
+          volumeMounts:
+            - name: kafka-config-volume
+              mountPath: /app/resources
+              readOnly: true
+      volumes:
+        - name: kafka-config-volume
+          configMap:
+            name: config-tokio-kafka
