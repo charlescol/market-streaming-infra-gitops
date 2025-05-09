@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - kafka-monitors.yaml
   - flink-monitors.yaml
-  - node-scraper-monitors.yaml
   - tokio-scraper-monitors.yaml
