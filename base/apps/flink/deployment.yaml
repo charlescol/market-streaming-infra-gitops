@@ -78,7 +78,7 @@ spec:
             - name: ENABLE_METRICS_VERBOSE
               value: "true"
             - name: TRACKED_SYMBOLS
-              value: "BTCUSDT"
+              value: "ETHBTC"
 
           volumeMounts:
             - mountPath: /flink-data
