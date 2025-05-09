@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: ./gitops/overlays/local
+  path: ./overlays/local
   prune: true
   sourceRef:
     kind: GitRepository
