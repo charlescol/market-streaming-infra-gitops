@@ -12,7 +12,7 @@ spec:
     metadata:
       labels:
         app: tokio-binance-scraper
-        spec:
+    spec:
       containers:
         - name: node
           image: tokio-binance-scraper:0.0.1
