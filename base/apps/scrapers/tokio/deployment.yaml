@@ -14,7 +14,7 @@ spec:
         app: tokio-binance-scraper
     spec:
       containers:
-        - name: node
+        - name: tokio
           image: tokio-binance-scraper:0.0.4
           ports:
             - containerPort: 9000

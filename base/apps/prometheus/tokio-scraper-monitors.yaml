@@ -16,7 +16,7 @@ spec:
     - port: "tcp-prometheus"
       interval: 10s
       scrapeTimeout: 5s
-      path: /metrics
+      path: /
       scheme: http
   jobLabel: "tokio-binance-scraper-metrics"
   targetLabels:
