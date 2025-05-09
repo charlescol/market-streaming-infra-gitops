@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
         - name: node
-          image: tokio-binance-scraper:0.0.3
+          image: tokio-binance-scraper:0.0.4
           ports:
-            - containerPort: 3000
+            - containerPort: 9000
           imagePullPolicy: Never
           envFrom:
             - configMapRef:
