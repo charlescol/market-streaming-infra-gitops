@@ -4,7 +4,7 @@ metadata:
   name: flink-cluster
   namespace: backend
 spec:
-  image: flink-microstructures-extractor:2.2.0
+  image: flink-microstructures-extractor:2.2.1
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
@@ -77,7 +77,7 @@ spec:
               value: "/opt/flink/kafka-config/kafka-sink.properties"
             - name: ENABLE_METRICS_VERBOSE
               value: "true"
-            - name: TRACKED_SYMBOL
+            - name: TRACKED_SYMBOLS
               value: "BTCUSDT"
 
           volumeMounts:
