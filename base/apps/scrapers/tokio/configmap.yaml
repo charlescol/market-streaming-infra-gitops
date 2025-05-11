@@ -12,5 +12,5 @@ data:
   SCHEMA_REGISTRY_URL: "http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"
   BINANCE_WS_STREAMS: "ethbtc@depth@100ms"
   BINANCE_WS_URL: "stream.binance.com:9443"
-  CONFIG_ENABLE_SCRAPING: "true"
+  CONFIG_ENABLE_SCRAPING: "false"
   TRACKED_SYMBOLS: "ETHBTC"
