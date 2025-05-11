@@ -4,7 +4,7 @@ metadata:
   name: flink-cluster
   namespace: backend
 spec:
-  image: flink-microstructures-extractor:2.2.1
+  image: flink-microstructures-extractor:2.2.2
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
@@ -20,6 +20,7 @@ spec:
     env.java.opts.jobmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
     env.java.opts.taskmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
     state.backend.type: rocksdb
+    execution.buffer-timeout.interval: 0ms
 
   logConfiguration:
     "log4j-console.properties": |
