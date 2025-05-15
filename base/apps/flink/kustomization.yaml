@@ -4,3 +4,4 @@ resources:
   - deployment.yaml
   - services.yaml
   - kafka-config.yaml
+  - pipeline-config.yaml

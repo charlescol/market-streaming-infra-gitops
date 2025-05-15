@@ -76,6 +76,8 @@ spec:
               value: "/opt/flink/kafka-config/kafka-source.properties"
             - name: KAFKA_SINK_PROPS_PATH
               value: "/opt/flink/kafka-config/kafka-sink.properties"
+            - name: FLINK_PIPELINE_PROPS_PATH
+              value: "/opt/flink/pipeline-config/flink-pipeline.properties"
             - name: ENABLE_METRICS_VERBOSE
               value: "true"
             - name: TRACKED_SYMBOLS
@@ -84,6 +86,9 @@ spec:
           volumeMounts:
             - mountPath: /flink-data
               name: flink-volume
+
+            - name: pipeline-config-volume
+              mountPath: /opt/flink/pipeline-config
 
             - name: kafka-config-volume
               mountPath: /opt/flink/kafka-config
@@ -96,6 +101,10 @@ spec:
         - name: kafka-config-volume
           configMap:
             name: config-flink-kafka
+
+        - name: pipeline-config-volume
+          configMap:
+            name: config-flink-pipeline
 
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
