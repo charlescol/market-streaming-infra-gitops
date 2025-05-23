@@ -36,7 +36,7 @@ spec:
       log.retention.check.interval.ms: 60000 # Check for log retention every 60 seconds
       compression.type: "uncompressed"
       min.insync.replicas: 1
-      node.id: 1 
+      node.id: 1
       controller.quorum.voters: "1@kafka-cluster-kafka-0.kafka-cluster-kafka-brokers.kafka.svc.cluster.local:9093"
       controller.quorum.bootstrap.servers: "kafka-cluster-kafka-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093"
       controller.listener.names: "controller"
