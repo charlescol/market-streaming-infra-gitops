@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: tokio
-          image: tokio-binance-scraper:0.2.0
+          image: tokio-binance-scraper:0.4.0
           ports:
             - containerPort: 9000
           imagePullPolicy: Never
@@ -28,10 +28,10 @@ spec:
               readOnly: true
           resources:
             requests:
-              cpu: "0.5"
+              cpu: "1"
               memory: 500Mi
             limits:
-              cpu: "1.1"
+              cpu: "1.5"
               memory: 1Gi
       volumes:
         - name: kafka-config-volume
