@@ -9,6 +9,13 @@ data:
     kubernetes.operator.observer.progress-check.interval: 5 s
     kubernetes.operator.metrics.reporter.slf4j.factory.class: org.apache.flink.metrics.slf4j.Slf4jReporterFactory
     kubernetes.operator.metrics.reporter.slf4j.interval: 5 MINUTE
+  log4j-operator.properties: |
+    rootLogger.level = INFO
+    rootLogger.appenderRef.console.ref = ConsoleAppender
+    appender.console.name = ConsoleAppender
+    appender.console.type = CONSOLE
+    appender.console.layout.type = PatternLayout
+    appender.console.layout.pattern = [%d{HH:mm:ss}] %-5p %-60c %x - %m%n
   log4j-console.properties: |
     rootLogger.level = INFO
     rootLogger.appenderRef.console.ref = ConsoleAppender
