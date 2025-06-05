@@ -1,0 +1,43 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: flink-operator
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://downloads.apache.org/flink/flink-kubernetes-operator-1.12.0/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: flink-operator
+  namespace: flux-system
+spec:
+  releaseName: flink-operator
+  targetNamespace: backend
+  interval: 1h
+  chart:
+    spec:
+      chart: flink-kubernetes-operator
+      version: 1.12.0
+      sourceRef:
+        kind: HelmRepository
+        name: flink-operator
+        namespace: flux-system
+  values:
+    watchNamespaces:
+      - backend
+    operatorServiceAccount:
+      create: true
+    rbac:
+      create: true
+    webhook:
+      create: true
+    defaultConfiguration:
+      create: false
+    operatorVolumes:
+      create: false
+    operatorVolumeMounts:
+      create: false
+    tls:
+      create: true
