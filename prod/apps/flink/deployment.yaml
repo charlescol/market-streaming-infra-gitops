@@ -12,12 +12,13 @@ spec:
 
   jobManager:
     resource:
-      memory: "1024m"
+      memory: "0.5Gi"
       cpu: 0.5
   taskManager:
     resource:
-      memory: "1536m"
-      cpu: 0.5
+      memory: "2Gi"
+      cpu: 4
+
   podTemplate:
     spec:
       volumes:
@@ -64,6 +65,5 @@ spec:
 
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
-    parallelism: 1
     upgradeMode: last-state
     state: running
