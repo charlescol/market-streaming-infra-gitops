@@ -9,7 +9,7 @@ data:
     kubernetes.operator.observer.progress-check.interval: 5 s
     kubernetes.operator.metrics.reporter.slf4j.factory.class: org.apache.flink.metrics.slf4j.Slf4jReporterFactory
     kubernetes.operator.metrics.reporter.slf4j.interval: 5 MINUTE
-  log4j-operator.properties: |
+  log4j-console.properties: |
     rootLogger.level = INFO
     rootLogger.appenderRef.console.ref = ConsoleAppender
     appender.console.name = ConsoleAppender
