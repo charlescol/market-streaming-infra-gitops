@@ -1,0 +1,28 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+  namespace: backend
+spec:
+  selfSigned: {}
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: flink-webhook-cert
+  namespace: backend
+spec:
+  dnsNames:
+    - flink-operator-webhook.backend.svc
+    - flink-operator-webhook.backend.svc.cluster.local
+  secretName: webhook-server-cert
+  issuerRef:
+    name: selfsigned-issuer
+    kind: Issuer
+  commonName: flink-operator-webhook.backend.svc
+  isCA: false
+  duration: 8760h
+  privateKey:
+    algorithm: RSA
+    size: 2048

@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - flink-operator-config.yaml
   - helm-flink.yaml
+  - tls.yaml
