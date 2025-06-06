@@ -8,10 +8,6 @@ spec:
   flinkVersion: v1_20
   serviceAccount: flink
 
-  flinkConfiguration:
-    execution.checkpointing.dir: file:///flink-data/checkpoints
-    execution.savepoints.dir: file:///flink-data/savepoints
-
   logConfiguration: {}
 
   jobManager:
@@ -72,3 +68,4 @@ spec:
     jarURI: local:///opt/flink/usrlib/app.jar
     upgradeMode: last-state
     state: running
+    parallelism: 1
