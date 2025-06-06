@@ -5,8 +5,9 @@ metadata:
   namespace: backend
 data:
   config.yaml: |-
-    state.checkpoints.dir: file:///flink-data/checkpoints
-    state.savepoints.dir: file:///flink-data/savepoints
+    execution.checkpointing.dir: file:///flink-data/checkpoints
+    execution.savepoints.dir: file:///flink-data/savepoints
+    state.backend.type: rocksdb
     high-availability: org.apache.flink.kubernetes.highavailability.KubernetesHaServicesFactory
     high-availability.storageDir: file:///flink-data/ha
     taskmanager.numberOfTaskSlots: "1"
@@ -16,5 +17,4 @@ data:
     metrics.reporters: prom
     env.java.opts.jobmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
     env.java.opts.taskmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
-    state.backend.type: rocksdb
     execution.buffer-timeout.interval: 0ms
