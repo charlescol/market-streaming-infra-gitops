@@ -6,5 +6,3 @@ resources:
   - kafka-config.yaml
   - pipeline-config.yaml
   - env-config.yaml
-  - flink-config.yaml
-  - log4j-config.yaml

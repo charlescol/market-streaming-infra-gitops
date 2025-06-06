@@ -25,17 +25,10 @@ spec:
         name: flink-operator
         namespace: flux-system
   values:
-    operatorServiceAccount:
-      create: true
-    rbac:
-      create: true
-    defaultConfiguration:
-      create: false
-    operatorVolumes:
-      create: false
-    operatorVolumeMounts:
-      create: false
     webhook:
-      create: false
-    tls:
-      create: false
+      create: true
+    metrics:
+      port: 8083
+    defaultConfiguration:
+      create: true
+      append: true

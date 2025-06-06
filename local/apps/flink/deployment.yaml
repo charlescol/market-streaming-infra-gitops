@@ -6,13 +6,41 @@ metadata:
 spec:
   image: flink-microstructures-extractor:2.3.1
   flinkVersion: v1_20
-  serviceAccount: flink
-
   flinkConfiguration:
-    execution.checkpointing.dir: file:///flink-data/checkpoints
-    execution.savepoints.dir: file:///flink-data/savepoints
+    state.checkpoints.dir: file:///flink-data/checkpoints
+    state.savepoints.dir: file:///flink-data/savepoints
+    high-availability: org.apache.flink.kubernetes.highavailability.KubernetesHaServicesFactory
+    high-availability.storageDir: file:///flink-data/ha
+    taskmanager.numberOfTaskSlots: "1"
+    metrics.reporter.prom.factory.class: org.apache.flink.metrics.prometheus.PrometheusReporterFactory
+    metrics.reporter.prom.port: "8082"
+    metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
+    metrics.reporters: prom
+    env.java.opts.jobmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
+    env.java.opts.taskmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
+    state.backend.type: rocksdb
+    execution.buffer-timeout.interval: 0ms
 
-  logConfiguration: {}
+  logConfiguration:
+    "log4j-console.properties": |
+      status = WARN
+      name = Log4j2Config
+      appenders = Console, Async
+
+      appender.Console.type = Console
+      appender.Console.name = Console
+      appender.Console.target = SYSTEM_OUT
+      appender.Console.layout.type = PatternLayout
+      appender.Console.layout.pattern = %d{ISO8601} %-5level [%X{flink-job-id}] [%X{key}] - %msg%n
+
+      appender.Async.type = Async
+      appender.Async.name = Async
+      appender.Async.includeThreadContext = true
+      appender.Async.appenderRef.type = AppenderRef
+      appender.Async.appenderRef.ref = Console
+
+      rootLogger.level = INFO
+      rootLogger.appenderRef.Async.ref = Async
 
   jobManager:
     resource:
@@ -26,12 +54,6 @@ spec:
   podTemplate:
     spec:
       volumes:
-        - name: flink-conf
-          configMap:
-            name: flink-config
-        - name: log4j
-          configMap:
-            name: config-flink-log4j
         - name: kafka-config-volume
           configMap:
             name: config-flink-kafka
@@ -49,14 +71,6 @@ spec:
             - configMapRef:
                 name: config-flink-env
           volumeMounts:
-            - name: flink-conf
-              mountPath: /opt/flink/conf/config.yaml
-              subPath: config.yaml
-              readOnly: true
-            - name: log4j
-              mountPath: /opt/flink/conf/log4j-console.properties
-              subPath: log4j-console.properties
-              readOnly: true
             - name: kafka-config-volume
               mountPath: /opt/flink/kafka-config
               readOnly: true
