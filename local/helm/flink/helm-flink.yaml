@@ -31,13 +31,17 @@ spec:
       create: true
     rbac:
       create: true
-    webhook:
-      create: true
     defaultConfiguration:
       create: false
     operatorVolumes:
       create: false
     operatorVolumeMounts:
       create: false
+    webhook:
+      create: true
     tls:
       create: true
+      secretName: flink-operator-cert
+      secretKeyRef:
+        name: operator-certificate-password
+        key: password
