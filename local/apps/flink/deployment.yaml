@@ -41,7 +41,7 @@ spec:
         - name: flink-volume
           hostPath:
             path: /tmp/flink
-            type: Directory
+            type: DirectoryOrCreate
 
       containers:
         - name: flink-main-container
