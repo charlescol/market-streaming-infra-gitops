@@ -6,6 +6,7 @@ metadata:
 spec:
   image: flink-microstructures-extractor:2.3.1
   flinkVersion: v1_20
+  serviceAccount: flink
   flinkConfiguration:
     state.checkpoints.dir: file:///flink-data/checkpoints
     state.savepoints.dir: file:///flink-data/savepoints
