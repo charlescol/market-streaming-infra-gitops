@@ -16,11 +16,11 @@ spec:
 
   jobManager:
     resource:
-      memory: "0.5Gi"
+      memory: "0.5gb"
       cpu: 0.5
   taskManager:
     resource:
-      memory: "2Gi"
+      memory: "2gb"
       cpu: 4
 
   podTemplate:
