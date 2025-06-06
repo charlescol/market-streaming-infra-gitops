@@ -38,10 +38,6 @@ spec:
     operatorVolumeMounts:
       create: false
     webhook:
-      create: true
+      create: false
     tls:
-      create: true
-      secretName: flink-operator-cert
-      secretKeyRef:
-        name: operator-certificate-password
-        key: password
+      create: false
