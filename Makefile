@@ -47,21 +47,7 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	flux reconcile kustomization apps --with-source
 	flux reconcile kustomization common --with-source
 
-setup-flink-webhook: ## Setup Flink webhook
-	openssl req -x509 -nodes -newkey rsa:2048 \
-		-keyout tls.key -out tls.crt -days 365 \
-		-subj "/CN=flink-operator.backend.svc"
-
-	openssl pkcs12 -export \
-		-in tls.crt -inkey tls.key \
-		-out keystore.p12 \
-		-name flink-operator \
-		-passout pass:changeit
-	
-	kubectl -n backend create secret generic flink-operator-cert \
-		--from-file=keystore.p12=keystore.p12
-	
-	kubectl -n backend create secret generic operator-certificate-password \
-  		--from-literal=password=changeit
-	
-	rm tls.key tls.crt keystore.p12
+apps-reconcile: ## Reconcile Flink deployment
+	flux reconcile source git flux-system --namespace flux-system
+	flux reconcile kustomization flux-system --with-source 
+	flux reconcile kustomization apps --with-source 

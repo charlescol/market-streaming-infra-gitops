@@ -16,7 +16,7 @@ spec:
 
   jobManager:
     resource:
-      memory: "512m"
+      memory: "1gb"
       cpu: 0.5
   taskManager:
     resource:
