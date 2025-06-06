@@ -8,6 +8,10 @@ spec:
   flinkVersion: v1_20
   serviceAccount: flink
 
+  flinkConfiguration:
+    execution.checkpointing.dir: file:///flink-data/checkpoints
+    execution.savepoints.dir: file:///flink-data/savepoints
+
   logConfiguration: {}
 
   jobManager:
