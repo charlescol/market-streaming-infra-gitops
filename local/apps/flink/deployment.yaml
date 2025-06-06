@@ -52,7 +52,8 @@ spec:
               mountPath: /opt/flink/conf
               readOnly: true
             - name: log4j
-              mountPath: /opt/flink/conf
+              mountPath: /opt/flink/conf/log4j-console.properties
+              subPath: log4j-console.properties
               readOnly: true
             - name: kafka-config-volume
               mountPath: /opt/flink/kafka-config
