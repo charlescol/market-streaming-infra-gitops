@@ -29,9 +29,6 @@ spec:
         - name: flink-conf
           configMap:
             name: flink-config
-            items:
-              - key: config.yaml
-                path: config.yaml
         - name: log4j
           configMap:
             name: config-flink-log4j
@@ -53,7 +50,8 @@ spec:
                 name: config-flink-env
           volumeMounts:
             - name: flink-conf
-              mountPath: /opt/flink/conf
+              mountPath: /opt/flink/conf/config.yaml
+              subPath: config.yaml
               readOnly: true
             - name: log4j
               mountPath: /opt/flink/conf/log4j-console.properties

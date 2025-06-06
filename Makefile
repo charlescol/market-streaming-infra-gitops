@@ -1,8 +1,8 @@
 ENV ?=
 
-.PHONY: check_env bootstrap_apply setup-flink-webhook
+.PHONY: check_env bootstrap_apply apps-reconcile
 
-bootstrap: check_env setup-flink-webhook bootstrap_apply ## Bootstrap Flux and apply configuration to the environment
+bootstrap: check_env bootstrap_apply ## Bootstrap Flux and apply configuration to the environment
 
 help: ## Display this help
 	@echo "Usage: make <target> [ENV=...]"
