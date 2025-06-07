@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: pv-path-init
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: pv-path-init
+  template:
+    metadata:
+      labels:
+        app: pv-path-init
+    spec:
+      hostPID: true
+      containers:
+        - name: ensure-path
+          image: busybox:1.36
+          securityContext:
+            privileged: true
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p /host/mnt/disks/flink && \
+              chown 999:999 /host/mnt/disks/flink && \
+              chmod 770 /host/mnt/disks/flink; \
+              echo "Paths initialized successfully"
+          volumeMounts:
+            - name: host-mnt
+              mountPath: /host/mnt
+      volumes:
+        - name: host-mnt
+          hostPath:
+            path: /mnt
+            type: Directory
