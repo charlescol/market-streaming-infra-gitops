@@ -43,7 +43,7 @@ spec:
     # High availability
     # --------------------------------------------------------------------
     high-availability.type: kubernetes
-    high-availability.storageDir: file://flink-data/ha
+    high-availability.storageDir: file:///flink-data/ha
     # --------------------------------------------------------------------
     # Execution
     # --------------------------------------------------------------------
@@ -95,15 +95,15 @@ spec:
     jobstore.cache-size: "1048576"
     jobstore.max-capacity: "10"
     blob.storage.directory: file://flink-data/blob-storage
-    jobmanager.memory.flink.size: 500Mi
-    jobmanager.memory.process.size: 700Mi
+    jobmanager.memory.flink.size: 512m
+    jobmanager.memory.process.size: 716m
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
     taskmanager.numberOfTaskSlots: "6"
     taskmanager.slot.timeout: 20s
-    taskmanager.memory.process.size: 1.5Gi
-    taskmanager.memory.flink.size: 1Gi
+    taskmanager.memory.process.size: 1536m
+    taskmanager.memory.flink.size: 1024m
 
   logConfiguration:
     "log4j-console.properties": |

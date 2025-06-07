@@ -43,7 +43,7 @@ spec:
     # High availability
     # --------------------------------------------------------------------
     high-availability.type: kubernetes
-    high-availability.storageDir: file://flink-data/ha
+    high-availability.storageDir: file:///flink-data/ha
     # --------------------------------------------------------------------
     # Execution
     # --------------------------------------------------------------------
