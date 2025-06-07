@@ -95,15 +95,15 @@ spec:
     jobstore.cache-size: "256000"
     jobstore.max-capacity: "1"
     blob.storage.directory: file://flink-data/blob-storage
-    jobmanager.memory.flink.size: 500Mi
-    jobmanager.memory.process.size: 700Mi
+    jobmanager.memory.flink.size: 512m
+    jobmanager.memory.process.size: 716m
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
     taskmanager.numberOfTaskSlots: "5"
     taskmanager.slot.timeout: 30s
-    taskmanager.memory.process.size: 1Gi
-    taskmanager.memory.flink.size: 700Mi
+    taskmanager.memory.process.size: 1024m
+    taskmanager.memory.flink.size: 716m
 
   logConfiguration:
     "log4j-console.properties": |
