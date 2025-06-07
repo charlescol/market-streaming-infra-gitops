@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-flink-kafka
+  namespace: backend
+data:
+  kafka-source.properties: |
+    # General reliability / timeout
+    fetch.min.bytes=1
+    fetch.max.wait.ms=4
+    session.timeout.ms=10000
+    heartbeat.interval.ms=3000
+    max.poll.interval.ms=15000
+    # Fetch sizing
+    max.partition.fetch.bytes=20000
+    fetch.max.bytes=40000
+    max.poll.records=10
+    # Socket buffer
+    receive.buffer.bytes=500000
+  kafka-sink.properties: |
+    # Guarantees and reliability
+    acks=0
+    # Buffering and batching
+    linger.ms=4
+    batch.size=1000
+    send.buffer.bytes=128000
+    compression.type=none
+    # Timeouts and responsiveness
+    request.timeout.ms=20
+    connections.max.idle.ms=540000
+    session.timeout.ms=10000
+    max.block.ms=10000
+    # Limits to control payloads
+    max.request.size=9000
+    max.poll.records=100

@@ -1,0 +1,49 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: kafka-broker-controller-pool
+  namespace: backend
+  labels:
+    strimzi.io/cluster: kafka-cluster
+    app: kafka-pool
+spec:
+  replicas: 2
+  storage:
+    type: persistent-claim
+    size: 5Gi
+    class: standard
+    kraftMetadata: shared
+  roles:
+    - controller
+    - broker
+  resources:
+    requests:
+      memory: 1Gi
+      cpu: "1"
+    limits:
+      memory: 1Gi
+      cpu: "1"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: kafka-controller-only-pool
+  namespace: backend
+  labels:
+    strimzi.io/cluster: kafka-cluster
+    app: kafka-pool
+spec:
+  replicas: 1
+  storage:
+    type: ephemeral
+    sizeLimit: 1Gi
+    kraftMetadata: shared
+  roles:
+    - controller
+  resources:
+    requests:
+      memory: 1Gi
+      cpu: "0.5"
+    limits:
+      memory: 1Gi
+      cpu: "0.5"
