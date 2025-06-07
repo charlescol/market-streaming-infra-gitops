@@ -43,7 +43,6 @@ spec:
     # High availability
     # --------------------------------------------------------------------
     high-availability.type: kubernetes
-    high-availability.cluster-id: /default
     high-availability.storageDir: file://flink-data/ha
     # --------------------------------------------------------------------
     # Execution
