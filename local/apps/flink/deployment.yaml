@@ -64,9 +64,8 @@ spec:
           configMap:
             name: config-flink-pipeline
         - name: flink-volume
-          hostPath:
-            path: /tmp/flink
-            type: DirectoryOrCreate
+          persistentVolumeClaim:
+            claimName: flink-state
 
       containers:
         - name: flink-main-container
