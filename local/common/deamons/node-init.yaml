@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: pv-path-init
+  name: node-init
   namespace: kube-system
 spec:
   selector:
     matchLabels:
-      app: pv-path-init
+      app: node-init
   template:
     metadata:
       labels:
-        app: pv-path-init
+        app: node-init
     spec:
       hostPID: true
       containers:
@@ -25,7 +25,8 @@ spec:
               mkdir -p /host/mnt/disks/flink && \
               chown 999:999 /host/mnt/disks/flink && \
               chmod 770 /host/mnt/disks/flink; \
-              echo "Paths initialized successfully"
+              echo "Bootstrapping done"
+              sleep infinity
           volumeMounts:
             - name: host-mnt
               mountPath: /host/mnt
