@@ -30,6 +30,13 @@ spec:
           volumeMounts:
             - name: host-mnt
               mountPath: /host/mnt
+          resources:
+            requests:
+              cpu: 5m
+              memory: 10Mi
+            limits:
+              cpu: 10m
+              memory: 20Mi
       volumes:
         - name: host-mnt
           hostPath:
