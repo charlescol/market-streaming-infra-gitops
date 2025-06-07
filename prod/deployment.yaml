@@ -33,9 +33,9 @@ spec:
     # State backend
     # --------------------------------------------------------------------
     state.backend.type: rocksdb
-    state.backend.rocksdb.checkpoint.transfer.thread.num: 1
+    state.backend.rocksdb.checkpoint.transfer.thread.num: 4
     state.backend.rocksdb.block.cache-size: 16Mi
-    state.backend.rocksdb.writebuffer.count: 1
+    state.backend.rocksdb.writebuffer.count: 2
     state.backend.rocksdb.writebuffer.size: 64Mi
     state.backend.rocksdb.compression.per.level: SNAPPY_COMPRESSION
     state.backend.rocksdb.use-bloom-filter: false
@@ -54,13 +54,13 @@ spec:
     # --------------------------------------------------------------------
     # Pipeline
     # --------------------------------------------------------------------
-    pipeline.max-parallelism: 64
+    pipeline.max-parallelism: 128
     pipeline.auto-generate-uids: false
     # --------------------------------------------------------------------
     # Checkpointing
     # --------------------------------------------------------------------
     execution.checkpointing.unaligned.enabled: true
-    execution.checkpointing.aligned-checkpoint-timeout: 30s
+    execution.checkpointing.aligned-checkpoint-timeout: 200ms
     execution.checkpointing.unaligned.forced: false
     execution.checkpointing.cleaner.parallel-mode: true
     execution.checkpointing.storage: filesystem
@@ -70,9 +70,9 @@ spec:
     execution.checkpointing.num-retained: 5
     execution.checkpointing.externalized-checkpoint-retention: DELETE_ON_CANCELLATION
     execution.checkpointing.file-merging.max-space-amplification: 2
-    execution.checkpointing.interval: 10m
+    execution.checkpointing.interval: 20s
     execution.checkpointing.max-concurrent-checkpoints: 2
-    execution.checkpointing.timeout: 9m
+    execution.checkpointing.timeout: 17s
     execution.checkpointing.local-backup.enabled: false
     execution.checkpointing.mode: EXACTLY_ONCE
     execution.checkpointing.unaligned.max-subtasks-per-channel-state-file: 5
@@ -93,18 +93,18 @@ spec:
     # --------------------------------------------------------------------
     # JobManager
     # --------------------------------------------------------------------
-    jobstore.cache-size: 256000
-    jobstore.max-capacity: 1
+    jobstore.cache-size: 1048576
+    jobstore.max-capacity: 10
     blob.storage.directory: file://flink-data/blob-storage
     jobmanager.memory.flink.size: 500Mi
     jobmanager.memory.process.size: 700Mi
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
-    taskmanager.numberOfTaskSlots: 5
-    taskmanager.slot.timeout: 30s
-    taskmanager.memory.process.size: 1Gi
-    taskmanager.memory.flink.size: 700Mi
+    taskmanager.numberOfTaskSlots: 6
+    taskmanager.slot.timeout: 20s
+    taskmanager.memory.process.size: 1.5Gi
+    taskmanager.memory.flink.size: 1Gi
 
   logConfiguration:
     "log4j-console.properties": |
@@ -139,8 +139,8 @@ spec:
       cpu: 0.5
   taskManager:
     resource:
-      memory: "1536m"
-      cpu: 1
+      memory: "2048m"
+      cpu: 4
 
   podTemplate:
     spec:
