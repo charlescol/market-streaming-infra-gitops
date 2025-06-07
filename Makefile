@@ -1,4 +1,4 @@
-ENV ?=
+4ENV ?=
 
 .PHONY: check_env bootstrap_apply apps-reconcile
 

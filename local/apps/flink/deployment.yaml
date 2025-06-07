@@ -54,6 +54,8 @@ spec:
 
   podTemplate:
     spec:
+      securityContext:
+      fsGroup: 999
       volumes:
         - name: kafka-config-volume
           configMap:
