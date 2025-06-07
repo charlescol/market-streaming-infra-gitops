@@ -70,7 +70,7 @@ spec:
     execution.checkpointing.externalized-checkpoint-retention: DELETE_ON_CANCELLATION
     execution.checkpointing.file-merging.max-space-amplification: "2"
     execution.checkpointing.interval: 20s
-    execution.checkpointing.max-concurrent-checkpoints: "2"
+    execution.checkpointing.max-concurrent-checkpoints: "1"
     execution.checkpointing.timeout: 17s
     execution.checkpointing.local-backup.enabled: "false"
     execution.checkpointing.mode: EXACTLY_ONCE
