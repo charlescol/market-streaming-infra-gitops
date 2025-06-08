@@ -29,7 +29,7 @@ spec:
       compression.type: "uncompressed"
       control.plane.listener.name: "controller"
       controller.listener.names: "controller"
-      listener.security.protocol.map: controller:SSL,controller:SSL
+      listener.security.protocol.map: controller:SSL,internal:SSL
       # --------------------------------------------------------------------
       # I/O and network
       # --------------------------------------------------------------------
