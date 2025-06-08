@@ -76,7 +76,6 @@ spec:
       controller.quorum.election.backoff.max.ms: 5000
       controller.quorum.election.timeout.ms: 1000
       controller.quorum.fetch.timeout.ms: 3000
-      metadata.log.dir: "/kafka-data/raft/"
       metadata.log.max.record.bytes.between.snapshots: 20971520
       metadata.log.max.snapshot.interval.ms: 60000
       metadata.log.segment.bytes: 1073741824
