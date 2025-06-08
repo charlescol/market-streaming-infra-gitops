@@ -18,8 +18,8 @@ spec:
     - broker
   resources:
     requests:
-      memory: 512Mi
-      cpu: "0.5"
+      memory: 1Gi
+      cpu: "1"
     limits:
-      memory: 512Mi
-      cpu: "0.5"
+      memory: 1Gi
+      cpu: "1"
