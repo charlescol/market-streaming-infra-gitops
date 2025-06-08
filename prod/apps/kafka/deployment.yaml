@@ -11,11 +11,11 @@ spec:
     version: 3.9.0
     metadataVersion: 3.9-IV0
     listeners:
-      - name: controller
+      - name: CONTROLLER
         port: 9093
         type: internal
         tls: true
-      - name: internal
+      - name: INTERNAL
         port: 9092
         type: internal
         tls: true
