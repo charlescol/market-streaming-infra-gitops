@@ -32,7 +32,6 @@ spec:
       compression.type: "uncompressed"
       control.plane.listener.name: "CONTROLLER"
       controller.listener.names: "CONTROLLER"
-
       # --------------------------------------------------------------------
       # I/O and network
       # --------------------------------------------------------------------
@@ -42,55 +41,69 @@ spec:
       socket.receive.buffer.bytes: 102400
       socket.request.max.bytes: 104857600
       socket.send.buffer.bytes: 102400
-      broker.heartbeat.interval.ms: 2000      
-
-      # Threads
+      broker.heartbeat.interval.ms: 2000
+      # --------------------------------------------------------------------
+      # # Threads
+      # --------------------------------------------------------------------
       background.threads: 2
       num.io.threads: 2
       num.network.threads: 2
       num.recovery.threads.per.data.dir: 1
       num.replica.alter.log.dirs.threads: 1
       num.replica.fetchers: 1
-
-      # Réplication
+      # --------------------------------------------------------------------
+      # # Replication
+      # --------------------------------------------------------------------
       replica.fetch.min.bytes: 1
       replica.fetch.wait.max.ms: 40
       replica.high.watermark.checkpoint.interval.ms: 5000
       replica.lag.time.max.ms: 5000
       replica.socket.receive.buffer.bytes: 65536
       replica.socket.timeout.ms: 200
-
-      # Paramètres KRaft
-      controller.quorum.bootstrap.servers: "host1:9093,host2:9093,host3:9093"
-      controller.quorum.voters: "1@host1:9093,2@host2:9093,3@host3:9093"
+      default.replication.factor: 2
+      min.insync.replicas: 1
+      # --------------------------------------------------------------------
+      # # Kraft
+      # --------------------------------------------------------------------
+      controller.quorum.bootstrap.servers: |
+        kafka-cluster-kafka-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
+        kafka-cluster-kafka-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
+        kafka-cluster-kafka-kafka-controller-only-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093
+      controller.quorum.voters: |
+        0@kafka-cluster-kafka-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
+        1@kafka-cluster-kafka-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
+        2@kafka-cluster-kafka-kafka-controller-only-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093
       controller.quorum.election.backoff.max.ms: 5000
       controller.quorum.election.timeout.ms: 1000
       controller.quorum.fetch.timeout.ms: 3000
       metadata.log.dir: "/kafka-data/raft/"
-      metadata.log.max.record.bytes.between.snapshots: 20971520    [oai_citation:1‡docs.redhat.com](https://docs.redhat.com/en/documentation/red_hat_streams_for_apache_kafka/2.5/html-single/kafka_configuration_properties/index?utm_source=chatgpt.com)
-      metadata.log.max.snapshot.interval.ms: 120000
+      metadata.log.max.record.bytes.between.snapshots: 20971520
+      metadata.log.max.snapshot.interval.ms: 60000
       metadata.log.segment.bytes: 1073741824
       metadata.log.segment.ms: 30000
-      metadata.max.retention.bytes: 104857600
-      metadata.max.retention.ms: 30000
-
-      # Topics / ISR / Monitoring
+      metadata.max.retention.bytes: 209715200
+      metadata.max.retention.ms: 120000
+      # --------------------------------------------------------------------
+      # # Topics / ISR / Monitoring
+      # --------------------------------------------------------------------
       auto.create.topics.enable: false
       delete.topic.enable: true
-      eligible.leader.replicas.enable: true       [oai_citation:2‡docs.redhat.com](https://docs.redhat.com/it/documentation/red_hat_streams_for_apache_kafka/2.7/html-single/kafka_configuration_properties/index?utm_source=chatgpt.com)
+      eligible.leader.replicas.enable: true
       auto.leader.rebalance.enable: false
       unclean.leader.election.enable: false
-      metrics.recording.level: "INFO"             [oai_citation:3‡forum.confluent.io](https://forum.confluent.io/t/can-kafka-3-3-1-and-kafka-0-10-0-1-coexist-on-one-node/6396?utm_source=chatgpt.com)
-
-      # Offsets (__consumer_offsets)
+      metrics.recording.level: "INFO"
+      # --------------------------------------------------------------------
+      # # Offsets (__consumer_offsets)
+      # --------------------------------------------------------------------
       offsets.commit.timeout.ms: 1000
       offsets.retention.check.interval.ms: 600000
       offsets.retention.minutes: 10080
       offsets.topic.num.partitions: 5
       offsets.topic.replication.factor: 2
       offsets.topic.segment.bytes: 1048576
-
-      # Log / stockage
+      # --------------------------------------------------------------------
+      # # Log / Storage
+      # --------------------------------------------------------------------
       log.roll.ms: 60000
       log.segment.bytes: 1073741824
       log.roll.jitter.ms: 5000
@@ -98,23 +111,7 @@ spec:
       log.flush.interval.ms: 30000
       log.flush.interval.messages: 9223372036854775807
       log.flush.scheduler.interval.ms: 1000
-
-      auto.create.topics.enable: "true"
-      delete.topic.enable: "true"
-      offsets.topic.replication.factor: 1
-      transaction.state.log.replication.factor: 1
-      auto.leader.rebalance.enable: "true"
-      transaction.state.log.min.isr: 1
-      default.replication.factor: 1
-      process.roles: "controller,broker"
-      log.retention.check.interval.ms: 60000 # Check for log retention every 60 seconds
-      compression.type: "uncompressed"
-      min.insync.replicas: 1
-      node.id: 1
-      controller.quorum.voters: "1@kafka-cluster-kafka-0.kafka-cluster-kafka-brokers.kafka.svc.cluster.local:9093"
-      controller.quorum.bootstrap.servers: "kafka-cluster-kafka-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093"
-      controller.listener.names: "controller"
-      offsets.topic.num.partitions: 10
+      log.retention.check.interval.ms: 30000
 
     metricsConfig:
       type: jmxPrometheusExporter
