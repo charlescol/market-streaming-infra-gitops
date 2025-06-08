@@ -33,10 +33,10 @@ spec:
     # State backend
     # --------------------------------------------------------------------
     state.backend.type: rocksdb
-    state.backend.rocksdb.checkpoint.transfer.thread.num: "1"
-    state.backend.rocksdb.block.cache-size: 16Mi
-    state.backend.rocksdb.writebuffer.count: "1"
-    state.backend.rocksdb.writebuffer.size: 64Mi
+    state.backend.rocksdb.checkpoint.transfer.thread.num: "4"
+    state.backend.rocksdb.block.cache-size: 16mb
+    state.backend.rocksdb.writebuffer.count: "2"
+    state.backend.rocksdb.writebuffer.size: 64mb
     state.backend.rocksdb.compression.per.level: SNAPPY_COMPRESSION
     state.backend.rocksdb.use-bloom-filter: "false"
     # --------------------------------------------------------------------
