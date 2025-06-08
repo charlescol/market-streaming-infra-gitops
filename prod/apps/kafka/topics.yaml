@@ -10,9 +10,8 @@ spec:
   partitions: 2
   replicas: 2
   config:
-    retention.minutes: 15
+    retention.ms: 900000 # 15 minutes
     retention.bytes: -1
-    flush.offset.checkpoint.interval.ms: 0
     cleanup.policy: "delete"
 ---
 apiVersion: kafka.strimzi.io/v1beta2
@@ -27,9 +26,8 @@ spec:
   partitions: 28
   replicas: 2
   config:
-    retention.minutes: 45
+    retention.ms: 2700000 # 45 minutes
     retention.bytes: -1
-    flush.offset.checkpoint.interval.ms: 1000
     cleanup.policy: "delete"
 ---
 apiVersion: kafka.strimzi.io/v1beta2

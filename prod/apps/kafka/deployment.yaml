@@ -106,6 +106,7 @@ spec:
       log.flush.interval.messages: 9223372036854775807
       log.flush.scheduler.interval.ms: 1000
       log.retention.check.interval.ms: 30000
+      log.flush.offset.checkpoint.interval.ms: 1000
 
     metricsConfig:
       type: jmxPrometheusExporter
