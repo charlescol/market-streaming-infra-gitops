@@ -5,4 +5,3 @@ resources:
   - deployment.yaml
   - topics.yaml
   - metrics-config.yaml
-  - storage.yaml
