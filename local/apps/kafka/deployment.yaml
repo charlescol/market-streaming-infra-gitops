@@ -14,11 +14,11 @@ spec:
       - name: controller
         port: 9093
         type: internal
-        tls: "yes"
+        tls: true
       - name: internal
         port: 9092
         type: internal
-        tls: "yes"
+        tls: true
         configuration:
           brokers:
             - broker: 0

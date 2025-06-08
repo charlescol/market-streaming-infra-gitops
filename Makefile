@@ -1,6 +1,6 @@
 4ENV ?=
 
-.PHONY: check_env bootstrap_apply apps-reconcile
+.PHONY: check_env bootstrap_apply
 
 bootstrap: check_env bootstrap_apply ## Bootstrap Flux and apply configuration to the environment
 
@@ -45,9 +45,4 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	flux reconcile kustomization flux-system --with-source
 	flux reconcile kustomization helm --with-source
 	flux reconcile kustomization apps --with-source
-	flux reconcile kustomization common --with-source
-
-apps-reconcile: ## Reconcile Flink deployment
-	flux reconcile source git flux-system --namespace flux-system
-	flux reconcile kustomization flux-system --with-source 
-	flux reconcile kustomization apps --with-source 
+	flux reconcile kustomization common --with-source	
