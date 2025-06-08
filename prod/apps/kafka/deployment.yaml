@@ -11,11 +11,7 @@ spec:
     version: 3.9.0
     metadataVersion: 3.9-IV0
     listeners:
-      - name: CONTROLLER
-        port: 9093
-        type: internal
-        tls: true
-      - name: INTERNAL
+      - name: internal
         port: 9092
         type: internal
         tls: true
@@ -30,9 +26,7 @@ spec:
 
     config:
       compression.type: "uncompressed"
-      control.plane.listener.name: "CONTROLLER"
       controller.listener.names: "CONTROLLER"
-      listener.security.protocol.map: CONTROLLER:SSL,INTERNAL:SSL
       # --------------------------------------------------------------------
       # I/O and network
       # --------------------------------------------------------------------
