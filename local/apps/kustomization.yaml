@@ -3,3 +3,6 @@ kind: Kustomization
 resources:
   - flink
   - kafka
+  - prometheus
+  - scrapers
+  - schema-registry

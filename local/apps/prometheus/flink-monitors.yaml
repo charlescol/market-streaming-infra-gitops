@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-flink
+  namespace: backend
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: flink-metrics
+  namespaceSelector:
+    matchNames:
+      - backend
+  endpoints:
+    - port: tcp-prometheus
+      interval: 10s
+      scrapeTimeout: 5s
+      path: /metrics
+      scheme: http
+  jobLabel: prometheus-flink
+  targetLabels:
+    - prometheus-flink
