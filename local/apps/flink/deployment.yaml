@@ -20,6 +20,8 @@ spec:
     # --------------------------------------------------------------------
     security.ssl.internal.enabled: "false"
     security.ssl.rest.enabled: "false"
+    security.ssl.truststore: /usr/lib/jvm/java-11-openjdk/lib/security/cacerts
+    security.ssl.truststore-password: "changeit"
     # --------------------------------------------------------------------
     # JVM options
     # --------------------------------------------------------------------
