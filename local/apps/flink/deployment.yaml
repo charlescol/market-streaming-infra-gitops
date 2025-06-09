@@ -16,6 +16,11 @@ spec:
     metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
     metrics.reporters: prom
     # --------------------------------------------------------------------
+    # JVM options
+    # --------------------------------------------------------------------
+    env.java.opts.jobmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
+    env.java.opts.taskmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
+    # --------------------------------------------------------------------
     # Fault-tolerance
     # --------------------------------------------------------------------
     restart-strategy.type: fixed-delay
@@ -159,20 +164,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: config-flink-env
-          env:
-            - name: CA_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: kafka-cluster-cluster-ca-cert
-                  key: ca.password
-            - name: JAVA_TOOL_OPTIONS
-              value: >-
-                --add-opens=java.base/java.util=ALL-UNNAMED
-                -Dscala.usejavacp=false
-                -Dlog4j2.Script.enableLanguages=none
-                -Djavax.net.ssl.trustStore=/etc/kafka/ca/ca.p12
-                -Djavax.net.ssl.trustStoreType=PKCS12
-                -Djavax.net.ssl.trustStorePassword=$(CA_PASSWORD)
           volumeMounts:
             - name: kafka-config-volume
               mountPath: /opt/flink/kafka-config

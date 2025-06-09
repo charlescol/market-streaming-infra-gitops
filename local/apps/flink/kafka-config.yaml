@@ -19,6 +19,9 @@ data:
     receive.buffer.bytes=500000
     # Security
     security.protocol=SSL
+    ssl.truststore.location=/etc/kafka/ca/ca.p12
+    ssl.truststore.password=password
+    ssl.truststore.type=PKCS12
   kafka-sink.properties: |
     # Guarantees and reliability
     acks=0
@@ -37,3 +40,6 @@ data:
     max.poll.records=100
     # Security
     security.protocol=SSL
+    ssl.truststore.location=/etc/kafka/ca/ca.p12
+    ssl.truststore.password=password
+    ssl.truststore.type=PKCS12
