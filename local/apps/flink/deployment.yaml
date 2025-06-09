@@ -165,8 +165,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: config-flink-env
-            - secretRef:
-                name: kafka-cluster-cluster-ca-cert
           env:
             - name: CA_PASSWORD
               valueFrom:
