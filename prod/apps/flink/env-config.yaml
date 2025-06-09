@@ -13,7 +13,7 @@ data:
   JAVA_TOOL_OPTIONS: "--add-opens=java.base/java.util=ALL-UNNAMED"
   MAX_GAPS_BEFORE_SNAPSHOT: "2"
   MAX_SNAPSHOT_REQUESTS_IN_SYNC: "3"
-  ORDER_BOOK_MAX_DEPTH: "750"
+  ORDER_BOOK_MIN_DEPTH: "750"
   ORDER_BOOK_SNAPSHOT_DEPTH: "1000"
   FLINK_PIPELINE_PROPS_PATH: "/opt/flink/pipeline-config/flink-pipeline.properties"
   ENABLE_METRICS_VERBOSE: "true"
