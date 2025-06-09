@@ -139,7 +139,7 @@ spec:
   taskManager:
     resource:
       memory: "1536m"
-      cpu: 1
+      cpu: 0.75
 
   podTemplate:
     spec:
