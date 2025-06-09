@@ -35,11 +35,8 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 		--branch=main \
 		--path=$(ENV) \
 		--personal
-
-	@echo "🩹 Checking if gotk-sync.yaml needs to be reapplied..."
-	@if ! kubectl get gitrepository flux-system -n flux-system >/dev/null 2>&1; then \
-		kubectl apply -f local/flux-system/gotk-sync.yaml; \
-	fi
+	@echo"Applying gotk-sync.yaml"
+	kubectl apply -f local/flux-system/gotk-sync.yaml;
 
 	@echo "🔄 Reconciling Kustomizations..."
 	flux reconcile kustomization flux-system --with-source
