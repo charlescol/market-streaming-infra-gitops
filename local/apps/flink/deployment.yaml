@@ -9,12 +9,6 @@ spec:
   serviceAccount: flink
   flinkConfiguration:
     # --------------------------------------------------------------------
-    # Security
-    # --------------------------------------------------------------------
-    security.ssl.enabled: "true"
-    security.ssl.truststore: /etc/kafka/ca/ca.p12
-    security.ssl.truststore-type: PKCS12
-    # --------------------------------------------------------------------
     # Metric reporter
     # --------------------------------------------------------------------
     metrics.reporter.prom.factory.class: org.apache.flink.metrics.prometheus.PrometheusReporterFactory
