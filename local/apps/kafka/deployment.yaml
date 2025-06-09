@@ -11,7 +11,11 @@ spec:
     version: 3.9.0
     metadataVersion: 3.9-IV0
     listeners:
-      - name: internal
+      - name: debug # Only for debugging purposes
+        port: 9091
+        type: internal
+        tls: false
+      - name: internal # For inter-cluster communication
         port: 9092
         type: internal
         tls: true
