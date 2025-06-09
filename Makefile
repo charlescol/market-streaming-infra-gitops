@@ -34,7 +34,7 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 		--repository=market-streaming-infra-gitops \
 		--branch=main \
 		--path=$(ENV) \
-		--interval=1m \
+		--interval=1m0s \
 		--personal
 	@sleep 30
 
