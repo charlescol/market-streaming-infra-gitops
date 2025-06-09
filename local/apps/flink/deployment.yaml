@@ -194,6 +194,6 @@ spec:
 
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
-    upgradeMode: last-state
+    upgradeMode: stateless
     state: running
     parallelism: 1
