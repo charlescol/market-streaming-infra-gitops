@@ -17,6 +17,8 @@ data:
     max.poll.records=10
     # Socket buffer
     receive.buffer.bytes=500000
+    # Security
+    security.protocol=SSL
   kafka-sink.properties: |
     # Guarantees and reliability
     acks=0
@@ -33,3 +35,5 @@ data:
     # Limits to control payloads
     max.request.size=9000
     max.poll.records=100
+    # Security
+    security.protocol=SSL
