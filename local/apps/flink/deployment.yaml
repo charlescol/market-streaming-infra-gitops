@@ -195,5 +195,5 @@ spec:
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
     upgradeMode: last-state
-    state: CANCELLED
+    state: suspended
     parallelism: 1
