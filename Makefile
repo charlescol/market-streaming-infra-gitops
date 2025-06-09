@@ -12,11 +12,11 @@ help: ## Display this help
 		| awk 'BEGIN {FS = ":.*?##"}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 check_env: ## Check if ENV is set
-	if [ -z "$(ENV)" ]; then \
+	@if [ -z "$(ENV)" ]; then \
 		echo "ENV is not set"; \
 		exit 1; \
 	fi
-	if [ ! -d "./$(ENV)" ]; then \
+	@if [ ! -d "./$(ENV)" ]; then \
 		echo "ENV $(ENV) does not exist"; \
 		exit 1; \
 	fi
@@ -34,9 +34,13 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 		--repository=market-streaming-infra-gitops \
 		--branch=main \
 		--path=$(ENV) \
+		--interval=1m \
 		--personal
-	@echo"Applying gotk-sync.yaml"
-	kubectl apply -f local/flux-system/gotk-sync.yaml;
+	@sleep 30
+
+	@echo "📄 Applying gotk-sync.yaml..."
+	kubectl apply -f local/flux-system/gotk-sync.yaml
+	@sleep 30
 
 	@echo "🔄 Reconciling Kustomizations..."
 	flux reconcile kustomization flux-system --with-source
