@@ -1,0 +1,47 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: flink-microstructures-extractor
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  url: asia-northeast1-docker.pkg.dev/market-streaming-infra/flink-microstructures-extractor
+  image: flink-microstructures-extractor
+  secretRef:
+    name: regcred
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: msv-tokio-binance-scraper
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  url: asia-northeast1-docker.pkg.dev/market-streaming-infra/msv-tokio-binance-scraper
+  image: msv-tokio-binance-scraper
+  secretRef:
+    name: regcred
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: flink-microstructures-extractor
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: flink-microstructures-extractor
+  policy:
+    semver:
+      range: ""
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: msv-tokio-binance-scraper
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: msv-tokio-binance-scraper
+  policy:
+    semver:
+      range: ""
