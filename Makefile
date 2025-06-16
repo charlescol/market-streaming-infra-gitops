@@ -46,7 +46,7 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	}
 
 	@echo "📄 Applying gotk-sync.yaml..."
-	kubectl apply -f local/flux-system/gotk-sync.yaml
+	kubectl apply -f $(ENV)/flux-system/gotk-sync.yaml
 	@sleep 30
 
 	@echo "🔄 Reconciling Kustomizations..."
