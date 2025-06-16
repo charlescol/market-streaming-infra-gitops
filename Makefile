@@ -38,12 +38,22 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 		--personal
 	@sleep 30
 
+	@{ \
+		set -e; \
+		kubectl delete secret flux-gcp-key -n flux-system --ignore-not-found && \
+		kubectl create secret generic flux-gcp-key -n flux-system \
+			--from-file=key.json=./$(ENV)/.config/gcp-key.json ; \
+	}
+
 	@echo "📄 Applying gotk-sync.yaml..."
 	kubectl apply -f local/flux-system/gotk-sync.yaml
 	@sleep 30
 
 	@echo "🔄 Reconciling Kustomizations..."
-	flux reconcile kustomization flux-system --with-source
-	flux reconcile kustomization helm --with-source
-	flux reconcile kustomization apps --with-source
-	flux reconcile kustomization common --with-source	
+	@{ \
+		set -e; \
+		flux reconcile kustomization flux-system --with-source && \
+		flux reconcile kustomization helm --with-source && \
+		flux reconcile kustomization apps --with-source && \
+		flux reconcile kustomization common --with-source ; \
+	}

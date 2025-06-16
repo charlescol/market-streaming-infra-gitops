@@ -5,10 +5,10 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  url: asia-northeast1-docker.pkg.dev/market-streaming-infra/flink-microstructures-extractor
+  url: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor
   image: flink-microstructures-extractor
   secretRef:
-    name: regcred
+    name: flux-gcp-key
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
@@ -17,10 +17,10 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  url: asia-northeast1-docker.pkg.dev/market-streaming-infra/msv-tokio-binance-scraper
+  url: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-binance-scraper
   image: msv-tokio-binance-scraper
   secretRef:
-    name: regcred
+    name: flux-gcp-key
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
@@ -45,3 +45,23 @@ spec:
   policy:
     semver:
       range: ""
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: automation-flink
+  namespace: flux-system
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  git:
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+    push:
+      branch: main
+  update:
+    path: ./prod/apps
