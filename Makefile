@@ -53,7 +53,7 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	@{ \
 		set -e; \
 		flux reconcile kustomization flux-system --with-source && \
+		flux reconcile kustomization common --with-source && \
 		flux reconcile kustomization helm --with-source && \
-		flux reconcile kustomization apps --with-source && \
-		flux reconcile kustomization common --with-source ; \
+		flux reconcile kustomization apps --with-source ; \
 	}
