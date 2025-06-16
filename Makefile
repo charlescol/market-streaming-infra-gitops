@@ -31,7 +31,7 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	@echo "✅ Proceeding with Flux bootstrap for '$(ENV)'..."
 	flux bootstrap github \
 		--owner=charlescol \
-		--repository=market-streaming-infra-gitops \
+		--url=ssh://git@github.com/charlescol/market-streaming-infra-gitops \
 		--branch=main \
 		--path=$(ENV) \
 		--interval=1m0s \

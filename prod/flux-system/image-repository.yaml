@@ -64,4 +64,4 @@ spec:
     push:
       branch: main
   update:
-    path: ./prod/apps
+    path: ./apps
