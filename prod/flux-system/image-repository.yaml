@@ -63,5 +63,3 @@ spec:
       branch: main
   update:
     path: ./apps
-kubectl annotate imagerepository flink-microstructures-extractor -n flux-system \
-  reconcile.fluxcd.io/requestedAt="$(date +%s)" --overwrite
