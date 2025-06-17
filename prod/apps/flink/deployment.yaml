@@ -4,7 +4,7 @@ metadata:
   name: flink-cluster
   namespace: backend
 spec:
-  image: flink-microstructures-extractor:0.0.6
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.0.6
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
@@ -143,6 +143,8 @@ spec:
 
   podTemplate:
     spec:
+      imagePullSecrets:
+        - name: flux-gcp-key
       securityContext:
         fsGroup: 999
       volumes:
