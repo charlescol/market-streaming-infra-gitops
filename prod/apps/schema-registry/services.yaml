@@ -10,7 +10,7 @@ spec:
     - protocol: TCP
       port: 8081
       targetPort: 8081
-  type: ClusterIP 
+  type: ClusterIP
 ---
 apiVersion: v1
 kind: Service

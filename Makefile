@@ -83,12 +83,15 @@ check_env: ## Check if all required environment variables and files are set
 	@echo "✅ All required environment variables and files are set."
 
 _create_repository_secret: $(CONFIG_JSON)
-	@kubectl delete secret flux-gcp-key -n flux-system --ignore-not-found
-	@kubectl create secret generic flux-gcp-key \
-	    --namespace=flux-system \
+	@for ns in flux-system backend; do \
+	  echo "🔐 Creating image pull secret in namespace: $$ns"; \
+	  kubectl delete secret flux-gcp-key -n $$ns --ignore-not-found; \
+	  kubectl create secret generic flux-gcp-key \
+	    --namespace=$$ns \
 	    --from-file=.dockerconfigjson=$< \
-	    --type=kubernetes.io/dockerconfigjson
-	@rm -f $<    
+	    --type=kubernetes.io/dockerconfigjson; \
+	done
+	@rm -f $<
 
 $(CONFIG_JSON): $(CONFIG_TEMPLATE) $(KEY_FILE)
 	@set -eu ;\
