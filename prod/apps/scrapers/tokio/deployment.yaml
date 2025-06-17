@@ -18,7 +18,7 @@ spec:
           image: tokio-binance-scraper:0.0.9
           ports:
             - containerPort: 9000
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
                 name: config-tokio-binance-scraper
