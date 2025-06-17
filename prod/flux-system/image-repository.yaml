@@ -30,7 +30,7 @@ spec:
     name: flink-microstructures-extractor
   policy:
     semver:
-      range: ""
+      range: ">=0.0.0"
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
@@ -42,7 +42,7 @@ spec:
     name: msv-tokio-binance-scraper
   policy:
     semver:
-      range: ""
+      range: ">=0.0.0"
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation
