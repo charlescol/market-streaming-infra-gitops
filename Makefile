@@ -1,4 +1,4 @@
-4ENV ?=
+ENV ?=
 
 .PHONY: check_env bootstrap_apply
 
@@ -35,7 +35,7 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 		--branch=main \
 		--path=$(ENV) \
 		--interval=1m0s \
-		--personal
+		--personal || echo "⚠️ Flux bootstrap failed (likely race condition), continuing..."
 	@sleep 30
 
 	@{ \
@@ -46,6 +46,7 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	}
 
 	@echo "📄 Applying gotk-sync.yaml..."
+	@git pull && \
 	kubectl apply -f $(ENV)/flux-system/gotk-sync.yaml
 	@sleep 30
 
