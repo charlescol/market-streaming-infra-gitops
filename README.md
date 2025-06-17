@@ -1,0 +1,32 @@
+# How to use
+
+To get the list of available commands, run:
+
+```bash
+ make help
+```
+
+Check your environment is correctly set for the target environment:
+
+```bash
+make check_env ENV=prod
+```
+
+If you want to bootstrap the environment and apply the configuration:
+
+```bash
+make bootstrap ENV=prod
+```
+
+# Environment's folder structure
+
+Each environment is defined by a folder in the root directory.
+
+The folder structure is the following:
+
+```bash
+├── common # Common resources for all environments
+├── flux-system # Flux system resources
+├── helm # Helm resources
+├── apps # Application resources
+```

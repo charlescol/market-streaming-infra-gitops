@@ -63,22 +63,18 @@ check_env: ## Check if all required environment variables and files are set
 		echo "❌ ENV is not set"; \
 		exit 1; \
 	fi
-
 	@if [ ! -d "./$(ENV)" ]; then \
 		echo "❌ Environment directory './$(ENV)' does not exist"; \
 		exit 1; \
 	fi
-
 	@if [ ! -f "$(CONFIG_DIR)/gcp-key.json" ]; then \
 		echo "❌ Missing GCP key file: $(CONFIG_DIR)/gcp-key.json"; \
 		exit 1; \
 	fi
-
 	@if [ ! -f "$(CONFIG_TEMPLATE)" ]; then \
 		echo "❌ Missing config.template: $(CONFIG_TEMPLATE)"; \
 		exit 1; \
 	fi
-
 	@if [ -z "$(GITHUB_TOKEN)" ]; then \
 		echo "❌ GITHUB_TOKEN is not set"; \
 		exit 1; \
