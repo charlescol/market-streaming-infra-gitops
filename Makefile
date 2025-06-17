@@ -2,6 +2,11 @@ ENV ?=
 
 .PHONY: check_env bootstrap_apply
 
+ifeq ($(wildcard ./$(ENV)/.config/.env), ./$(ENV)/.config/.env)
+include ./$(ENV)/.config/.env
+export
+endif
+
 bootstrap: check_env bootstrap_apply ## Bootstrap Flux and apply configuration to the environment
 
 help: ## Display this help
@@ -28,14 +33,16 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 		echo "❌ Operation cancelled."; \
 		exit 1; \
 	fi
-	@echo "✅ Proceeding with Flux bootstrap for '$(ENV)'..."
-	flux bootstrap github \
-		--owner=charlescol \
-		--repository=market-streaming-infra-gitops \
-		--branch=main \
-		--path=$(ENV) \
-		--interval=1m0s \
-		--personal || echo "⚠️ Flux bootstrap failed (likely race condition), continuing..."
+	@echo "📁 Ensuring 'flux-system' namespace exists..."
+	@kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
+
+	@echo "✅ Proceeding with Flux install for '$(ENV)'..."
+	flux install --namespace=flux-system
+	kubectl delete secret flux-system -n flux-system --ignore-not-found
+	kubectl create secret generic flux-system \
+	--namespace=flux-system \
+	--from-literal=username=git \
+	--from-literal=password=$(GITHUB_TOKEN)
 	@sleep 30
 
 	@{ \
@@ -46,7 +53,6 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	}
 
 	@echo "📄 Applying gotk-sync.yaml..."
-	@git pull && \
 	kubectl apply -f $(ENV)/flux-system/gotk-sync.yaml
 	@sleep 30
 
