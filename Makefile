@@ -1,30 +1,28 @@
 ENV ?=
 
-.PHONY: check_env bootstrap_apply
+.PHONY: check_env bootstrap_apply _create_repository_secret
 
-ifeq ($(wildcard ./$(ENV)/.config/.env), ./$(ENV)/.config/.env)
-include ./$(ENV)/.config/.env
+ifdef ENV
+CONFIG_DIR      := ./$(ENV)/.config
+CONFIG_TEMPLATE := $(CONFIG_DIR)/config.template
+CONFIG_JSON     := $(CONFIG_DIR)/config.json
+KEY_FILE        := $(CONFIG_DIR)/gcp-key.json
+
+ifeq ($(wildcard $(KEY_FILE)), $(KEY_FILE))
+include $(CONFIG_DIR)/.env
 export
+endif
 endif
 
 bootstrap: check_env bootstrap_apply ## Bootstrap Flux and apply configuration to the environment
 
 help: ## Display this help
-	@echo "Usage: make <target> [ENV=...]"
+	@echo "Usage: make <target> [PROJECT_ID=...] [REGION=...] [VARS_FILE=...]"
 	@echo ""
 	@echo "Targets :"
 	@grep -E '^[a-zA-Z_-]+:.*?##' $(MAKEFILE_LIST) \
+		| grep -v '^_' \
 		| awk 'BEGIN {FS = ":.*?##"}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
-
-check_env: ## Check if ENV is set
-	@if [ -z "$(ENV)" ]; then \
-		echo "ENV is not set"; \
-		exit 1; \
-	fi
-	@if [ ! -d "./$(ENV)" ]; then \
-		echo "ENV $(ENV) does not exist"; \
-		exit 1; \
-	fi
 
 bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	@echo "⚠️  You are about to apply configuration to environment: '$(ENV)'"
@@ -44,14 +42,8 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	--namespace=flux-system \
 	--from-literal=username=git \
 	--from-literal=password=$(GITHUB_TOKEN)
-	@sleep 30
-
-	@{ \
-		set -e; \
-		kubectl delete secret flux-gcp-key -n flux-system --ignore-not-found && \
-		kubectl create secret generic flux-gcp-key -n flux-system \
-			--from-file=key.json=./$(ENV)/.config/gcp-key.json ; \
-	}
+	@$(MAKE) _create_repository_secret
+	@sleep 20
 
 	@echo "📄 Applying gotk-sync.yaml..."
 	kubectl apply -f $(ENV)/flux-system/gotk-sync.yaml
@@ -65,3 +57,50 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 		flux reconcile kustomization helm --with-source && \
 		flux reconcile kustomization apps --with-source ; \
 	}
+
+check_env: ## Check if all required environment variables and files are set
+	@if [ -z "$(ENV)" ]; then \
+		echo "❌ ENV is not set"; \
+		exit 1; \
+	fi
+
+	@if [ ! -d "./$(ENV)" ]; then \
+		echo "❌ Environment directory './$(ENV)' does not exist"; \
+		exit 1; \
+	fi
+
+	@if [ ! -f "$(CONFIG_DIR)/gcp-key.json" ]; then \
+		echo "❌ Missing GCP key file: $(CONFIG_DIR)/gcp-key.json"; \
+		exit 1; \
+	fi
+
+	@if [ ! -f "$(CONFIG_TEMPLATE)" ]; then \
+		echo "❌ Missing config.template: $(CONFIG_TEMPLATE)"; \
+		exit 1; \
+	fi
+
+	@if [ -z "$(GITHUB_TOKEN)" ]; then \
+		echo "❌ GITHUB_TOKEN is not set"; \
+		exit 1; \
+	fi
+
+	@echo "✅ All required environment variables and files are set."
+
+_create_repository_secret: $(CONFIG_JSON)
+	@kubectl delete secret flux-gcp-key -n flux-system --ignore-not-found
+	@kubectl create secret generic flux-gcp-key \
+	    --namespace=flux-system \
+	    --from-file=.dockerconfigjson=$< \
+	    --type=kubernetes.io/dockerconfigjson
+	@rm -f $<    
+
+$(CONFIG_JSON): $(CONFIG_TEMPLATE) $(KEY_FILE)
+	@set -eu ;\
+	mkdir -p "$(CONFIG_DIR)" ;\
+	RAW_PASS=$$(tr -d '\n' < "$(KEY_FILE)") ;\
+	PASSWORD_ESC=$$(printf '%s' "$$RAW_PASS" | sed 's/"/\\"/g') ;\
+	AUTH=$$(printf '_json_key:%s' "$$RAW_PASS" | base64 | tr -d '\n') ;\
+	IMAGE_REPO_NAME="$(IMAGE_REPO_NAME)" \
+	PASSWORD_ESC="$$PASSWORD_ESC" \
+	AUTH="$$AUTH" \
+	envsubst '$$IMAGE_REPO_NAME $$PASSWORD_ESC $$AUTH' < "$(CONFIG_TEMPLATE)" > "$(CONFIG_JSON)"
