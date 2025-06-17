@@ -4,7 +4,7 @@ metadata:
   name: flink-cluster
   namespace: backend
 spec:
-  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.0.6 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.0.8 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
@@ -104,7 +104,6 @@ spec:
     taskmanager.slot.timeout: 20s
     taskmanager.memory.process.size: 1536m
     taskmanager.memory.flink.size: 1024m
-
   logConfiguration:
     "log4j-console.properties": |
       status = WARN
@@ -131,7 +130,6 @@ spec:
       # --------------------------------------------------------------------
       rootLogger.level = INFO
       rootLogger.appenderRef.Async.ref = Async
-
   jobManager:
     resource:
       memory: "1024m"
@@ -140,7 +138,6 @@ spec:
     resource:
       memory: "2048m"
       cpu: 4
-
   podTemplate:
     spec:
       imagePullSecrets:
@@ -157,7 +154,6 @@ spec:
         - name: flink-volume
           persistentVolumeClaim:
             claimName: flink-state
-
       containers:
         - name: flink-main-container
           envFrom:
@@ -172,7 +168,6 @@ spec:
               readOnly: true
             - name: flink-volume
               mountPath: /flink-data
-
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
     upgradeMode: stateless
