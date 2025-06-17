@@ -5,3 +5,4 @@ resources:
   - helm-kustomization.yaml
   - apps-kustomization.yaml
   - common-kustomization.yaml
+  - image-repository.yaml
