@@ -5,8 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  url: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor
-  image: flink-microstructures-extractor
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor
   secretRef:
     name: flux-gcp-key
 ---
@@ -17,8 +16,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  url: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-binance-scraper
-  image: msv-tokio-binance-scraper
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-binance-scraper/msv-tokio-binance-scraper
   secretRef:
     name: flux-gcp-key
 ---
