@@ -11,17 +11,3 @@ spec:
       port: 8081
       targetPort: 8081
   type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: schema-registry-lb
-  namespace: backend
-spec:
-  selector:
-    app: schema-registry
-  ports:
-    - protocol: TCP
-      port: 8081
-      targetPort: 8081
-  type: LoadBalancer
