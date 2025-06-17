@@ -173,6 +173,5 @@ spec:
 
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
-    upgradeMode: last-state
-    state: running
+    upgradeMode: stateless
     parallelism: 1 # Overriden with pipeline-config.yaml
