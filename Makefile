@@ -37,7 +37,8 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	@kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
 
 	@echo "✅ Proceeding with Flux install for '$(ENV)'..."
-	flux install --namespace=flux-system
+	flux install --namespace=flux-system  \
+	  --components=source-controller,kustomize-controller,notification-controller,image-reflector-controller,image-automation-controller
 	kubectl delete secret flux-system -n flux-system --ignore-not-found
 	kubectl create secret generic flux-system \
 	--namespace=flux-system \
