@@ -31,8 +31,9 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 		echo "❌ Operation cancelled."; \
 		exit 1; \
 	fi
-	@echo "📁 Ensuring 'flux-system' namespace exists..."
+	@echo "📁 Ensuring namespaces exist..."
 	@kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
+	@kubectl create namespace backend --dry-run=client -o yaml | kubectl apply -f -
 
 	@echo "✅ Proceeding with Flux install for '$(ENV)'..."
 	flux install --namespace=flux-system  \
