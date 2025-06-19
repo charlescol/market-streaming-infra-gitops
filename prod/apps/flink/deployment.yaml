@@ -69,9 +69,9 @@ spec:
     execution.checkpointing.num-retained: "5"
     execution.checkpointing.externalized-checkpoint-retention: DELETE_ON_CANCELLATION
     execution.checkpointing.file-merging.max-space-amplification: "2"
-    execution.checkpointing.interval: 20s
+    execution.checkpointing.interval: 35s
     execution.checkpointing.max-concurrent-checkpoints: "1"
-    execution.checkpointing.timeout: 17s
+    execution.checkpointing.timeout: 30s
     execution.checkpointing.local-backup.enabled: "false"
     execution.checkpointing.mode: EXACTLY_ONCE
     execution.checkpointing.unaligned.max-subtasks-per-channel-state-file: "5"
