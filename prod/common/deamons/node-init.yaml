@@ -22,9 +22,9 @@ spec:
             - sh
             - -c
             - |
-              mkdir -p /host/mnt/disks/flink && \
-              chown 999:999 /host/mnt/disks/flink && \
-              chmod 770 /host/mnt/disks/flink; \
+              # mkdir -p /host/mnt/disks/flink && \
+              # chown 999:999 /host/mnt/disks/flink && \
+              # chmod 770 /host/mnt/disks/flink; \
               echo "Bootstrapping done"
               sleep infinity
           volumeMounts:

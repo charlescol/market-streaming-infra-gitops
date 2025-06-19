@@ -134,11 +134,33 @@ spec:
     resource:
       memory: "1024m"
       cpu: 0.5
+    podTemplate:
+      spec:
+        volumes:
+          - name: flink-volume
+            persistentVolumeClaim:
+              claimName: flink-state
+        containers:
+          - name: flink-main-container
+            volumeMounts:
+              - name: flink-volume
+                mountPath: /flink-data
   taskManager:
     resource:
       memory: "2048m"
       cpu: 4
-  podTemplate:
+    podTemplate:
+      spec:
+        volumes:
+          - name: flink-volume
+            persistentVolumeClaim:
+              claimName: flink-state
+        containers:
+          - name: flink-main-container
+            volumeMounts:
+              - name: flink-volume
+                mountPath: /flink-data
+  podTemplate: # Only used by the operator to configure the job submission pod.
     spec:
       imagePullSecrets:
         - name: flux-gcp-key
@@ -151,9 +173,7 @@ spec:
         - name: pipeline-config-volume
           configMap:
             name: config-flink-pipeline
-        - name: flink-volume
-          persistentVolumeClaim:
-            claimName: flink-state
+
       containers:
         - name: flink-main-container
           envFrom:
@@ -166,8 +186,6 @@ spec:
             - name: pipeline-config-volume
               mountPath: /opt/flink/pipeline-config
               readOnly: true
-            - name: flink-volume
-              mountPath: /flink-data
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
     upgradeMode: stateless
