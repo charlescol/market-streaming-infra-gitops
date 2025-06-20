@@ -26,7 +26,7 @@ spec:
         namespace: flux-system
   values:
     alertmanager:
-      enabled: false 
+      enabled: false
     pushgateway:
       enabled: false
     prometheus:
@@ -39,4 +39,11 @@ spec:
         dashboards:
           provider:
             allowUiUpdates: true
-      
+      persistence:
+        enabled: true
+        type: pvc
+        existingClaim: gce-pvc
+        accessModes:
+          - ReadWriteOnce
+        size: 5Gi
+      replicas: 1
