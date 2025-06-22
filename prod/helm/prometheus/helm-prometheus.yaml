@@ -35,6 +35,8 @@ spec:
         serviceMonitorNamespaceSelector: {}
         retention: 1d
     grafana:
+      enabled: true
+      defaultDashboardsEnabled: true # TODO : pass this to false
       sidecar:
         dashboards:
           provider:
