@@ -112,7 +112,7 @@ spec:
     # --------------------------------------------------------------------
     # Metrics
     # --------------------------------------------------------------------
-    rest.flamegraph.enabled: true
+    rest.flamegraph.enabled: "true"
   logConfiguration:
     "log4j-console.properties": |
       status = WARN
