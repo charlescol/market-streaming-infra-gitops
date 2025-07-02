@@ -109,6 +109,10 @@ spec:
     taskmanager.slot.timeout: 20s
     taskmanager.memory.process.size: 1536m
     taskmanager.memory.flink.size: 1024m
+    # --------------------------------------------------------------------
+    # Metrics
+    # --------------------------------------------------------------------
+    rest.flamegraph.enabled: true
   logConfiguration:
     "log4j-console.properties": |
       status = WARN
