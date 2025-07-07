@@ -34,7 +34,7 @@ spec:
     # --------------------------------------------------------------------
     state.backend.type: rocksdb
     state.backend.rocksdb.checkpoint.transfer.thread.num: "4"
-    state.backend.rocksdb.block.cache-size: 16mb
+    state.backend.rocksdb.block.cache-size: 64mb
     state.backend.rocksdb.writebuffer.count: "2"
     state.backend.rocksdb.writebuffer.size: 64mb
     state.backend.rocksdb.compression.per.level: SNAPPY_COMPRESSION
@@ -116,13 +116,13 @@ spec:
     taskmanager.numberOfTaskSlots: "6"
     taskmanager.slot.timeout: 20s
     # JVM non-Flink
-    taskmanager.memory.jvm-metaspace.size: "128m"
+    taskmanager.memory.jvm-metaspace.size: "192m"
     taskmanager.memory.jvm-overhead.min: "128m"
     taskmanager.memory.jvm-overhead.max: "256m"
     # Heap
-    taskmanager.memory.heap.size: "1552m"
+    taskmanager.memory.heap.size: "2064m"
     # Off-heap Flink
-    taskmanager.memory.managed.size: "400m"
+    taskmanager.memory.managed.size: "336m"
     taskmanager.memory.network.min: "160m"
     taskmanager.memory.network.max: "160m"
     taskmanager.memory.framework.off-heap.size: "64m"
@@ -164,7 +164,7 @@ spec:
       cpu: 0.5
   taskManager:
     resource:
-      memory: "2560m"
+      memory: "3072m"
       cpu: 4
   podTemplate:
     spec:
