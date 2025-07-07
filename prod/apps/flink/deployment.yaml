@@ -80,7 +80,7 @@ spec:
     # --------------------------------------------------------------------
     # Pekko
     # --------------------------------------------------------------------
-    pekko.framesize: "104857600b"
+    pekko.framesize: "104857600b" # 100Mi
     # --------------------------------------------------------------------
     # State Changelog
     # --------------------------------------------------------------------
@@ -100,19 +100,21 @@ spec:
     jobstore.cache-size: "1048576"
     jobstore.max-capacity: "10"
     blob.storage.directory: file://flink-data/blob-storage
-    jobmanager.memory.flink.size: 512m
-    jobmanager.memory.process.size: 716m
+    jobmanager.memory.flink.size: 1024m
+    jobmanager.memory.process.size: 1536m
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
     taskmanager.numberOfTaskSlots: "6"
     taskmanager.slot.timeout: 20s
-    taskmanager.memory.process.size: 1536m
-    taskmanager.memory.flink.size: 1024m
+    taskmanager.memory.process.size: 2048m
+    taskmanager.memory.flink.size: 1536m
     # --------------------------------------------------------------------
     # Metrics
     # --------------------------------------------------------------------
     rest.flamegraph.enabled: "true"
+    state.backend.rocksdb.metrics.live-sst-files-size: "true"
+    state.backend.rocksdb.metrics.cur-size-all-mem-tables: "true"
   logConfiguration:
     "log4j-console.properties": |
       status = WARN
@@ -141,7 +143,7 @@ spec:
       rootLogger.appenderRef.Async.ref = Async
   jobManager:
     resource:
-      memory: "1024m"
+      memory: "1536m"
       cpu: 0.5
   taskManager:
     resource:
