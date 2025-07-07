@@ -101,11 +101,11 @@ spec:
     jobstore.max-capacity: "10"
     blob.storage.directory: file://flink-data/blob-storage
     # JVM non-Flink
-    jobmanager.memory.jvm-metaspace.size: 128m
-    jobmanager.memory.jvm-overhead.min: 128m
-    jobmanager.memory.jvm-overhead.max: 256m
+    jobmanager.memory.jvm-metaspace.size: "128m"
+    jobmanager.memory.jvm-overhead.min: "128m"
+    jobmanager.memory.jvm-overhead.max: "256m"
     # Heap
-    jobmanager.memory.heap.size: "1056"
+    jobmanager.memory.heap.size: "1056m"
     # Off-heap Flink
     jobmanager.memory.network.min: "32m"
     jobmanager.memory.network.max: "32m"
