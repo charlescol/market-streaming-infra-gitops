@@ -100,15 +100,32 @@ spec:
     jobstore.cache-size: "1048576"
     jobstore.max-capacity: "10"
     blob.storage.directory: file://flink-data/blob-storage
-    jobmanager.memory.flink.size: 1024m
-    jobmanager.memory.process.size: 1536m
+    # JVM non-Flink
+    jobmanager.memory.jvm-metaspace.size: 128m
+    jobmanager.memory.jvm-overhead.min: 128m
+    jobmanager.memory.jvm-overhead.max: 256m
+    # Heap
+    jobmanager.memory.heap.size: "1056"
+    # Off-heap Flink
+    jobmanager.memory.network.min: "32m"
+    jobmanager.memory.network.max: "32m"
+    jobmanager.memory.framework.off-heap.size: "64m"
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
     taskmanager.numberOfTaskSlots: "6"
     taskmanager.slot.timeout: 20s
-    taskmanager.memory.process.size: 2048m
-    taskmanager.memory.flink.size: 1536m
+    # JVM non-Flink
+    taskmanager.memory.jvm-metaspace.size: "128m"
+    taskmanager.memory.jvm-overhead.min: "128m"
+    taskmanager.memory.jvm-overhead.max: "256m"
+    # Heap
+    taskmanager.memory.heap.size: "1040m"
+    # Off-heap Flink
+    taskmanager.memory.managed.size: "400m"
+    taskmanager.memory.network.min: "160m"
+    taskmanager.memory.network.max: "160m"
+    taskmanager.memory.framework.off-heap.size: "64m"
     # --------------------------------------------------------------------
     # Metrics
     # --------------------------------------------------------------------
