@@ -105,7 +105,7 @@ spec:
     jobmanager.memory.jvm-overhead.min: "128m"
     jobmanager.memory.jvm-overhead.max: "256m"
     # Heap
-    jobmanager.memory.heap.size: "1056m"
+    jobmanager.memory.heap.size: "768m"
     # Off-heap Flink
     jobmanager.memory.network.min: "32m"
     jobmanager.memory.network.max: "32m"
@@ -120,7 +120,7 @@ spec:
     taskmanager.memory.jvm-overhead.min: "128m"
     taskmanager.memory.jvm-overhead.max: "256m"
     # Heap
-    taskmanager.memory.heap.size: "2064m"
+    taskmanager.memory.heap.size: "2352m"
     # Off-heap Flink
     taskmanager.memory.managed.size: "336m"
     taskmanager.memory.network.min: "160m"
@@ -160,11 +160,11 @@ spec:
       rootLogger.appenderRef.Async.ref = Async
   jobManager:
     resource:
-      memory: "1536m"
+      memory: "1248m"
       cpu: 0.5
   taskManager:
     resource:
-      memory: "3072m"
+      memory: "3360m"
       cpu: 4
   podTemplate:
     spec:
