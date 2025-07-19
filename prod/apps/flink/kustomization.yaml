@@ -6,4 +6,3 @@ resources:
   - kafka-config.yaml
   - pipeline-config.yaml
   - env-config.yaml
-  - storage.yaml
