@@ -181,7 +181,7 @@ spec:
             name: config-flink-pipeline
         - name: flink-volume
           persistentVolumeClaim:
-            claimName: flink-state
+            claimName: flink-pvc
       containers:
         - name: flink-main-container
           envFrom:

@@ -10,8 +10,8 @@ spec:
   replicas: 2
   storage:
     type: persistent-claim
-    size: 5Gi
-    class: standard
+    size: 20Gi
+    class: kafka-storage
     kraftMetadata: shared
   roles:
     - controller
@@ -35,9 +35,9 @@ metadata:
 spec:
   replicas: 1
   storage:
-    type: ephemeral
-    sizeLimit: 1Gi
-    kraftMetadata: shared
+    type: persistent-claim
+    size: 5Gi
+    class: kafka-storage
   roles:
     - controller
   resources:
