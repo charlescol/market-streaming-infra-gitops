@@ -12,6 +12,17 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
+  name: tokio-exchange-middleware
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/tokio-exchange-middleware/tokio-exchange-middleware
+  secretRef:
+    name: flux-gcp-key
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
   name: msv-tokio-binance-scraper
   namespace: flux-system
 spec:
@@ -28,6 +39,18 @@ metadata:
 spec:
   imageRepositoryRef:
     name: flink-microstructures-extractor
+  policy:
+    semver:
+      range: ">=0.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: tokio-exchange-middleware
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: tokio-exchange-middleware
   policy:
     semver:
       range: ">=0.0.0"

@@ -4,3 +4,4 @@ resources:
   - kafka-monitors.yaml
   - flink-monitors.yaml
   - tokio-scraper-monitors.yaml
+  - exchange-middleware-monitors.yaml

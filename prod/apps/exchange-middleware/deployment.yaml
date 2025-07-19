@@ -1,34 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tokio-binance-scraper
+  name: tokio-exchange-middleware
   namespace: backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tokio-binance-scraper
+      app: tokio-exchange-middleware
   template:
     metadata:
       labels:
-        app: tokio-binance-scraper
+        app: tokio-exchange-middleware
     spec:
       imagePullSecrets:
         - name: flux-gcp-key
       containers:
         - name: tokio
-          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-binance-scraper/msv-tokio-binance-scraper:0.0.9 # {"$imagepolicy": "flux-system:msv-tokio-binance-scraper"}
+          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-exchange-middleware/msv-tokio-exchange-middleware:0.1.1 # {"$imagepolicy": "flux-system:msv-tokio-exchange-middleware"}
           ports:
+            - containerPort: 3000
+              name: http
             - containerPort: 9000
+              name: metrics
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
-                name: config-tokio-binance-scraper
+                name: config-tokio-exchange-middleware
           volumeMounts:
             - name: kafka-config-volume
               mountPath: /app/resources/kafka
               readOnly: true
-            - name: tokio-symbols-volume
+            - name: symbol-priority-volume
               mountPath: /app/resources/symbols
               readOnly: true
           resources:
@@ -36,12 +39,12 @@ spec:
               cpu: "1"
               memory: 500Mi
             limits:
-              cpu: "1.5"
+              cpu: "1"
               memory: 1Gi
       volumes:
         - name: kafka-config-volume
           configMap:
-            name: config-tokio-kafka
-        - name: tokio-symbols-volume
+            name: config-exchange-middleware-kafka
+        - name: symbol-priority-volume
           configMap:
-            name: config-tokio-symbols
+            name: config-exchange-middleware-symbol-priority

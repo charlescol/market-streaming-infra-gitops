@@ -5,4 +5,4 @@ resources:
   - env-config.yaml
   - services.yaml
   - kafka-config.yaml
-  - symbols-config.yaml
+  - symbol-priority.yaml
