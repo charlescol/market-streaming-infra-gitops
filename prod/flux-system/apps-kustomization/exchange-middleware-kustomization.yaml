@@ -1,14 +1,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps
+  name: app-exchange-middleware
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./prod/flux-system/apps-kustomization
+  path: ./prod/apps/exchange-middleware
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-  dependsOn:
-    - name: helm

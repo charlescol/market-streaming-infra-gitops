@@ -1,14 +1,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps
+  name: app-scrapers
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./prod/flux-system/apps-kustomization
+  path: ./prod/apps/scrapers
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
   dependsOn:
-    - name: helm
+    - name: app-schema-registry
+    - name: app-kafka
+    - name: app-flink
+    - name: app-exchange-middleware
