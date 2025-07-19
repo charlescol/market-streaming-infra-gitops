@@ -17,7 +17,7 @@ spec:
         - name: flux-gcp-key
       containers:
         - name: tokio
-          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-exchange-middleware/msv-tokio-exchange-middleware:0.1.1 # {"$imagepolicy": "flux-system:msv-tokio-exchange-middleware"}
+          mage: asia-northeast1-docker.pkg.dev/market-streaming-prod/tokio-exchange-middleware/tokio-exchange-middleware:0.1.1 # {"$imagepolicy": "flux-system:tokio-exchange-middleware"}
           ports:
             - containerPort: 3000
               name: http
