@@ -13,22 +13,22 @@ spec:
     retention.ms: 900000 # 15 minutes
     retention.bytes: -1
     cleanup.policy: "delete"
-# ---
-# apiVersion: kafka.strimzi.io/v1beta2
-# kind: KafkaTopic
-# metadata:
-#   name: binance-depthsnapshot-raw
-#   namespace: backend
-#   labels:
-#     strimzi.io/cluster: kafka-cluster
-# spec:
-#   topicName: binance-depthSnapshot-raw
-#   partitions: 2
-#   replicas: 2
-#   config:
-#     retention.ms: 900000 # 15 minutes
-#     retention.bytes: -1
-#     cleanup.policy: "delete"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: binance-depthsnapshot-raw
+  namespace: backend
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  topicName: binance-depthSnapshot-raw
+  partitions: 2
+  replicas: 2
+  config:
+    retention.ms: 900000 # 15 minutes
+    retention.bytes: -1
+    cleanup.policy: "delete"
 ---
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
