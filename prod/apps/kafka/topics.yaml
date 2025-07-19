@@ -22,7 +22,7 @@ metadata:
   labels:
     strimzi.io/cluster: kafka-cluster
 spec:
-  topicName: binance-depthsnapshot-raw
+  topicName: binance-depthSnapshot-raw
   partitions: 2
   replicas: 2
   config:
