@@ -6,7 +6,7 @@ metadata:
 data:
   RUST_LOG: "info"
   BINANCE_EXCHANGE_INFO_URL: "https://api.binance.com/api/v3/exchangeInfo"
-  BINANCE_SNAPSHOT_URL: "https://api.binance.com/api/v3/depth?limit1000"
+  BINANCE_SNAPSHOT_URL: "https://api.binance.com/api/v3/depth?limit=1000"
   BINANCE_PING_URL: "https://api.binance.com/api/v3/ping"
   KAFKA_CLIENT_ID: "binance-scraper"
   KAFKA_TOPIC: "exchange-depthSnapshot-raw"
