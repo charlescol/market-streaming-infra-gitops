@@ -32,13 +32,7 @@ spec:
     # --------------------------------------------------------------------
     # State backend
     # --------------------------------------------------------------------
-    state.backend.type: rocksdb
-    state.backend.rocksdb.checkpoint.transfer.thread.num: "4"
-    state.backend.rocksdb.block.cache-size: 64mb
-    state.backend.rocksdb.writebuffer.count: "2"
-    state.backend.rocksdb.writebuffer.size: 64mb
-    state.backend.rocksdb.compression.per.level: SNAPPY_COMPRESSION
-    state.backend.rocksdb.use-bloom-filter: "false"
+    state.backend.type: hashmap
     # --------------------------------------------------------------------
     # High availability
     # --------------------------------------------------------------------
@@ -56,7 +50,7 @@ spec:
     pipeline.max-parallelism: "128"
     pipeline.auto-generate-uids: "false"
     # --------------------------------------------------------------------
-    # Checkpointing
+    # Checkpointing (disabled)
     # --------------------------------------------------------------------
     execution.checkpointing.unaligned.enabled: "true"
     execution.checkpointing.aligned-checkpoint-timeout: 200ms
@@ -81,13 +75,6 @@ spec:
     # Pekko
     # --------------------------------------------------------------------
     pekko.framesize: "104857600b" # 100Mi
-    # --------------------------------------------------------------------
-    # State Changelog
-    # --------------------------------------------------------------------
-    state.changelog.enabled: "true"
-    state.changelog.periodic-materialize.enabled: "true"
-    state.changelog.periodic-materialize.interval: 40s
-    state.changelog.storage: memory
     # --------------------------------------------------------------------
     # Restauration / Recovery
     # --------------------------------------------------------------------
@@ -120,7 +107,7 @@ spec:
     taskmanager.memory.jvm-overhead.min: "128m"
     taskmanager.memory.jvm-overhead.max: "256m"
     # Heap
-    taskmanager.memory.heap.size: "2352m"
+    taskmanager.memory.heap.size: "3072m"
     # Off-heap Flink
     taskmanager.memory.managed.size: "336m"
     taskmanager.memory.network.min: "160m"
@@ -164,7 +151,7 @@ spec:
       cpu: 0.5
   taskManager:
     resource:
-      memory: "3360m"
+      memory: "4096m"
       cpu: 4
   podTemplate:
     spec:
