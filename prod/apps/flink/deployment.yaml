@@ -4,7 +4,7 @@ metadata:
   name: flink-cluster
   namespace: backend
 spec:
-  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.3.2 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.3.1 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
@@ -32,13 +32,7 @@ spec:
     # --------------------------------------------------------------------
     # State backend
     # --------------------------------------------------------------------
-    state.backend.type: rocksdb
-    state.backend.rocksdb.checkpoint.transfer.thread.num: "4"
-    state.backend.rocksdb.block.cache-size: 64mb
-    state.backend.rocksdb.writebuffer.count: "2"
-    state.backend.rocksdb.writebuffer.size: 64mb
-    state.backend.rocksdb.compression.per.level: SNAPPY_COMPRESSION
-    state.backend.rocksdb.use-bloom-filter: "false"
+    state.backend.type: hashmap
     # --------------------------------------------------------------------
     # High availability
     # --------------------------------------------------------------------
@@ -81,13 +75,6 @@ spec:
     # Pekko
     # --------------------------------------------------------------------
     pekko.framesize: "104857600b" # 100Mi
-    # --------------------------------------------------------------------
-    # State Changelog
-    # --------------------------------------------------------------------
-    state.changelog.enabled: "true"
-    state.changelog.periodic-materialize.enabled: "true"
-    state.changelog.periodic-materialize.interval: 40s
-    state.changelog.storage: memory
     # --------------------------------------------------------------------
     # Restauration / Recovery
     # --------------------------------------------------------------------
