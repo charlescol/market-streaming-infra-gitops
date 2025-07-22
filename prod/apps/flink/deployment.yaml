@@ -117,8 +117,8 @@ spec:
     # Metrics
     # --------------------------------------------------------------------
     rest.flamegraph.enabled: "true"
-    state.backend.rocksdb.metrics.live-sst-files-size: "true"
-    state.backend.rocksdb.metrics.cur-size-all-mem-tables: "true"
+    # state.backend.rocksdb.metrics.live-sst-files-size: "true"
+    # state.backend.rocksdb.metrics.cur-size-all-mem-tables: "true"
   logConfiguration:
     "log4j-console.properties": |
       status = WARN
