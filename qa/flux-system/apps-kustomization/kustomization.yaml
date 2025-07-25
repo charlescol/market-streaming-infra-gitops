@@ -7,3 +7,4 @@ resources:
   - flink-kustomization.yaml
   - exchange-middleware-kustomization.yaml
   - scrapers-kustomization.yaml
+  - tokio-binance-mock-kustomization.yaml
