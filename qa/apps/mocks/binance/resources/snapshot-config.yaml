@@ -4,7 +4,7 @@ metadata:
   name: config-tokio-binance-snapshot
   namespace: backend
 data:
-  exchange-info.json: |
+  snapshot.json: |
     {
       "bids": [
         ["3673.84000000", "113.89000000"],
