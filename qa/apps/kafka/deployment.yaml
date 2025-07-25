@@ -1,0 +1,124 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: kafka-cluster
+  namespace: backend
+  annotations:
+    strimzi.io/kraft: enabled
+    strimzi.io/node-pools: enabled
+spec:
+  kafka:
+    version: 3.9.0
+    metadataVersion: 3.9-IV0
+    listeners:
+      - name: debug # Only for debugging purposes
+        port: 9095
+        type: internal
+        tls: false
+      - name: internal # For inter-cluster communication
+        port: 9092
+        type: internal
+        tls: false # TODO: Change to true
+        configuration:
+          brokers:
+            - broker: 0
+              advertisedHost: kafka-cluster-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local
+              advertisedPort: 9092
+            - broker: 1
+              advertisedHost: kafka-cluster-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local
+              advertisedPort: 9092
+
+    config:
+      compression.type: "uncompressed"
+      controller.listener.names: "CONTROLLER"
+      # --------------------------------------------------------------------
+      # I/O and network
+      # --------------------------------------------------------------------
+      log.dir: "/kafka-data/logs"
+      queued.max.requests: 500
+      request.timeout.ms: 5000
+      socket.receive.buffer.bytes: 102400
+      socket.request.max.bytes: 104857600
+      socket.send.buffer.bytes: 102400
+      broker.heartbeat.interval.ms: 2000
+      # --------------------------------------------------------------------
+      # # Threads
+      # --------------------------------------------------------------------
+      background.threads: 2
+      num.io.threads: 2
+      num.network.threads: 2
+      num.recovery.threads.per.data.dir: 1
+      num.replica.alter.log.dirs.threads: 1
+      num.replica.fetchers: 1
+      # --------------------------------------------------------------------
+      # # Replication
+      # --------------------------------------------------------------------
+      replica.fetch.min.bytes: 1
+      replica.fetch.wait.max.ms: 40
+      replica.high.watermark.checkpoint.interval.ms: 5000
+      replica.lag.time.max.ms: 5000
+      replica.socket.receive.buffer.bytes: 65536
+      replica.socket.timeout.ms: 200
+      default.replication.factor: 2
+      min.insync.replicas: 1
+      # --------------------------------------------------------------------
+      # # Kraft
+      # --------------------------------------------------------------------
+      controller.quorum.bootstrap.servers: |
+        kafka-cluster-kafka-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
+        kafka-cluster-kafka-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
+        kafka-cluster-kafka-kafka-controller-only-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093
+      controller.quorum.voters: |
+        0@kafka-cluster-kafka-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
+        1@kafka-cluster-kafka-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
+        2@kafka-cluster-kafka-kafka-controller-only-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093
+      controller.quorum.election.backoff.max.ms: 5000
+      controller.quorum.election.timeout.ms: 1000
+      controller.quorum.fetch.timeout.ms: 3000
+      metadata.log.max.record.bytes.between.snapshots: 20971520
+      metadata.log.max.snapshot.interval.ms: 60000
+      metadata.log.segment.bytes: 1073741824
+      metadata.log.segment.ms: 30000
+      metadata.max.retention.bytes: 209715200
+      metadata.max.retention.ms: 120000
+      # --------------------------------------------------------------------
+      # # Topics / ISR / Monitoring
+      # --------------------------------------------------------------------
+      auto.create.topics.enable: false
+      delete.topic.enable: true
+      eligible.leader.replicas.enable: true
+      auto.leader.rebalance.enable: false
+      unclean.leader.election.enable: false
+      metrics.recording.level: "INFO"
+      # --------------------------------------------------------------------
+      # # Offsets (__consumer_offsets)
+      # --------------------------------------------------------------------
+      offsets.commit.timeout.ms: 1000
+      offsets.retention.check.interval.ms: 600000
+      offsets.retention.minutes: 10080
+      offsets.topic.num.partitions: 5
+      offsets.topic.replication.factor: 2
+      offsets.topic.segment.bytes: 1048576
+      # --------------------------------------------------------------------
+      # # Log / Storage
+      # --------------------------------------------------------------------
+      log.roll.ms: 60000
+      log.segment.bytes: 1073741824
+      log.roll.jitter.ms: 5000
+      log.segment.delete.delay.ms: 30000
+      log.flush.interval.ms: 30000
+      log.flush.interval.messages: 9223372036854775807
+      log.flush.scheduler.interval.ms: 1000
+      log.retention.check.interval.ms: 30000
+      log.flush.offset.checkpoint.interval.ms: 1000
+
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: kafka-metrics-config.yml
+
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}

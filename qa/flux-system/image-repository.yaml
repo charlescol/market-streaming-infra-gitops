@@ -1,0 +1,88 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: flink-microstructures-extractor
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor
+  secretRef:
+    name: flux-gcp-key
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: tokio-exchange-middleware
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/tokio-exchange-middleware/tokio-exchange-middleware
+  secretRef:
+    name: flux-gcp-key
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: msv-tokio-binance-scraper
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-binance-scraper/msv-tokio-binance-scraper
+  secretRef:
+    name: flux-gcp-key
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: flink-microstructures-extractor
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: flink-microstructures-extractor
+  policy:
+    semver:
+      range: ">=0.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: tokio-exchange-middleware
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: tokio-exchange-middleware
+  policy:
+    semver:
+      range: ">=0.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: msv-tokio-binance-scraper
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: msv-tokio-binance-scraper
+  policy:
+    semver:
+      range: ">=0.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: automation-deployment
+  namespace: flux-system
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  git:
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+    push:
+      branch: main
+  update:
+    path: ./qa/apps

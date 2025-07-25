@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - kafka-kustomization.yaml
+  - schema-registry-kustomization.yaml
+  - prometheus-kustomization.yaml
+  - flink-kustomization.yaml
+  - exchange-middleware-kustomization.yaml
+  - scrapers-kustomization.yaml
