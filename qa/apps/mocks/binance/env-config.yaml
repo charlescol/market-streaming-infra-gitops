@@ -5,7 +5,7 @@ metadata:
   namespace: backend
 data:
   RUST_LOG: "debug"
-  SYMBOL_CONFIG_PATH: "resources/symbols-config.yaml"
+  SYMBOL_CONFIG_PATH: "resources/symbols/symbols-config.yaml"
   TOKIO_WORKER_THREADS: "1"
   TOKIO_QUEUE_INTERVAL: "5"
   TOKIO_EVENT_INTERVAL: "5"
