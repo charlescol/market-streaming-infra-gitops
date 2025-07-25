@@ -38,4 +38,4 @@ spec:
       volumes:
         - name: tokio-symbols-volume
           configMap:
-            name: config-tokio-symbols
+            name: config-tokio-binance-mock-symbols
