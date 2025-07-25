@@ -25,8 +25,17 @@ spec:
             - configMapRef:
                 name: config-tokio-binance-mock
           volumeMounts:
-            - name: tokio-symbols-volume
+            - name: symbols-config
               mountPath: /app/resources/symbols
+              readOnly: true
+            - name: depth-updates-config
+              mountPath: /app/resources/depth-updates
+              readOnly: true
+            - name: snapshot-config
+              mountPath: /app/resources/snapshot
+              readOnly: true
+            - name: exchange-info-config
+              mountPath: /app/resources/exchange-info
               readOnly: true
           resources:
             requests:
@@ -36,6 +45,15 @@ spec:
               cpu: "1"
               memory: 1Gi
       volumes:
-        - name: tokio-symbols-volume
+        - name: symbols-config
           configMap:
             name: config-tokio-binance-mock-symbols
+        - name: depth-updates-config
+          configMap:
+            name: config-tokio-binance-mock-depth-updates
+        - name: snapshot-config
+          configMap:
+            name: config-tokio-binance-snapshot
+        - name: exchange-info-config
+          configMap:
+            name: config-tokio-binance-mock-exchange-info

@@ -5,3 +5,4 @@ resources:
   - env-config.yaml
   - services.yaml
   - symbols-config.yaml
+  - resources

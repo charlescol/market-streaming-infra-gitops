@@ -6,6 +6,9 @@ metadata:
 data:
   RUST_LOG: "debug"
   SYMBOL_CONFIG_PATH: "resources/symbols/symbols-config.yaml"
+  DEPTH_UPDATES_PATH: "resources/depth-updates/depth-updates.json"
+  SNAPSHOT_PATH: "resources/snapshot/snapshot.json"
+  EXCHANGE_INFO_PATH: "resources/exchange-info/exchange-info.json"
   TOKIO_WORKER_THREADS: "1"
   TOKIO_QUEUE_INTERVAL: "5"
   TOKIO_EVENT_INTERVAL: "5"
