@@ -6,7 +6,7 @@ metadata:
 data:
   RUST_LOG: "info"
   BINANCE_EXCHANGE_INFO_URL: "http://tokio-binance-mock-rest.backend.svc.cluster.local:3000/exchange-info"
-  BINANCE_SNAPSHOT_URL: "http://tokio-binance-mock-rest.backend.svc.cluster.local:3000/depth?limit=1000"
+  BINANCE_SNAPSHOT_URL: "http://tokio-binance-mock-rest.backend.svc.cluster.local:3000/snapshot?limit=1000"
   BINANCE_PING_URL: "http://tokio-binance-mock-rest.backend.svc.cluster.local:3000/used-quota"
   KAFKA_CLIENT_ID: "exchange-middleware"
   KAFKA_TOPIC: "exchange-depthSnapshot-raw"
