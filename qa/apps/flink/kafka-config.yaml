@@ -11,6 +11,7 @@ data:
     session.timeout.ms=10000
     heartbeat.interval.ms=3000
     max.poll.interval.ms=15000
+    max.poll.records=100
     # Fetch sizing
     max.partition.fetch.bytes=20000
     fetch.max.bytes=40000
@@ -32,4 +33,3 @@ data:
     max.block.ms=10000
     # Limits to control payloads
     max.request.size=9000
-    max.poll.records=100
