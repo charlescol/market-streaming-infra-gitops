@@ -45,16 +45,16 @@ spec:
       # # Threads
       # --------------------------------------------------------------------
       background.threads: 2
-      num.io.threads: 4
-      num.network.threads: 2
+      num.io.threads: 8
+      num.network.threads: 4
       num.recovery.threads.per.data.dir: 1
       num.replica.alter.log.dirs.threads: 1
-      num.replica.fetchers: 2
+      num.replica.fetchers: 4
       # --------------------------------------------------------------------
       # # Replication
       # --------------------------------------------------------------------
       replica.fetch.min.bytes: 1
-      replica.fetch.wait.max.ms: 40
+      replica.fetch.wait.max.ms: 5
       replica.high.watermark.checkpoint.interval.ms: 5000
       replica.lag.time.max.ms: 5000
       replica.socket.receive.buffer.bytes: 65536
