@@ -18,11 +18,14 @@ spec:
     - broker
   resources:
     requests:
-      memory: 1.5Gi
-      cpu: "1.5"
+      memory: 5Gi
+      cpu: "2"
     limits:
-      memory: 3Gi
-      cpu: "3"
+      memory: 5Gi
+      cpu: "4"
+  jvmOptions:
+    -Xms: 1638m
+    -Xmx: 1638m
 ---
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaNodePool
@@ -46,4 +49,7 @@ spec:
       cpu: "0.5"
     limits:
       memory: 1Gi
-      cpu: "1"
+      cpu: "1.5"
+  jvmOptions:
+    -Xms: 512m
+    -Xmx: 512m
