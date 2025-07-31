@@ -47,9 +47,10 @@ spec:
       background.threads: 2
       num.io.threads: 8
       num.network.threads: 4
-      num.recovery.threads.per.data.dir: 1
+      num.recovery.threads.per.data.dir: 2
       num.replica.alter.log.dirs.threads: 1
       num.replica.fetchers: 4
+      group.coordinator.threads: 4
       # --------------------------------------------------------------------
       # # Replication
       # --------------------------------------------------------------------
