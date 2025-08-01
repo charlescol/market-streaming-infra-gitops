@@ -8,151 +8,201 @@ data:
     symbols:
     - FLOKIUSDT
     - BONKUSDT
-    - ERAUSDT
-    - BTCFDUSD
     - ETHUSDT
-    - ENAUSDT
-    - SOLUSDT
+    - BTCFDUSD
     - BTCUSDT
     - XRPUSDT
-    - PENGUUSDT
+    - SOLUSDT
+    - ENAUSDT
     - BNBUSDT
     - ETHFDUSD
     - DOGEUSDT
     - DOGEFDUSD
+    - SHIBUSDT
     - SOLFDUSD
     - ETHUSDC
+    - PENGUUSDT
     - BNBFDUSD
-    - SHIBUSDT
-    - SPKUSDT
     - SUIUSDT
-    - HBARUSDT
+    - ERAUSDT
     - LTCUSDT
-    - CRVUSDT
+    - HBARUSDT
     - PEPEUSDT
     - USDCUSDT
-    - CFXUSDT
+    - SPKUSDT
+    - BTCUSDC
+    - XRPUSDC
+    - ADAUSDT
     - NEIROUSDT
     - TREEUSDT
-    - ADAUSDT
-    - UNIUSDT
-    - SUIUSDC
     - XRPFDUSD
-    - XRPUSDC
+    - SUIUSDC
     - XLMUSDT
-    - ENAUSDC
-    - BCHUSDT
-    - BTCUSDC
-    - A2ZUSDT
-    - TONUSDT
-    - AVAXUSDT
-    - SUSDT
-    - WIFUSDT
-    - VIRTUALUSDT
     - ONDOUSDT
-    - SEIUSDT
-    - PENGUUSDC
-    - AAVEUSDT
-    - NEARUSDT
+    - MEMEUSDT
+    - CRVUSDT
+    - TONUSDT
+    - UNIUSDT
     - SOLUSDC
+    - AVAXUSDT
+    - ENAUSDC
+    - VIRTUALUSDT
+    - SEIUSDT
     - LINKUSDT
-    - SOPHUSDT
-    - ORDIUSDT
-    - SYRUPUSDT
-    - WLDUSDT
+    - NEARUSDT
     - FDUSDUSDT
-    - KERNELUSDT
-    - FORMUSDT
-    - BANANAS31USDT
-    - IOTXUSDT
-    - APTUSDT
-    - TRXUSDT
-    - ETHFIUSDT
-    - PNUTUSDT
+    - WIFUSDT
+    - AAVEUSDT
     - LINKFDUSD
+    - BCHUSDT
+    - SCUSDT
+    - ORDIUSDT
+    - WLDUSDT
+    - FORMUSDT
+    - SYRUPUSDT
+    - BNBUSDC
+    - BOMEUSDT
     - PEPEUSDC
     - INITUSDT
-    - ALGOUSDT
-    - VICUSDT
-    - DOGEUSDC
-    - CAKEUSDT
-    - HBARUSDC
-    - BNBUSDC
+    - APTUSDT
+    - TRXUSDT
     - PENDLEUSDT
-    - ERAUSDC
-    - QKCUSDT
-    - BIOUSDT
-    - MDTUSDT
-    - INJUSDT
-    - GALAUSDT
-    - BABYUSDT
-    - TAOUSDT
-    - PENGUTRY
+    - CFXUSDT
     - ARBUSDT
-    - TURBOUSDT
+    - DOGEUSDC
+    - ETHFIUSDT
+    - SUSDT
     - TRUMPUSDT
-    - BOMEUSDT
-    - ASRUSDT
-    - ATMUSDT
-    - MKRUSDT
-    - MEMEUSDT
-    - LDOUSDT
-    - CVXUSDT
+    - PENGUUSDC
     - FDUSDUSDC
-    - SPKUSDC
-    - FETUSDT
-    - USDTTRY
-    - ADAUSDC
-    - ETHBTC
-    - ICPUSDT
-    - DOTUSDT
-    - OPUSDT
-    - JUPUSDT
-    - ACMUSDT
-    - RENDERUSDT
-    - BONKUSDC
-    - SCUSDT
-    - MUBARAKUSDT
-    - APEUSDT
-    - ENATRY
-    - TREETRY
-    - OMNIUSDT
-    - PROMUSDT
-    - CUSDT
-    - ZKUSDT
-    - ETCUSDT
-    - CRVUSDC
-    - VETUSDT
-    - RUNEUSDT
-    - 1MBABYDOGEUSDT
-    - RESOLVUSDT
-    - CYBERUSDT
-    - OMUSDT
-    - TFUELUSDT
-    - TIAUSDT
-    - SPKTRY
-    - CFXUSDC
-    - DOGSUSDT
-    - DYDXUSDT
-    - USDTBRL
-    - XTZUSDT
-    - ETHEUR
+    - CAKEUSDT
+    - GALAUSDT
+    - MKRUSDT
+    - ALGOUSDT
+    - TAOUSDT
+    - ATMUSDT
+    - INJUSDT
+    - BABYUSDT
+    - HBARUSDC
+    - A2ZUSDT
     - SAHARAUSDT
-    - HYPERUSDT
-    - BANANAS31USDC
-    - HOMEUSDT
-    - NOTUSDT
+    - DOTUSDT
+    - IOTXUSDT
+    - ETHBTC
     - KAITOUSDT
-    - CKBUSDT
-    - HUMAUSDT
-    - ALTUSDT
-    - ATOMUSDT
-    - ENSUSDT
-    - UNIUSDC
-    - JTOUSDT
-    - MAVUSDT
-    - EURUSDC
+    - TFUELUSDT
+    - USDTTRY
+    - PNUTUSDT
+    - ETCUSDT
+    - FETUSDT
+    - RENDERUSDT
+    - TREETRY
+    - RUNEUSDT
+    - LDOUSDT
+    - WCTUSDT
+    - ICPUSDT
+    - TURBOUSDT
+    - APEUSDT
+    - ADAUSDC
+    - DYDXUSDT
+    - SPKUSDC
+    - OPUSDT
+    - PROMUSDT
+    - JUPUSDT
+    - XTZUSDT
+    - BANANAS31USDT
+    - PENGUTRY
+    - VETUSDT
+    - DOGSUSDT
+    - 1MBABYDOGEUSDT
     - POLUSDT
-    - RPLUSDT
+    - MUBARAKUSDT
+    - ASRUSDT
+    - ETHEUR
+    - ATOMUSDT
+    - ZKUSDT
+    - RSRUSDT
+    - CKBUSDT
+    - SOPHUSDT
+    - BTCEUR
+    - MEMETRY
+    - TIAUSDT
+    - TREEUSDC
+    - NOTUSDT
+    - OMUSDT
+    - CVXUSDT
+    - USDTBRL
+    - CUSDT
+    - PIXELUSDT
+    - ARKMUSDT
+    - NXPCUSDT
+    - HYPERUSDT
+    - ENSUSDT
+    - ALTUSDT
+    - AUSDT
+    - BONKUSDC
     - SAGAUSDT
+    - HEIUSDT
+    - PEOPLEUSDT
+    - EURUSDC
+    - JTOUSDT
+    - FILUSDT
+    - HUMAUSDT
+    - RESOLVUSDT
+    - MBLUSDT
+    - ENATRY
+    - TRBUSDT
+    - VANAUSDT
+    - QNTUSDT
+    - MDTUSDT
+    - BELUSDT
+    - LPTUSDT
+    - BNBBTC
+    - COMPUSDT
+    - OMNIUSDT
+    - EIGENUSDT
+    - XRPEUR
+    - FUNUSDT
+    - CRVUSDC
+    - SPKTRY
+    - KERNELUSDT
+    - BIOUSDT
+    - VICUSDT
+    - UNIUSDC
+    - TUTUSDT
+    - ERAUSDC
+    - EURUSDT
     - FLOKIUSDC
+    - XRPTRY
+    - GMTUSDT
+    - SOLVUSDT
+    - MOVRUSDT
+    - ATMTRY
+    - THEUSDT
+    - MEMEUSDC
+    - ETHTRY
+    - LINKUSDC
+    - RAYUSDT
+    - ARBUSDC
+    - AIXBTUSDT
+    - WIFUSDC
+    - LAYERUSDT
+    - CETUSUSDT
+    - ZROUSDT
+    - KMNOUSDT
+    - KDAUSDT
+    - TSTUSDT
+    - SHELLUSDT
+    - SAHARATRY
+    - LAUSDT
+    - KAIAUSDT
+    - RENDERUSDC
+    - XLMUSDC
+    - THETAUSDT
+    - CHZUSDT
+    - SOLBTC
+    - SUPERUSDT
+    - BANANAS31USDC
+    - SANDUSDT
+    - APTUSDC
+    - NEIROUSDC
