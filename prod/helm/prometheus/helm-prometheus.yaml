@@ -25,6 +25,12 @@ spec:
         name: prometheus
         namespace: flux-system
   values:
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        kubelet: true
+        cAdvisor: true
+        cAdvisorInterval: 10s
     alertmanager:
       enabled: false
     pushgateway:
@@ -37,6 +43,13 @@ spec:
     grafana:
       enabled: true
       defaultDashboardsEnabled: false
+      resources:
+        requests:
+          cpu: "200m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
       sidecar:
         dashboards:
           provider:
