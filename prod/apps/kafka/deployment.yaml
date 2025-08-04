@@ -39,7 +39,9 @@ spec:
           - name: PYROSCOPE_SERVER_ADDRESS
             value: http://pyroscope.backend.svc.cluster.local:4040
           - name: PYROSCOPE_APPLICATION_NAME
-            value: kafka-broker-$(STRIMZI_BROKER_ID)
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
           - name: PYROSCOPE_PROFILING_INTERVAL
             value: "20ms"
           - name: PYROSCOPE_LOG_LEVEL
