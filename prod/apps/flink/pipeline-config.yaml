@@ -9,4 +9,4 @@ data:
     parallelism.metrics.extraction1=1
     parallelism.metrics.extraction2=1
     parallelism.metrics.extraction3=1
-    parallelism.sink=1
+    parallelism.sink=2
