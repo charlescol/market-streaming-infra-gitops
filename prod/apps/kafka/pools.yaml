@@ -17,36 +17,21 @@ spec:
     - controller
     - broker
   template:
-    pod:
-      volumes:
-        - name: pyroscope
-          emptyDir: {}
-      initContainers:
-        - name: download-pyroscope
-          image: curlimages/curl:8.2.1
-          command:
-            - sh
-            - -c
-            - >
-              curl -L -o /pyroscope/pyroscope.jar \
-              https://github.com/grafana/pyroscope-java/releases/download/v2.1.2/pyroscope.jar
-          volumeMounts:
-            - name: pyroscope
-              mountPath: /pyroscope
     kafkaContainer:
-      volumeMounts:
-        - name: pyroscope
-          mountPath: /pyroscope
+      image: docker.io/charlescol01/kafka-docker-custom:0.0.2
       env:
         - name: JAVA_TOOL_OPTIONS
-          value: "-javaagent:/pyroscope/pyroscope.jar"
+          value: >
+            -javaagent:/opt/pyroscope/pyroscope.jar
+            -XX:+UnlockDiagnosticVMOptions
+            -XX:+DebugNonSafepoints
         - name: PYROSCOPE_SERVER_ADDRESS
           value: http://pyroscope.backend.svc.cluster.local:4040
         - name: PYROSCOPE_APPLICATION_NAME
-          value: kafka-broker
+          value: kafka-broker-$(STRIMZI_BROKER_ID)
         - name: PYROSCOPE_PROFILING_INTERVAL
-          value: "10ms"
-        - name: "PYROSCOPE_LOG_LEVEL"
+          value: "20ms"
+        - name: PYROSCOPE_LOG_LEVEL
           value: "info"
   resources:
     requests:
