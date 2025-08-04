@@ -43,12 +43,17 @@ spec:
     grafana:
       enabled: true
       defaultDashboardsEnabled: false
+      additionalDataSources:
+        - name: Pyroscope
+          type: pyroscope
+          access: proxy
+          url: http://pyroscope.backend.svc.cluster.local:4040
       resources:
         requests:
-          cpu: "200m"
+          cpu: "300m"
           memory: "256Mi"
         limits:
-          cpu: "500m"
+          cpu: "600m"
           memory: "512Mi"
       sidecar:
         dashboards:
