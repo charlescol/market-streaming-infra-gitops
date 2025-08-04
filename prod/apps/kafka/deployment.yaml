@@ -27,6 +27,35 @@ spec:
             - broker: 1
               advertisedHost: kafka-cluster-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local
               advertisedPort: 9092
+    template:
+      pod:
+        initContainers: # Init container to download pyroscope.jar
+          - name: download-pyroscope
+            image: curlimages/curl:8.2.1
+            command:
+              - sh
+              - -c
+              - >
+                curl -L -o /pyroscope/pyroscope.jar \
+                https://github.com/grafana/pyroscope-java/releases/download/v2.1.2/pyroscope.jar
+            volumeMounts:
+              - name: pyroscope
+                mountPath: /pyroscope
+        volumes:
+          - name: pyroscope
+            emptyDir: {}
+
+    env:
+      - name: JAVA_TOOL_OPTIONS
+        value: "-javaagent:/pyroscope/pyroscope.jar"
+      - name: PYROSCOPE_SERVER_ADDRESS
+        value: http://pyroscope.backend.svc.cluster.local:4040
+      - name: PYROSCOPE_APPLICATION_NAME
+        value: kafka-broker
+      - name: PYROSCOPE_PROFILING_INTERVAL
+        value: "10ms"
+      - name: "PYROSCOPE_LOG_LEVEL"
+        value: "info"
 
     config:
       compression.type: "uncompressed"
