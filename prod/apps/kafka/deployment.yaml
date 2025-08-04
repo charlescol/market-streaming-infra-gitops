@@ -9,7 +9,7 @@ metadata:
 spec:
   kafka:
     version: 3.9.0
-    image: docker.io/charlescol01/kafka-docker-custom:0.0.2
+    image: docker.io/charlescol01/kafka-docker-custom:0.0.3
     metadataVersion: 3.9-IV0
     listeners:
       - name: debug # Only for debugging purposes
