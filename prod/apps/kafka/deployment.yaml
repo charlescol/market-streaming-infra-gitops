@@ -13,7 +13,7 @@ spec:
     metadataVersion: 3.9-IV0
     listeners:
       - name: debug # Only for debugging purposes
-        port: 9095
+        port: 9095sq
         type: internal
         tls: false
       - name: internal # For inter-cluster communication
@@ -29,6 +29,12 @@ spec:
               advertisedHost: kafka-cluster-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local
               advertisedPort: 9092
     template:
+      pod:
+        env:
+          - name: PYROSCOPE_APPLICATION_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
       kafkaContainer:
         env:
           - name: JAVA_TOOL_OPTIONS
@@ -38,10 +44,6 @@ spec:
               -XX:+DebugNonSafepoints
           - name: PYROSCOPE_SERVER_ADDRESS
             value: http://pyroscope.backend.svc.cluster.local:4040
-          - name: PYROSCOPE_APPLICATION_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
           - name: PYROSCOPE_PROFILING_INTERVAL
             value: "20ms"
           - name: PYROSCOPE_LOG_LEVEL
