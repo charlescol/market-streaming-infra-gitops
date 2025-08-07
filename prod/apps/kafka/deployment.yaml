@@ -59,11 +59,11 @@ spec:
       # # Threads
       # --------------------------------------------------------------------
       background.threads: 1 # log cleanup, metrics reporting, and various internal housekeeping operations.
-      num.io.threads: 5
+      num.io.threads: 6
       num.network.threads: 3
       num.recovery.threads.per.data.dir: 1 # Log recovery at startup or when a broker crashes
       num.replica.alter.log.dirs.threads: 1 # Handles replica movement between log directories (e.g., during log directory rebalancing).
-      num.replica.fetchers: 2
+      num.replica.fetchers: 3
       group.coordinator.threads: 1 # Consumer group coordination, including heartbeats, offset commits, and group rebalancing.
       # --------------------------------------------------------------------
       # # Replication

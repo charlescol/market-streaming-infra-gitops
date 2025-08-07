@@ -7,7 +7,7 @@ data:
   kafka-sink-config.yaml: |
     acks: 1
     linger.ms: 0 
-    batch.size: 18000
+    batch.size: 180000
     compression.type: none
     retries: 1
     message.timeout.ms: 1000
