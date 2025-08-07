@@ -33,10 +33,10 @@ spec:
               readOnly: true
           resources:
             requests:
-              cpu: "0.5"
+              cpu: "1.5"
               memory: 500Mi
             limits:
-              cpu: "1.5"
+              cpu: "3"
               memory: 1Gi
       volumes:
         - name: kafka-config-volume

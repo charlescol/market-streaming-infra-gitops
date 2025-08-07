@@ -152,7 +152,7 @@ spec:
   taskManager:
     resource:
       memory: "4608m"
-      cpu: 6
+      cpu: 6.5
   podTemplate:
     spec:
       imagePullSecrets:
