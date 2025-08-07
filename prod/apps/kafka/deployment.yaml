@@ -12,10 +12,10 @@ spec:
     image: docker.io/charlescol01/kafka-docker-custom:0.0.6
     metadataVersion: 3.9-IV0
     listeners:
-      - name: debug # Only for debugging purposes
-        port: 9095
-        type: internal
-        tls: false
+      # - name: debug # Only for debugging purposes
+      #   port: 9095
+      #   type: internal
+      #   tls: false
       - name: internal # For inter-cluster communication
         port: 9092
         type: internal
@@ -58,12 +58,12 @@ spec:
       # --------------------------------------------------------------------
       # # Threads
       # --------------------------------------------------------------------
-      background.threads: 1 # log cleanup, metrics reporting, and various internal housekeeping operations.
-      num.io.threads: 5
+      background.threads: 2 # log cleanup, metrics reporting, and various internal housekeeping operations.
+      num.io.threads: 6
       num.network.threads: 3
       num.recovery.threads.per.data.dir: 1 # Log recovery at startup or when a broker crashes
       num.replica.alter.log.dirs.threads: 1 # Handles replica movement between log directories (e.g., during log directory rebalancing).
-      num.replica.fetchers: 2
+      num.replica.fetchers: 3
       group.coordinator.threads: 1 # Consumer group coordination, including heartbeats, offset commits, and group rebalancing.
       # --------------------------------------------------------------------
       # # Replication
