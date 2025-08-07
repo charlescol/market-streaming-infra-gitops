@@ -79,17 +79,6 @@ data:
         labels:
           pool: "$1"
 
-      # ─── FDs & threads ────────────────────────────────────────────────────
-      - pattern: 'java.lang<type=OperatingSystem><>OpenFileDescriptorCount'
-        name: process_open_fds
-        type: GAUGE
-      - pattern: 'java.lang<type=OperatingSystem><>MaxFileDescriptorCount'
-        name: process_max_fds
-        type: GAUGE
-      - pattern: 'java.lang<type=Threading><>ThreadCount'
-        name: jvm_threads_current
-        type: GAUGE
-
       # ─── Offsets & tailles de log ─────────────────────────────────────────
       - pattern: 'kafka.log<type=Log, name=LogEndOffset, topic=(.+), partition=(.+)><>Value'
         name: kafka_log_log_logendoffset
