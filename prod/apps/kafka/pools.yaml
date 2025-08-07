@@ -19,10 +19,10 @@ spec:
   resources:
     requests:
       memory: 5Gi
-      cpu: "4"
+      cpu: "5"
     limits:
       memory: 5Gi
-      cpu: "5.5"
+      cpu: "7"
   jvmOptions:
     -Xms: 1638m
     -Xmx: 1638m
