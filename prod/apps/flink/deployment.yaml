@@ -100,7 +100,7 @@ spec:
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
-    taskmanager.numberOfTaskSlots: "8"
+    taskmanager.numberOfTaskSlots: "6"
     taskmanager.slot.timeout: 20s
     # JVM non-Flink
     taskmanager.memory.jvm-metaspace.size: "192m"
