@@ -100,7 +100,7 @@ spec:
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
-    taskmanager.numberOfTaskSlots: "7"
+    taskmanager.numberOfTaskSlots: "8"
     taskmanager.slot.timeout: 20s
     # JVM non-Flink
     taskmanager.memory.jvm-metaspace.size: "192m"
@@ -152,7 +152,7 @@ spec:
   taskManager:
     resource:
       memory: "4608m"
-      cpu: 4
+      cpu: 6
   podTemplate:
     spec:
       imagePullSecrets:
