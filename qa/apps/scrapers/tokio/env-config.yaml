@@ -15,6 +15,7 @@ data:
   BINANCE_WS_HOST: "tokio-binance-mock-ws.backend.svc.cluster.local:3001"
   ENABLE_SCRAPER: "true"
   TRACKED_SYMBOLS: "FLOKIUSDT"
+  MONITOR_COUNT: "50"
   METRICS_PORT: "9000"
   SOURCE_TLS: "false"
   TOKIO_WORKER_THREADS: "1"

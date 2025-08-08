@@ -23,4 +23,5 @@ data:
   ENABLE_EXTRACTION_VERBOSE: "false"
   ENABLE_ORDERBOOK_VERBOSE: "true"
   TRACKED_SYMBOLS: "FLOKIUSDT"
+  MONITORING_CONFIG_PATH: "/opt/flink/monitor-config/monitor-conf.yaml"
   SNAPSHOT_REQUEST_URL: "http://tokio-exchange-middleware-http.backend.svc.cluster.local:3000/request/snapshot"
