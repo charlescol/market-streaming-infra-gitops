@@ -7,9 +7,12 @@ data:
   kafka-sink-config.yaml: |
     acks: 1
     linger.ms: 1 
-    batch.size: 180000
+    batch.size: 18000
+    send.buffer.bytes=500000
     compression.type: none
     retries: 1
+    max.block.ms=20000
+    max.request.size=100000
     message.timeout.ms: 1000
     broker.address.family: v4
     statistics.interval.ms: 1000
