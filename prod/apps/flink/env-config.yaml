@@ -21,7 +21,7 @@ data:
   TIMEOUT_SNAPSHOT_REQUEST_SECONDS: "10"
   FLINK_PIPELINE_PROPS_PATH: "/opt/flink/pipeline-config/flink-pipeline.properties"
   ENABLE_EXTRACTION_VERBOSE: "false"
-  ENABLE_ORDERBOOK_VERBOSE: "true"
+  ENABLE_ORDERBOOK_VERBOSE: "false"
   TRACKED_SYMBOLS: "FLOKIUSDT"
   MONITORING_CONFIG_PATH: "/opt/flink/monitor-config/monitor-conf.yaml"
   SNAPSHOT_REQUEST_URL: "http://tokio-exchange-middleware-http.backend.svc.cluster.local:3000/request/snapshot"
