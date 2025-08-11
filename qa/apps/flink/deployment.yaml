@@ -131,7 +131,7 @@ spec:
       appender.Console.name = Console
       appender.Console.target = SYSTEM_OUT
       appender.Console.layout.type = PatternLayout
-      appender.Console.layout.pattern = %d{ISO8601} %-5level [%X{flink-job-id}] [%X{key}] - %msg%n
+      appender.Console.layout.pattern = %d{ISO8601} %-5level [%X{flink-job-id}] [%X{symbol}] [%X{exchange}] - %msg%n
       # --------------------------------------------------------------------
       # Async
       # --------------------------------------------------------------------
