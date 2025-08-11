@@ -7,7 +7,7 @@ data:
   symbol-priority.yaml: |
     queues:
       - priority: 5
-        capacity: 150
+        capacity: 500
         symbols:
           - FLOKIUSDT
           - BONKUSDT
@@ -60,7 +60,7 @@ data:
           - TRUMPUSDT
           - AVAXUSDT
       - priority: 4
-        capacity: 150
+        capacity: 500
         symbols:
           - FDUSDUSDT
           - LINKUSDT
@@ -113,6 +113,6 @@ data:
           - TRXUSDT
           - PIXELUSDT
       - priority: 1
-        capacity: 1000
+        capacity: 2000
         symbols:
           - _OTHERS_
