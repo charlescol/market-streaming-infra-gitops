@@ -14,7 +14,7 @@ spec:
       - backend
   endpoints:
     - port: tcp-prometheus
-      interval: 5s
+      interval: 10s
       scrapeTimeout: 5s
       path: /metrics
       scheme: http

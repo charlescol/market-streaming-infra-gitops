@@ -1,124 +1,195 @@
-apiVersion: kafka.strimzi.io/v1beta2
-kind: Kafka
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
 metadata:
-  name: kafka-cluster
+  name: flink-cluster
   namespace: backend
-  annotations:
-    strimzi.io/kraft: enabled
-    strimzi.io/node-pools: enabled
 spec:
-  kafka:
-    version: 3.9.0
-    metadataVersion: 3.9-IV0
-    listeners:
-      - name: debug # Only for debugging purposes
-        port: 9095
-        type: internal
-        tls: false
-      - name: internal # For inter-cluster communication
-        port: 9092
-        type: internal
-        tls: false # TODO: Change to true
-        configuration:
-          brokers:
-            - broker: 0
-              advertisedHost: kafka-cluster-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local
-              advertisedPort: 9092
-            - broker: 1
-              advertisedHost: kafka-cluster-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local
-              advertisedPort: 9092
-
-    config:
-      compression.type: "uncompressed"
-      controller.listener.names: "CONTROLLER"
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.3.10 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
+  flinkVersion: v1_20
+  serviceAccount: flink
+  flinkConfiguration:
+    # --------------------------------------------------------------------
+    # Metric reporter
+    # --------------------------------------------------------------------
+    metrics.reporter.prom.factory.class: org.apache.flink.metrics.prometheus.PrometheusReporterFactory
+    metrics.reporter.prom.port: "8082"
+    metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter
+    metrics.reporters: prom
+    # --------------------------------------------------------------------
+    # JVM options
+    # --------------------------------------------------------------------
+    env.java.opts.jobmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
+    env.java.opts.taskmanager: "-Dscala.usejavacp=false -Dlog4j2.Script.enableLanguages=none"
+    # --------------------------------------------------------------------
+    # Fault-tolerance
+    # --------------------------------------------------------------------
+    restart-strategy.type: fixed-delay
+    restart-strategy.fixed-delay.attempts: "3"
+    restart-strategy.fixed-delay.delay: 5s
+    cleanup-strategy.type: fixed-delay
+    cleanup-strategy.fixed-delay.attempts: "3"
+    cleanup-strategy.fixed-delay.delay: 5s
+    # --------------------------------------------------------------------
+    # State backend
+    # --------------------------------------------------------------------
+    state.backend.type: hashmap
+    # --------------------------------------------------------------------
+    # High availability
+    # --------------------------------------------------------------------
+    high-availability.type: kubernetes
+    high-availability.storageDir: file:///flink-data/ha
+    # --------------------------------------------------------------------
+    # Execution
+    # --------------------------------------------------------------------
+    execution.runtime-mode: STREAMING
+    execution.buffer-timeout.enabled: "true"
+    execution.buffer-timeout.interval: 0ms
+    # --------------------------------------------------------------------
+    # Pipeline
+    # --------------------------------------------------------------------
+    pipeline.max-parallelism: "128"
+    pipeline.auto-generate-uids: "false"
+    # --------------------------------------------------------------------
+    # Checkpointing (disabled)
+    # --------------------------------------------------------------------
+    execution.checkpointing.unaligned.enabled: "true"
+    execution.checkpointing.aligned-checkpoint-timeout: 200ms
+    execution.checkpointing.unaligned.forced: "false"
+    execution.checkpointing.cleaner.parallel-mode: "true"
+    execution.checkpointing.storage: filesystem
+    execution.checkpointing.dir: file:///flink-data/checkpoints
+    execution.checkpointing.savepoint-dir: file:///flink-data/savepoints
+    execution.checkpointing.incremental: "true"
+    execution.checkpointing.num-retained: "5"
+    execution.checkpointing.tolerable-failed-checkpoints: "1"
+    execution.checkpointing.externalized-checkpoint-retention: DELETE_ON_CANCELLATION
+    execution.checkpointing.file-merging.max-space-amplification: "2"
+    # execution.checkpointing.interval: 15s
+    execution.checkpointing.max-concurrent-checkpoints: "1"
+    execution.checkpointing.timeout: 15s
+    execution.checkpointing.local-backup.enabled: "false"
+    execution.checkpointing.mode: EXACTLY_ONCE
+    execution.checkpointing.unaligned.max-subtasks-per-channel-state-file: "5"
+    execution.checkpointing.snapshot-compression: "true"
+    # --------------------------------------------------------------------
+    # Pekko
+    # --------------------------------------------------------------------
+    pekko.framesize: "104857600b" # 100Mi
+    # --------------------------------------------------------------------
+    # Restauration / Recovery
+    # --------------------------------------------------------------------
+    execution.state-recovery.claim-mode: NO_CLAIM
+    execution.state-recovery.from-local: "false"
+    execution.state-recovery.ignore-unclaimed-state: "false"
+    # --------------------------------------------------------------------
+    # JobManager
+    # --------------------------------------------------------------------
+    jobstore.cache-size: "1048576"
+    jobstore.max-capacity: "10"
+    blob.storage.directory: file://flink-data/blob-storage
+    # JVM non-Flink
+    jobmanager.memory.jvm-metaspace.size: "128m"
+    jobmanager.memory.jvm-overhead.min: "128m"
+    jobmanager.memory.jvm-overhead.max: "256m"
+    # Heap
+    jobmanager.memory.heap.size: "768m"
+    # Off-heap Flink
+    jobmanager.memory.network.min: "32m"
+    jobmanager.memory.network.max: "32m"
+    jobmanager.memory.framework.off-heap.size: "64m"
+    # --------------------------------------------------------------------
+    # TaskManager
+    # --------------------------------------------------------------------
+    taskmanager.numberOfTaskSlots: "8"
+    taskmanager.slot.timeout: 20s
+    # JVM non-Flink
+    taskmanager.memory.jvm-metaspace.size: "192m"
+    taskmanager.memory.jvm-overhead.min: "128m"
+    taskmanager.memory.jvm-overhead.max: "256m"
+    # Heap
+    taskmanager.memory.heap.size: "3584m"
+    # Off-heap Flink
+    taskmanager.memory.managed.size: "336m"
+    taskmanager.memory.network.min: "160m"
+    taskmanager.memory.network.max: "160m"
+    taskmanager.memory.framework.off-heap.size: "64m"
+    # --------------------------------------------------------------------
+    # Metrics
+    # --------------------------------------------------------------------
+    rest.flamegraph.enabled: "true"
+    # state.backend.rocksdb.metrics.live-sst-files-size: "true"
+    # state.backend.rocksdb.metrics.cur-size-all-mem-tables: "true"
+  logConfiguration:
+    "log4j-console.properties": |
+      status = WARN
+      name = Log4j2Config
+      appenders = Console, Async
       # --------------------------------------------------------------------
-      # I/O and network
+      # Console
       # --------------------------------------------------------------------
-      log.dir: "/kafka-data/logs"
-      queued.max.requests: 500
-      request.timeout.ms: 5000
-      socket.receive.buffer.bytes: 102400
-      socket.request.max.bytes: 104857600
-      socket.send.buffer.bytes: 102400
-      broker.heartbeat.interval.ms: 2000
+      appender.Console.type = Console
+      appender.Console.name = Console
+      appender.Console.target = SYSTEM_OUT
+      appender.Console.layout.type = PatternLayout
+      appender.Console.layout.pattern = %d{ISO8601} %-5level [%X{flink-job-id}] [%X{symbol}] [%X{exchange}] - %msg%n
       # --------------------------------------------------------------------
-      # # Threads
+      # Async
       # --------------------------------------------------------------------
-      background.threads: 2
-      num.io.threads: 2
-      num.network.threads: 2
-      num.recovery.threads.per.data.dir: 1
-      num.replica.alter.log.dirs.threads: 1
-      num.replica.fetchers: 1
+      appender.Async.type = Async
+      appender.Async.name = Async
+      appender.Async.includeThreadContext = true
+      appender.Async.appenderRef.type = AppenderRef
+      appender.Async.appenderRef.ref = Console
       # --------------------------------------------------------------------
-      # # Replication
+      # Root
       # --------------------------------------------------------------------
-      replica.fetch.min.bytes: 1
-      replica.fetch.wait.max.ms: 40
-      replica.high.watermark.checkpoint.interval.ms: 5000
-      replica.lag.time.max.ms: 5000
-      replica.socket.receive.buffer.bytes: 65536
-      replica.socket.timeout.ms: 200
-      default.replication.factor: 2
-      min.insync.replicas: 1
-      # --------------------------------------------------------------------
-      # # Kraft
-      # --------------------------------------------------------------------
-      controller.quorum.bootstrap.servers: |
-        kafka-cluster-kafka-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
-        kafka-cluster-kafka-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
-        kafka-cluster-kafka-kafka-controller-only-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093
-      controller.quorum.voters: |
-        0@kafka-cluster-kafka-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
-        1@kafka-cluster-kafka-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
-        2@kafka-cluster-kafka-kafka-controller-only-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093
-      controller.quorum.election.backoff.max.ms: 5000
-      controller.quorum.election.timeout.ms: 1000
-      controller.quorum.fetch.timeout.ms: 3000
-      metadata.log.max.record.bytes.between.snapshots: 20971520
-      metadata.log.max.snapshot.interval.ms: 60000
-      metadata.log.segment.bytes: 1073741824
-      metadata.log.segment.ms: 30000
-      metadata.max.retention.bytes: 209715200
-      metadata.max.retention.ms: 120000
-      # --------------------------------------------------------------------
-      # # Topics / ISR / Monitoring
-      # --------------------------------------------------------------------
-      auto.create.topics.enable: false
-      delete.topic.enable: true
-      eligible.leader.replicas.enable: true
-      auto.leader.rebalance.enable: false
-      unclean.leader.election.enable: false
-      metrics.recording.level: "INFO"
-      # --------------------------------------------------------------------
-      # # Offsets (__consumer_offsets)
-      # --------------------------------------------------------------------
-      offsets.commit.timeout.ms: 1000
-      offsets.retention.check.interval.ms: 600000
-      offsets.retention.minutes: 10080
-      offsets.topic.num.partitions: 5
-      offsets.topic.replication.factor: 2
-      offsets.topic.segment.bytes: 1048576
-      # --------------------------------------------------------------------
-      # # Log / Storage
-      # --------------------------------------------------------------------
-      log.roll.ms: 60000
-      log.segment.bytes: 1073741824
-      log.roll.jitter.ms: 5000
-      log.segment.delete.delay.ms: 30000
-      log.flush.interval.ms: 30000
-      log.flush.interval.messages: 9223372036854775807
-      log.flush.scheduler.interval.ms: 1000
-      log.retention.check.interval.ms: 30000
-      log.flush.offset.checkpoint.interval.ms: 1000
-
-    metricsConfig:
-      type: jmxPrometheusExporter
-      valueFrom:
-        configMapKeyRef:
-          name: kafka-metrics
-          key: kafka-metrics-config.yml
-
-  entityOperator:
-    topicOperator: {}
-    userOperator: {}
+      rootLogger.level = INFO
+      rootLogger.appenderRef.Async.ref = Async
+  jobManager:
+    resource:
+      memory: "1248m"
+      cpu: 0.5
+  taskManager:
+    resource:
+      memory: "4608m"
+      cpu: 7.5
+  podTemplate:
+    spec:
+      imagePullSecrets:
+        - name: flux-gcp-key
+      securityContext:
+        fsGroup: 999
+      volumes:
+        - name: kafka-config-volume
+          configMap:
+            name: config-flink-kafka
+        - name: pipeline-config-volume
+          configMap:
+            name: config-flink-pipeline
+        - name: monitor-config-volume
+          configMap:
+            name: config-flink-monitor
+        - name: flink-volume
+          persistentVolumeClaim:
+            claimName: flink-pvc
+      containers:
+        - name: flink-main-container
+          envFrom:
+            - configMapRef:
+                name: config-flink-env
+          volumeMounts:
+            - name: kafka-config-volume
+              mountPath: /opt/flink/kafka-config
+              readOnly: true
+            - name: monitor-config-volume
+              mountPath: /opt/flink/monitor-config
+              readOnly: true
+            - name: pipeline-config-volume
+              mountPath: /opt/flink/pipeline-config
+              readOnly: true
+            - name: flink-volume
+              mountPath: /flink-data
+  job:
+    jarURI: local:///opt/flink/usrlib/app.jar
+    upgradeMode: stateless
+    parallelism: 1 # Overriden with pipeline-config.yaml

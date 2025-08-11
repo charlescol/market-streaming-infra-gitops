@@ -11,25 +11,25 @@ data:
     session.timeout.ms=10000
     heartbeat.interval.ms=3000
     max.poll.interval.ms=15000
-    max.poll.records=100
+    max.poll.records=10000
     # Fetch sizing
-    max.partition.fetch.bytes=20000
-    fetch.max.bytes=40000
-    max.poll.records=10
+    max.partition.fetch.bytes=100000
+    fetch.max.bytes=200000
+    max.poll.records=1000
     # Socket buffer
-    receive.buffer.bytes=500000
+    receive.buffer.bytes=1000000
   kafka-sink.properties: |
     # Guarantees and reliability
     acks=0
     # Buffering and batching
     linger.ms=4
-    batch.size=1000
-    send.buffer.bytes=128000
+    batch.size=10000
+    send.buffer.bytes=5000000
     compression.type=none
     # Timeouts and responsiveness
-    request.timeout.ms=20
+    request.timeout.ms=1000
     connections.max.idle.ms=540000
     session.timeout.ms=10000
-    max.block.ms=10000
+    max.block.ms=30000
     # Limits to control payloads
-    max.request.size=9000
+    max.request.size=1000000

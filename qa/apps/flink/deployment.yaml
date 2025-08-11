@@ -4,7 +4,7 @@ metadata:
   name: flink-cluster
   namespace: backend
 spec:
-  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.3.5 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.3.10 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
@@ -100,14 +100,14 @@ spec:
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
-    taskmanager.numberOfTaskSlots: "6"
+    taskmanager.numberOfTaskSlots: "8"
     taskmanager.slot.timeout: 20s
     # JVM non-Flink
     taskmanager.memory.jvm-metaspace.size: "192m"
     taskmanager.memory.jvm-overhead.min: "128m"
     taskmanager.memory.jvm-overhead.max: "256m"
     # Heap
-    taskmanager.memory.heap.size: "3072m"
+    taskmanager.memory.heap.size: "3584m"
     # Off-heap Flink
     taskmanager.memory.managed.size: "336m"
     taskmanager.memory.network.min: "160m"
@@ -151,8 +151,8 @@ spec:
       cpu: 0.5
   taskManager:
     resource:
-      memory: "4096m"
-      cpu: 3
+      memory: "4608m"
+      cpu: 7.5
   podTemplate:
     spec:
       imagePullSecrets:
