@@ -26,4 +26,4 @@ data:
   MONITORING_CONFIG_PATH: "/opt/flink/monitor-config/monitor-conf.yaml"
   SNAPSHOT_REQUEST_URL: "http://tokio-exchange-middleware-http.backend.svc.cluster.local:3000/request/snapshot"
   IDLE_KEY_INTERVAL_MS: "300000"
-  MAX_BUFFER_LENGTH: "5000"
+  MAX_BUFFER_LENGTH: "10000"
