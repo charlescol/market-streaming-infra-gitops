@@ -7,7 +7,7 @@ metadata:
     strimzi.io/cluster: kafka-cluster
     app: kafka-pool
 spec:
-  replicas: 2
+  replicas: 3
   storage:
     type: persistent-claim
     size: 20Gi
@@ -19,37 +19,18 @@ spec:
   resources:
     requests:
       memory: 5Gi
-      cpu: "5"
+      cpu: "3"
     limits:
       memory: 5Gi
-      cpu: "7"
+      cpu: "5"
   jvmOptions:
-    -Xms: 1638m
-    -Xmx: 1638m
----
-apiVersion: kafka.strimzi.io/v1beta2
-kind: KafkaNodePool
-metadata:
-  name: kafka-controller-only-pool
-  namespace: backend
-  labels:
-    strimzi.io/cluster: kafka-cluster
-    app: kafka-pool
-spec:
-  replicas: 1
-  storage:
-    type: persistent-claim
-    size: 5Gi
-    class: kafka-storage
-  roles:
-    - controller
-  resources:
-    requests:
-      memory: 1Gi
-      cpu: "0.5"
-    limits:
-      memory: 1Gi
-      cpu: "1.5"
-  jvmOptions:
-    -Xms: 512m
-    -Xmx: 512m
+    -Xms: "1638m"
+    -Xmx: "1638m"
+    -XX:
+      UseG1GC: "true"
+      MaxGCPauseMillis: "10"
+      InitiatingHeapOccupancyPercent: "30"
+      ExplicitGCInvokesConcurrent: "true"
+      ParallelGCThreads: "2"
+      ConcGCThreads: "2"
+      AlwaysPreTouch: "true"
