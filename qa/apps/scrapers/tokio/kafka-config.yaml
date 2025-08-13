@@ -6,7 +6,7 @@ metadata:
 data:
   kafka-sink-config.yaml: |
     acks: 1
-    linger.ms: 3
+    linger.ms: 2
     batch.size: 180000
     compression.type: none
     retries: 1

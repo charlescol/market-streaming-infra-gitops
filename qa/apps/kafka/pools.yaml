@@ -24,13 +24,13 @@ spec:
       memory: 5Gi
       cpu: "5"
   jvmOptions:
-    -Xms: "1638m"
-    -Xmx: "1638m"
+    -Xms: "2560m"
+    -Xmx: "2560m"
     -XX:
       UseG1GC: "true"
       MaxGCPauseMillis: "10"
       InitiatingHeapOccupancyPercent: "30"
       ExplicitGCInvokesConcurrent: "true"
-      ParallelGCThreads: "2"
-      ConcGCThreads: "2"
       AlwaysPreTouch: "true"
+      G1NewSizePercent: "25"
+      G1MaxNewSizePercent: "50"
