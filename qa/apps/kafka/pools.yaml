@@ -24,8 +24,8 @@ spec:
       memory: 5Gi
       cpu: "5"
   jvmOptions:
-    -Xms: "2560m"
-    -Xmx: "2560m"
+    -Xms: "2048m"
+    -Xmx: "2048m"
     -XX:
       UseG1GC: "true"
       MaxGCPauseMillis: "10"
