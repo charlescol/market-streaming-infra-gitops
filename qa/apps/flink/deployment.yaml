@@ -10,8 +10,6 @@ spec:
   flinkConfiguration:
     env.java.opts.taskmanager: >-
       -XX:+UseG1GC
-      -XX:MaxGCPauseMillis=10
-      -XX:InitiatingHeapOccupancyPercent=30
       -XX:+AlwaysPreTouch
       -Xlog:gc*,safepoint:file=/flink-data/gc-tm.log:time,uptime,level,tags
       -Dscala.usejavacp=false 
@@ -20,7 +18,6 @@ spec:
       -XX:+ExplicitGCInvokesConcurrent
     env.java.opts.jobmanager: >-
       -XX:+UseG1GC
-      -XX:MaxGCPauseMillis=50
       -XX:+AlwaysPreTouch
       -Xlog:gc*,safepoint:file=/flink-data/gc-jm.log:time,uptime,level,tags
       -Dscala.usejavacp=false
