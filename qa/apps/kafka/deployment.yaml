@@ -50,11 +50,11 @@ spec:
       # --------------------------------------------------------------------
       log.dir: "/kafka-data/logs"
       queued.max.requests: 500
-      request.timeout.ms: 5000
-      socket.receive.buffer.bytes: 1024000
-      socket.request.max.bytes: 104857600
-      socket.send.buffer.bytes: 1024000
+      socket.receive.buffer.bytes: -1
+      socket.request.max.bytes: -1
+      socket.send.buffer.bytes: -1
       broker.heartbeat.interval.ms: 5000
+
       # --------------------------------------------------------------------
       # # Threads
       # --------------------------------------------------------------------
@@ -63,13 +63,14 @@ spec:
       num.network.threads: 3
       num.recovery.threads.per.data.dir: 1 # Log recovery at startup or when a broker crashes
       num.replica.alter.log.dirs.threads: 1 # Handles replica movement between log directories (e.g., during log directory rebalancing).
-      num.replica.fetchers: 3
+      num.replica.fetchers: 2
       group.coordinator.threads: 1 # Consumer group coordination, including heartbeats, offset commits, and group rebalancing.
       # --------------------------------------------------------------------
       # # Replication
       # --------------------------------------------------------------------
       replica.fetch.min.bytes: 1
-      replica.fetch.wait.max.ms: 5
+      replica.fetch.max.bytes: 8000000
+      replica.fetch.wait.max.ms: 3
       replica.high.watermark.checkpoint.interval.ms: 5000
       replica.lag.time.max.ms: 5000
       replica.socket.receive.buffer.bytes: 65536
