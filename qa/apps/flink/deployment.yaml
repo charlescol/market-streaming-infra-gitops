@@ -10,12 +10,21 @@ spec:
   flinkConfiguration:
     env.java.opts.taskmanager: >-
       -XX:+UseG1GC
+      -XX:MaxGCPauseMillis=10
+      -XX:InitiatingHeapOccupancyPercent=30
+      -XX:+AlwaysPreTouch
       -Dscala.usejavacp=false 
       -Dlog4j2.Script.enableLanguages=none
+      -XX:+UnlockExperimentalVMOptions
+      -XX:+ExplicitGCInvokesConcurrent
     env.java.opts.jobmanager: >-
       -XX:+UseG1GC
+      -XX:MaxGCPauseMillis=50
+      -XX:+AlwaysPreTouch
       -Dscala.usejavacp=false
       -Dlog4j2.Script.enableLanguages=none
+      -XX:+UnlockExperimentalVMOptions
+      -XX:+ExplicitGCInvokesConcurrent
 
     # --------------------------------------------------------------------
     # Metric reporter

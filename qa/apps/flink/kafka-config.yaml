@@ -22,7 +22,7 @@ data:
     # Guarantees and reliability
     acks=0
     # Buffering and batching
-    linger.ms=4
+    linger.ms=3
     batch.size=10000
     buffer.memory=67108864 
     compression.type=none
