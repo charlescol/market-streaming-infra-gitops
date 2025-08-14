@@ -50,31 +50,30 @@ spec:
       # --------------------------------------------------------------------
       log.dir: "/kafka-data/logs"
       queued.max.requests: 500
-      socket.receive.buffer.bytes: 65536
-      socket.request.max.bytes: 104857600 # 100MB
-      socket.send.buffer.bytes: -1
-      broker.heartbeat.interval.ms: 5000
-
+      request.timeout.ms: 5000
+      socket.receive.buffer.bytes: 102400
+      socket.request.max.bytes: 104857600
+      socket.send.buffer.bytes: 102400
+      broker.heartbeat.interval.ms: 2000
       # --------------------------------------------------------------------
       # # Threads
       # --------------------------------------------------------------------
-      background.threads: 5 # log cleanup, metrics reporting, and various internal housekeeping operations.
-      num.io.threads: 5
+      background.threads: 1 # log cleanup, metrics reporting, and various internal housekeeping operations.
+      num.io.threads: 6
       num.network.threads: 3
       num.recovery.threads.per.data.dir: 1 # Log recovery at startup or when a broker crashes
       num.replica.alter.log.dirs.threads: 1 # Handles replica movement between log directories (e.g., during log directory rebalancing).
-      num.replica.fetchers: 2
+      num.replica.fetchers: 3
       group.coordinator.threads: 1 # Consumer group coordination, including heartbeats, offset commits, and group rebalancing.
       # --------------------------------------------------------------------
       # # Replication
       # --------------------------------------------------------------------
       replica.fetch.min.bytes: 1
-      replica.fetch.max.bytes: 8000000
-      replica.fetch.wait.max.ms: 3
+      replica.fetch.wait.max.ms: 5
       replica.high.watermark.checkpoint.interval.ms: 5000
       replica.lag.time.max.ms: 5000
       replica.socket.receive.buffer.bytes: 65536
-      replica.socket.timeout.ms: 5000
+      replica.socket.timeout.ms: 200
       default.replication.factor: 2
       min.insync.replicas: 1
       # --------------------------------------------------------------------
@@ -94,9 +93,9 @@ spec:
       metadata.log.max.record.bytes.between.snapshots: 20971520
       metadata.log.max.snapshot.interval.ms: 60000
       metadata.log.segment.bytes: 1073741824
-      metadata.log.segment.ms: 120000
+      metadata.log.segment.ms: 30000
       metadata.max.retention.bytes: 209715200
-      metadata.max.retention.ms: 600000
+      metadata.max.retention.ms: 120000
       # --------------------------------------------------------------------
       # # Topics / ISR / Monitoring
       # --------------------------------------------------------------------
@@ -118,11 +117,15 @@ spec:
       # --------------------------------------------------------------------
       # # Log / Storage
       # --------------------------------------------------------------------
-      log.segment.bytes: 32000000 # 32MB
+      log.roll.ms: 30000
+      log.segment.bytes: 1073741824
+      log.roll.jitter.ms: 5000
       log.segment.delete.delay.ms: 30000
-
+      log.flush.interval.ms: 60000
+      log.flush.interval.messages: 9223372036854775807
+      log.flush.scheduler.interval.ms: 1000
       log.retention.check.interval.ms: 30000
-      log.flush.offset.checkpoint.interval.ms: 30000
+      log.flush.offset.checkpoint.interval.ms: 1000
 
     metricsConfig:
       type: jmxPrometheusExporter
