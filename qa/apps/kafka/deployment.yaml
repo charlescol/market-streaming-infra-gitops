@@ -50,8 +50,8 @@ spec:
       # --------------------------------------------------------------------
       log.dir: "/kafka-data/logs"
       queued.max.requests: 500
-      socket.receive.buffer.bytes: -1
-      socket.request.max.bytes: -1
+      socket.receive.buffer.bytes: 65536
+      socket.request.max.bytes: 104857600 # 100MB
       socket.send.buffer.bytes: -1
       broker.heartbeat.interval.ms: 5000
 
