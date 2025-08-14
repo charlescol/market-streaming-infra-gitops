@@ -14,16 +14,12 @@ spec:
       -Xlog:gc*,safepoint:file=/flink-data/gc-tm.log:time,uptime,level,tags
       -Dscala.usejavacp=false 
       -Dlog4j2.Script.enableLanguages=none
-      -XX:+UnlockExperimentalVMOptions
-      -XX:+ExplicitGCInvokesConcurrent
     env.java.opts.jobmanager: >-
       -XX:+UseG1GC
       -XX:+AlwaysPreTouch
       -Xlog:gc*,safepoint:file=/flink-data/gc-jm.log:time,uptime,level,tags
       -Dscala.usejavacp=false
       -Dlog4j2.Script.enableLanguages=none
-      -XX:+UnlockExperimentalVMOptions
-      -XX:+ExplicitGCInvokesConcurrent
 
     # --------------------------------------------------------------------
     # Metric reporter
