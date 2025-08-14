@@ -22,9 +22,9 @@ data:
     # Guarantees and reliability
     acks=0
     # Buffering and batching
-    linger.ms=4
+    linger.ms=3
     batch.size=10000
-    send.buffer.bytes=5000000
+    buffer.memory=67108864 
     compression.type=none
     # Timeouts and responsiveness
     request.timeout.ms=1000
@@ -32,4 +32,4 @@ data:
     session.timeout.ms=10000
     max.block.ms=30000
     # Limits to control payloads
-    max.request.size=1000000
+    max.request.size=500000

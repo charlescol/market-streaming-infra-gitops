@@ -51,10 +51,10 @@ spec:
       log.dir: "/kafka-data/logs"
       queued.max.requests: 500
       request.timeout.ms: 5000
-      socket.receive.buffer.bytes: 102400
+      socket.receive.buffer.bytes: 1024000
       socket.request.max.bytes: 104857600
-      socket.send.buffer.bytes: 102400
-      broker.heartbeat.interval.ms: 2000
+      socket.send.buffer.bytes: 1024000
+      broker.heartbeat.interval.ms: 5000
       # --------------------------------------------------------------------
       # # Threads
       # --------------------------------------------------------------------
@@ -93,9 +93,9 @@ spec:
       metadata.log.max.record.bytes.between.snapshots: 20971520
       metadata.log.max.snapshot.interval.ms: 60000
       metadata.log.segment.bytes: 1073741824
-      metadata.log.segment.ms: 30000
+      metadata.log.segment.ms: 120000
       metadata.max.retention.bytes: 209715200
-      metadata.max.retention.ms: 120000
+      metadata.max.retention.ms: 600000
       # --------------------------------------------------------------------
       # # Topics / ISR / Monitoring
       # --------------------------------------------------------------------
@@ -117,15 +117,15 @@ spec:
       # --------------------------------------------------------------------
       # # Log / Storage
       # --------------------------------------------------------------------
-      log.roll.ms: 30000
+      log.roll.ms: 120000
       log.segment.bytes: 1073741824
       log.roll.jitter.ms: 5000
       log.segment.delete.delay.ms: 30000
-      log.flush.interval.ms: 60000
+      log.flush.interval.ms: 600000
       log.flush.interval.messages: 9223372036854775807
-      log.flush.scheduler.interval.ms: 1000
+      log.flush.scheduler.interval.ms: 10000
       log.retention.check.interval.ms: 30000
-      log.flush.offset.checkpoint.interval.ms: 1000
+      log.flush.offset.checkpoint.interval.ms: 10000
 
     metricsConfig:
       type: jmxPrometheusExporter
