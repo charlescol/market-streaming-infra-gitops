@@ -61,7 +61,7 @@ spec:
       background.threads: 5 # log cleanup, metrics reporting, and various internal housekeeping operations.
       num.io.threads: 5
       num.network.threads: 3
-      num.recovery.threads.per.data.dir: 1 # Log recovery at startup or when a broker crashes
+      num.recovery.threads.per.data.dir: 1 # Log recovery at startup or  surwhen a broker crashes
       num.replica.alter.log.dirs.threads: 1 # Handles replica movement between log directories (e.g., during log directory rebalancing).
       num.replica.fetchers: 3
       group.coordinator.threads: 1 # Consumer group coordination, including heartbeats, offset commits, and group rebalancing.
@@ -69,12 +69,12 @@ spec:
       # # Replication
       # --------------------------------------------------------------------
       replica.fetch.min.bytes: 1
-      replica.fetch.max.bytes: 8000000
+      replica.fetch.max.bytes: 8388608 # 8MiB
       replica.fetch.wait.max.ms: 3
       replica.high.watermark.checkpoint.interval.ms: 5000
       replica.lag.time.max.ms: 5000
-      replica.socket.receive.buffer.bytes: 65536
-      replica.socket.timeout.ms: 5000
+      replica.socket.receive.buffer.bytes: 1048576 # 1MiB
+      replica.socket.timeout.ms: 30000
       default.replication.factor: 2
       min.insync.replicas: 1
       # --------------------------------------------------------------------
@@ -119,10 +119,11 @@ spec:
       # # Log / Storage
       # --------------------------------------------------------------------
       log.segment.bytes: 32000000 # 32MB
-      log.segment.delete.delay.ms: 30000
-
-      log.retention.check.interval.ms: 30000
+      log.segment.delete.delay.ms: 60000
+      log.retention.check.interval.ms: 60000
       log.flush.offset.checkpoint.interval.ms: 30000
+      log.flush.interval.messages: 9223372036854775807
+      log.flush.scheduler.interval.ms: 9223372036854775807
 
     metricsConfig:
       type: jmxPrometheusExporter

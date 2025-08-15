@@ -24,7 +24,7 @@ data:
     # Buffering and batching
     linger.ms=4
     batch.size=10000
-    send.buffer.bytes=5000000
+     buffer.memory=67108864 
     compression.type=none
     # Timeouts and responsiveness
     request.timeout.ms=1000
