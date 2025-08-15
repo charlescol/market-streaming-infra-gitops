@@ -186,7 +186,7 @@ spec:
                 readOnly: true
   taskManager:
     resource:
-      memory: "10096m"
+      memory: "8096m"
       cpu: 7.5
     podTemplate:
       spec:
