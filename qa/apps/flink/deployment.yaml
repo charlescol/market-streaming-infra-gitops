@@ -99,7 +99,7 @@ spec:
     # --------------------------------------------------------------------
     jobstore.cache-size: "1048576"
     jobstore.max-capacity: "10"
-    blob.storage.directory: file://flink-data/blob-storage
+    blob.storage.directory: file:///flink-data/blob-storage
     # JVM non-Flink
     jobmanager.memory.jvm-metaspace.size: "128m"
     jobmanager.memory.jvm-overhead.min: "128m"
@@ -166,10 +166,6 @@ spec:
       spec:
         securityContext:
           fsGroup: 999
-        volumes:
-          - name: flink-volume
-            persistentVolumeClaim:
-              claimName: flink-pvc
         containers:
           - name: flink-main-container
             volumeMounts:
@@ -198,7 +194,9 @@ spec:
         - name: monitor-config-volume
           configMap:
             name: config-flink-monitor
-
+        - name: flink-volume
+          persistentVolumeClaim:
+            claimName: flink-pvc
       containers:
         - name: flink-main-container
           envFrom:
@@ -214,6 +212,7 @@ spec:
             - name: pipeline-config-volume
               mountPath: /opt/flink/pipeline-config
               readOnly: true
+
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
     upgradeMode: stateless
