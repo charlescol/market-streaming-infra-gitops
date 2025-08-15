@@ -162,6 +162,16 @@ spec:
     resource:
       memory: "1248m"
       cpu: 1
+    podTemplate:
+      spec:
+        containers:
+          - name: flink-main-container
+            envFrom:
+              - configMapRef:
+                  name: config-flink-env
+            volumeMounts:
+              - name: flink-volume
+                mountPath: /flink-data
   taskManager:
     resource:
       memory: "6568m"
@@ -200,8 +210,6 @@ spec:
             - name: pipeline-config-volume
               mountPath: /opt/flink/pipeline-config
               readOnly: true
-            - name: flink-volume
-              mountPath: /flink-data
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
     upgradeMode: stateless
