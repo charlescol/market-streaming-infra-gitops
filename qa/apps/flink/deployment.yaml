@@ -206,10 +206,8 @@ spec:
             - name: pipeline-config-volume
               mountPath: /opt/flink/pipeline-config
               readOnly: true
-            - name: flink-main-container
-              volumeMounts:
-                - name: flink-volume
-                  mountPath: /flink-data
+            - name: flink-volume
+              mountPath: /flink-data
 
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
