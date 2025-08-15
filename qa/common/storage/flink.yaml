@@ -8,7 +8,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 15Gi
+      storage: 10Gi
   storageClassName: flink-storage
 ---
 apiVersion: storage.k8s.io/v1
