@@ -99,7 +99,7 @@ spec:
     # --------------------------------------------------------------------
     jobstore.cache-size: "1048576"
     jobstore.max-capacity: "10"
-    blob.storage.directory: file://flink-data/blob-storage
+    blob.storage.directory: file:///flink-data/blob-storage
     # JVM non-Flink
     jobmanager.memory.jvm-metaspace.size: "128m"
     jobmanager.memory.jvm-overhead.min: "128m"
@@ -174,6 +174,7 @@ spec:
             volumeMounts:
               - name: flink-volume
                 mountPath: /flink-data
+                readOnly: false
   taskManager:
     resource:
       memory: "6568m"
