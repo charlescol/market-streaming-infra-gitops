@@ -50,7 +50,7 @@ spec:
     # High availability
     # --------------------------------------------------------------------
     high-availability.type: kubernetes
-    # high-availability.storageDir: file:///flink-data/ha
+    high-availability.storageDir: file:///flink-data/ha
     # --------------------------------------------------------------------
     # Execution
     # --------------------------------------------------------------------
@@ -70,8 +70,8 @@ spec:
     execution.checkpointing.unaligned.forced: "false"
     execution.checkpointing.cleaner.parallel-mode: "true"
     execution.checkpointing.storage: filesystem
-    # execution.checkpointing.dir: file:///flink-data/checkpoints
-    # execution.checkpointing.savepoint-dir: file:///flink-data/savepoints
+    execution.checkpointing.dir: file:///flink-data/checkpoints
+    execution.checkpointing.savepoint-dir: file:///flink-data/savepoints
     execution.checkpointing.incremental: "true"
     execution.checkpointing.num-retained: "5"
     execution.checkpointing.tolerable-failed-checkpoints: "1"
@@ -99,7 +99,7 @@ spec:
     # --------------------------------------------------------------------
     jobstore.cache-size: "1048576"
     jobstore.max-capacity: "10"
-    # blob.storage.directory: file:///flink-data/blob-storage
+    blob.storage.directory: file://flink-data/blob-storage
     # JVM non-Flink
     jobmanager.memory.jvm-metaspace.size: "128m"
     jobmanager.memory.jvm-overhead.min: "128m"
@@ -162,12 +162,10 @@ spec:
     resource:
       memory: "1248m"
       cpu: 1
-
   taskManager:
     resource:
       memory: "6568m"
       cpu: 7.5
-
   podTemplate:
     spec:
       imagePullSecrets:
@@ -204,7 +202,6 @@ spec:
               readOnly: true
             - name: flink-volume
               mountPath: /flink-data
-
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
     upgradeMode: stateless
