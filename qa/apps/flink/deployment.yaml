@@ -175,10 +175,38 @@ spec:
               - name: flink-volume
                 mountPath: /flink-data
                 readOnly: false
+              - name: kafka-config-volume
+                mountPath: /opt/flink/kafka-config
+                readOnly: true
+              - name: monitor-config-volume
+                mountPath: /opt/flink/monitor-config
+                readOnly: true
+              - name: pipeline-config-volume
+                mountPath: /opt/flink/pipeline-config
+                readOnly: true
   taskManager:
     resource:
       memory: "6568m"
       cpu: 7.5
+    podTemplate:
+      spec:
+        securityContext:
+          fsGroup: 999
+        containers:
+          - name: flink-main-container
+            envFrom:
+              - configMapRef:
+                  name: config-flink-env
+            volumeMounts:
+              - name: kafka-config-volume
+                mountPath: /opt/flink/kafka-config
+                readOnly: true
+              - name: monitor-config-volume
+                mountPath: /opt/flink/monitor-config
+                readOnly: true
+              - name: pipeline-config-volume
+                mountPath: /opt/flink/pipeline-config
+                readOnly: true
 
   podTemplate:
     spec:
@@ -199,21 +227,6 @@ spec:
         - name: flink-volume
           persistentVolumeClaim:
             claimName: flink-pvc
-      containers:
-        - name: flink-main-container
-          envFrom:
-            - configMapRef:
-                name: config-flink-env
-          volumeMounts:
-            - name: kafka-config-volume
-              mountPath: /opt/flink/kafka-config
-              readOnly: true
-            - name: monitor-config-volume
-              mountPath: /opt/flink/monitor-config
-              readOnly: true
-            - name: pipeline-config-volume
-              mountPath: /opt/flink/pipeline-config
-              readOnly: true
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
     upgradeMode: stateless
