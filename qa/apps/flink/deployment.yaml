@@ -50,7 +50,7 @@ spec:
     # High availability
     # --------------------------------------------------------------------
     high-availability.type: kubernetes
-    high-availability.storageDir: file:///flink-data/ha2
+    high-availability.storageDir: file:///flink-data/ha
     # --------------------------------------------------------------------
     # Execution
     # --------------------------------------------------------------------
@@ -99,7 +99,7 @@ spec:
     # --------------------------------------------------------------------
     jobstore.cache-size: "1048576"
     jobstore.max-capacity: "10"
-    blob.storage.directory: file:///flink-data/blob-storage2
+    blob.storage.directory: file:///flink-data/blob-storage
     # JVM non-Flink
     jobmanager.memory.jvm-metaspace.size: "128m"
     jobmanager.memory.jvm-overhead.min: "128m"
