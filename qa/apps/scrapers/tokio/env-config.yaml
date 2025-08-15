@@ -13,7 +13,7 @@ data:
   SYMBOL_CONFIG_PATH: "resources/symbols/symbols-config.yaml"
   SCHEMA_REGISTRY_URL: "http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"
   BINANCE_WS_HOST: "tokio-binance-mock-ws.backend.svc.cluster.local:3001"
-  ENABLE_SCRAPER: "true"
+  ENABLE_SCRAPER: "false"
   SOURCE_TLS: "false"
   TRACKED_SYMBOLS: "FLOKIUSDT"
   MONITOR_RDKAFKA: "true"
