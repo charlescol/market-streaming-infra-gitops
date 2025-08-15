@@ -18,10 +18,10 @@ spec:
     - broker
   resources:
     requests:
-      memory: 5Gi
+      memory: 8Gi
       cpu: "3"
     limits:
-      memory: 6Gi
+      memory: 8Gi
       cpu: "5"
   jvmOptions:
     -Xms: "2048m"
