@@ -164,6 +164,8 @@ spec:
       cpu: 1
     podTemplate:
       spec:
+        securityContext:
+          fsGroup: 999
         containers:
           - name: flink-main-container
             envFrom:
@@ -176,6 +178,7 @@ spec:
     resource:
       memory: "6568m"
       cpu: 7.5
+
   podTemplate:
     spec:
       imagePullSecrets:
