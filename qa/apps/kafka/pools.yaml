@@ -7,10 +7,10 @@ metadata:
     strimzi.io/cluster: kafka-cluster
     app: kafka-pool
 spec:
-  replicas: 4
+  replicas: 3
   storage:
     type: persistent-claim
-    size: 15Gi
+    size: 20Gi
     class: kafka-storage
     kraftMetadata: shared
   roles:
@@ -18,10 +18,10 @@ spec:
     - broker
   resources:
     requests:
-      memory: 7Gi
+      memory: 9Gi
       cpu: "3"
     limits:
-      memory: 7Gi
+      memory: 9Gi
       cpu: "5"
   jvmOptions:
     -Xms: "2048m"
