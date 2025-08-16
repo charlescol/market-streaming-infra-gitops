@@ -187,7 +187,7 @@ spec:
   taskManager:
     resource:
       memory: "8096m"
-      cpu: 7.5
+      cpu: 9
     podTemplate:
       spec:
         securityContext:
