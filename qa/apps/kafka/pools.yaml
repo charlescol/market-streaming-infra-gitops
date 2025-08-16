@@ -10,7 +10,7 @@ spec:
   replicas: 4
   storage:
     type: persistent-claim
-    size: 20Gi
+    size: 15Gi
     class: kafka-storage
     kraftMetadata: shared
   roles:
