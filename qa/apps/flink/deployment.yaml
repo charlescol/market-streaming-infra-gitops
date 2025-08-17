@@ -122,7 +122,7 @@ spec:
     taskmanager.memory.jvm-overhead.min: "512m"
     taskmanager.memory.jvm-overhead.max: "1024m"
     # Heap
-    taskmanager.memory.heap.size: "3584m"
+    taskmanager.memory.task.heap.size: "3584m"
     # Off-heap Flink
     taskmanager.memory.managed.size: "336m"
     taskmanager.memory.network.min: "512m"
