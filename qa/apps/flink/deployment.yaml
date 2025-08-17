@@ -189,6 +189,15 @@ spec:
           - name: flink-volume
             persistentVolumeClaim:
               claimName: flink-pvc
+          - name: kafka-config-volume
+            configMap:
+              name: config-flink-kafka
+          - name: pipeline-config-volume
+            configMap:
+              name: config-flink-pipeline
+          - name: monitor-config-volume
+            configMap:
+              name: config-flink-monitor
   taskManager:
     resource:
       memory: "8096m"
@@ -212,22 +221,17 @@ spec:
               - name: pipeline-config-volume
                 mountPath: /opt/flink/pipeline-config
                 readOnly: true
-  podTemplate:
-    spec:
-      imagePullSecrets:
-        - name: flux-gcp-key
-      securityContext:
-        fsGroup: 999
-      volumes:
-        - name: kafka-config-volume
-          configMap:
-            name: config-flink-kafka
-        - name: pipeline-config-volume
-          configMap:
-            name: config-flink-pipeline
-        - name: monitor-config-volume
-          configMap:
-            name: config-flink-monitor
+        volumes:
+          - name: kafka-config-volume
+            configMap:
+              name: config-flink-kafka
+          - name: pipeline-config-volume
+            configMap:
+              name: config-flink-pipeline
+          - name: monitor-config-volume
+            configMap:
+              name: config-flink-monitor
+
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
     upgradeMode: stateless
