@@ -17,8 +17,8 @@ spec:
       -XX:+AlwaysPreTouch 
       -Dscala.usejavacp=false  
       -Dlog4j2.Script.enableLanguages=none 
-      -XX:G1NewSizePercent=35
-      -XX:G1MaxNewSizePercent=70
+      -XX:G1NewSizePercent=25
+      -XX:G1MaxNewSizePercent=50
     env.java.opts.jobmanager: >-
       -XX:+UseG1GC 
       -XX:MaxGCPauseMillis=50 
