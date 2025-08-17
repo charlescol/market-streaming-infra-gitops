@@ -185,6 +185,10 @@ spec:
               - name: pipeline-config-volume
                 mountPath: /opt/flink/pipeline-config
                 readOnly: true
+        volumes:
+          - name: flink-volume
+            persistentVolumeClaim:
+              claimName: flink-pvc
   taskManager:
     resource:
       memory: "8096m"
@@ -224,9 +228,6 @@ spec:
         - name: monitor-config-volume
           configMap:
             name: config-flink-monitor
-        - name: flink-volume
-          persistentVolumeClaim:
-            claimName: flink-pvc
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
     upgradeMode: stateless
