@@ -108,8 +108,8 @@ spec:
     # Heap
     jobmanager.memory.heap.size: "768m"
     # Off-heap Flink
-    jobmanager.memory.network.min: "32m"
-    jobmanager.memory.network.max: "32m"
+    jobmanager.memory.network.min: "128m"
+    jobmanager.memory.network.max: "256m"
     jobmanager.memory.framework.off-heap.size: "64m"
     # --------------------------------------------------------------------
     # TaskManager
@@ -117,15 +117,15 @@ spec:
     taskmanager.numberOfTaskSlots: "8"
     taskmanager.slot.timeout: 20s
     # JVM non-Flink
-    taskmanager.memory.jvm-metaspace.size: "192m"
-    taskmanager.memory.jvm-overhead.min: "128m"
-    taskmanager.memory.jvm-overhead.max: "256m"
+    taskmanager.memory.jvm-metaspace.size: "256m"
+    taskmanager.memory.jvm-overhead.min: "512m"
+    taskmanager.memory.jvm-overhead.max: "1024m"
     # Heap
     taskmanager.memory.heap.size: "3584m"
     # Off-heap Flink
     taskmanager.memory.managed.size: "336m"
-    taskmanager.memory.network.min: "160m"
-    taskmanager.memory.network.max: "160m"
+    taskmanager.memory.network.min: "512m"
+    taskmanager.memory.network.max: "1024m"
     taskmanager.memory.framework.off-heap.size: "64m"
     # --------------------------------------------------------------------
     # Metrics
