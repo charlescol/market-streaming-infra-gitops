@@ -9,8 +9,6 @@ spec:
   serviceAccount: flink
   flinkConfiguration:
     env.java.opts.taskmanager: >-
-      -Xms3584m
-      -Xmx3584m
       -XX:+UseG1GC 
       -XX:MaxGCPauseMillis=10 
       -XX:InitiatingHeapOccupancyPercent=45 
