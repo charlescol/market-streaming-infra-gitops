@@ -109,6 +109,9 @@ spec:
     jobmanager.memory.network.min: "128m"
     jobmanager.memory.network.max: "256m"
     jobmanager.memory.framework.off-heap.size: "64m"
+    # Resource Manager (temporary)
+    resourcemanager.taskmanager-timeout: 1 h
+    resourcemanager.taskmanager-registration.timeout: 10 m
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
@@ -202,7 +205,6 @@ spec:
       cpu: 9
     podTemplate:
       spec:
-        restartPolicy: Never
         securityContext:
           fsGroup: 999
         containers:
