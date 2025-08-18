@@ -184,44 +184,33 @@ spec:
       memory: "8096m"
       cpu: 9
     podTemplate:
-      spec:
-        affinity:
-          podAntiAffinity:
-            preferredDuringSchedulingIgnoredDuringExecution:
-              - weight: 100
-                podAffinityTerm:
-                  labelSelector:
-                    matchLabels:
-                      app: kafka-pool
-                  topologyKey: kubernetes.io/hostname
-
-        securityContext:
-          fsGroup: 999
-        containers:
-          - name: flink-main-container
-            envFrom:
-              - configMapRef:
-                  name: config-flink-env
-            volumeMounts:
-              - name: kafka-config-volume
-                mountPath: /opt/flink/kafka-config
-                readOnly: true
-              - name: monitor-config-volume
-                mountPath: /opt/flink/monitor-config
-                readOnly: true
-              - name: pipeline-config-volume
-                mountPath: /opt/flink/pipeline-config
-                readOnly: true
-        volumes:
-          - name: kafka-config-volume
-            configMap:
-              name: config-flink-kafka
-          - name: pipeline-config-volume
-            configMap:
-              name: config-flink-pipeline
-          - name: monitor-config-volume
-            configMap:
-              name: config-flink-monitor
+      securityContext:
+        fsGroup: 999
+      containers:
+        - name: flink-main-container
+          envFrom:
+            - configMapRef:
+                name: config-flink-env
+          volumeMounts:
+            - name: kafka-config-volume
+              mountPath: /opt/flink/kafka-config
+              readOnly: true
+            - name: monitor-config-volume
+              mountPath: /opt/flink/monitor-config
+              readOnly: true
+            - name: pipeline-config-volume
+              mountPath: /opt/flink/pipeline-config
+              readOnly: true
+      volumes:
+        - name: kafka-config-volume
+          configMap:
+            name: config-flink-kafka
+        - name: pipeline-config-volume
+          configMap:
+            name: config-flink-pipeline
+        - name: monitor-config-volume
+          configMap:
+            name: config-flink-monitor
 
   job:
     jarURI: local:///opt/flink/usrlib/app.jar
