@@ -26,12 +26,12 @@ spec:
   jvmOptions:
     -Xms: "2048m"
     -Xmx: "2048m"
-    -XX:
-      UseG1GC: "true"
-      MaxGCPauseMillis: "10"
-      InitiatingHeapOccupancyPercent: "30"
-      ExplicitGCInvokesConcurrent: "true"
-      UnlockExperimentalVMOptions: "true"
-      AlwaysPreTouch: "true"
-      G1NewSizePercent: "25"
-      G1MaxNewSizePercent: "50"
+    # -XX:
+    #   UseG1GC: "true"
+    #   MaxGCPauseMillis: "10"
+    #   InitiatingHeapOccupancyPercent: "30"
+    #   ExplicitGCInvokesConcurrent: "true"
+    #   UnlockExperimentalVMOptions: "true"
+    #   AlwaysPreTouch: "true"
+    #   G1NewSizePercent: "25"
+    #   G1MaxNewSizePercent: "50"
