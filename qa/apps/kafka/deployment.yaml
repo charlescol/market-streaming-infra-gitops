@@ -42,6 +42,24 @@ spec:
             value: "20ms"
           - name: PYROSCOPE_LOG_LEVEL
             value: "info"
+      pod:
+        affinity:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  labelSelector:
+                    matchLabels:
+                      app: flink-cluster
+                      component: taskmanager
+                  topologyKey: kubernetes.io/hostname
+
+              - weight: 50
+                podAffinityTerm:
+                  labelSelector:
+                    matchLabels:
+                      app: kafka-pool
+                  topologyKey: kubernetes.io/hostname
     config:
       compression.type: "uncompressed"
       controller.listener.names: "CONTROLLER"
