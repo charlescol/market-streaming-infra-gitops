@@ -17,7 +17,7 @@ spec:
         - name: flux-gcp-key
       containers:
         - name: tokio
-          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-binance-scraper/msv-tokio-binance-scraper:0.2.5 # {"$imagepolicy": "flux-system:msv-tokio-binance-scraper"}
+          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-binance-scraper/msv-tokio-binance-scraper:0.2.6 # {"$imagepolicy": "flux-system:msv-tokio-binance-scraper"}
           ports:
             - containerPort: 9000
           imagePullPolicy: IfNotPresent
