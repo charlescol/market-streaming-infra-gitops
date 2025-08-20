@@ -14,3 +14,4 @@ data:
     broker.address.family: v4
     statistics.interval.ms: 1000
     log_level: 6
+    socket.nagle.disable: true
