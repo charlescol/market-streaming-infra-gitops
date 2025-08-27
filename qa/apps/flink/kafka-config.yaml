@@ -9,7 +9,7 @@ data:
     fetch.max.wait.ms=2           
     max.partition.fetch.bytes=262144   
     fetch.max.bytes=524288             
-    max.poll.records=500               #
+    max.poll.records=500
     receive.buffer.bytes=524288
   kafka-sink.properties: |
     # Guarantees and reliability
