@@ -5,18 +5,12 @@ metadata:
   namespace: backend
 data:
   kafka-source.properties: |
-    # General reliability / timeout
     fetch.min.bytes=1
-    fetch.max.wait.ms=4
-    session.timeout.ms=10000
-    heartbeat.interval.ms=3000
-    max.poll.interval.ms=15000
-    # Fetch sizing
-    max.partition.fetch.bytes=1000000
-    fetch.max.bytes=2000000
-    max.poll.records=3000
-    # Socket buffer
-    receive.buffer.bytes=1000000
+    fetch.max.wait.ms=2           
+    max.partition.fetch.bytes=262144   
+    fetch.max.bytes=524288             
+    max.poll.records=500               #
+    receive.buffer.bytes=524288
   kafka-sink.properties: |
     # Guarantees and reliability
     acks=0
