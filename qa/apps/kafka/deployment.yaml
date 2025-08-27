@@ -118,7 +118,7 @@ spec:
       # --------------------------------------------------------------------
       # # Log / Storage
       # --------------------------------------------------------------------
-      log.segment.bytes: 64000000 # 64MB
+      log.segment.bytes: 128000000 # 64MB
       log.segment.delete.delay.ms: 60000
       log.retention.check.interval.ms: 60000
       log.flush.offset.checkpoint.interval.ms: 30000
