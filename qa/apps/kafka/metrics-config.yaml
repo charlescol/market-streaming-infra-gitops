@@ -27,6 +27,7 @@ data:
       - 'kafka.network:type=RequestChannel,name=RequestQueueSize'
       - 'kafka.network:type=RequestChannel,name=ResponseQueueSize'
       - 'kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent,*'
+      - 'kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent,*' 
 
       # ─── Replica, controller, cluster health ──────────────────────────────
       - 'kafka.server:type=ReplicaManager,name=LeaderCount'
