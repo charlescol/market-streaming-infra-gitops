@@ -99,6 +99,7 @@ spec:
     jobstore.cache-size: "1048576"
     jobstore.max-capacity: "10"
     blob.storage.directory: file:///flink-data/blob-storage
+    kubernetes.jobmanager.cpu.limit-factor: "1.5"
     # JVM non-Flink
     jobmanager.memory.process.size: "1248m"
     # --------------------------------------------------------------------
@@ -106,8 +107,8 @@ spec:
     # --------------------------------------------------------------------
     taskmanager.numberOfTaskSlots: "9"
     taskmanager.slot.timeout: 20s
-    # JVM non-Flink
     taskmanager.memory.process.size: "8096m"
+    kubernetes.taskmanager.cpu.limit-factor: "1.5"
     # --------------------------------------------------------------------
     # Metrics
     # --------------------------------------------------------------------
@@ -183,7 +184,7 @@ spec:
   taskManager:
     resource:
       memory: "8096m"
-      cpu: 10
+      cpu: 8
     podTemplate:
       spec:
         securityContext:
