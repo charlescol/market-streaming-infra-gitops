@@ -109,6 +109,7 @@ spec:
     taskmanager.slot.timeout: 20s
     taskmanager.memory.process.size: "8096m"
     kubernetes.taskmanager.cpu.limit-factor: "1.5"
+    taskmanager.network.memory.segment-size: 8kb
     # --------------------------------------------------------------------
     # Metrics
     # --------------------------------------------------------------------
