@@ -113,7 +113,6 @@ spec:
     # Metrics
     # --------------------------------------------------------------------
     rest.flamegraph.enabled: "true"
-    metrics.latency.interval: "1s"
     # state.backend.rocksdb.metrics.live-sst-files-size: "true"
     # state.backend.rocksdb.metrics.cur-size-all-mem-tables: "true"
   logConfiguration:
