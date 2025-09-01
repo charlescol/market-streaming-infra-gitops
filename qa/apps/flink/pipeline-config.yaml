@@ -5,7 +5,7 @@ metadata:
   namespace: backend
 data:
   flink-pipeline.properties: |
-    parallelism.orderbook=3
+    parallelism.orderbook=2
     parallelism.metrics.extraction1=1
     parallelism.metrics.extraction2=1
     parallelism.metrics.extraction3=1
