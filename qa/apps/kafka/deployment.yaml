@@ -92,11 +92,10 @@ spec:
       controller.quorum.election.timeout.ms: 1000
       controller.quorum.fetch.timeout.ms: 3000
       metadata.log.max.record.bytes.between.snapshots: 20971520
-      metadata.log.max.snapshot.interval.ms: 60000
-      metadata.log.segment.bytes: 1073741824
-      metadata.log.segment.ms: 120000
+      metadata.log.max.snapshot.interval.ms: 300000 # 5 minutes
+      metadata.log.segment.bytes: 32000000 # 32MB
       metadata.max.retention.bytes: 209715200
-      metadata.max.retention.ms: 600000
+      metadata.max.retention.ms: 1800000 # 30 minutes
       # --------------------------------------------------------------------
       # # Topics / ISR / Monitoring
       # --------------------------------------------------------------------
@@ -118,7 +117,9 @@ spec:
       # --------------------------------------------------------------------
       # # Log / Storage
       # --------------------------------------------------------------------
-      log.segment.bytes: 32000000 # 32MB
+      log.segment.bytes: 1073741824
+      log.roll.ms: 1200000 # 20 minutes
+      log.roll.jitter.ms: 900000 # 15 minutes
       log.segment.delete.delay.ms: 60000
       log.retention.check.interval.ms: 60000
       log.flush.offset.checkpoint.interval.ms: 30000
