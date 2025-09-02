@@ -10,7 +10,7 @@ spec:
   partitions: 30
   replicas: 2
   config:
-    retention.ms: 900000 # 15 minutes
+    retention.ms: 3600000 # 1 hour
     retention.bytes: -1
     cleanup.policy: "delete"
 ---
@@ -26,7 +26,7 @@ spec:
   partitions: 5
   replicas: 2
   config:
-    retention.ms: 900000 # 15 minutes
+    retention.ms: 3600000 # 15 minutes
     retention.bytes: -1
     cleanup.policy: "delete"
 ---
@@ -42,7 +42,7 @@ spec:
   partitions: 70
   replicas: 2
   config:
-    retention.ms: 900000 # 15 minutes
+    retention.ms: 3600000 # 15 minutes
     retention.bytes: -1
     cleanup.policy: "delete"
 ---

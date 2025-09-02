@@ -118,8 +118,8 @@ spec:
       # # Log / Storage
       # --------------------------------------------------------------------
       log.segment.bytes: 1073741824
-      log.roll.ms: 1200000 # 20 minutes
-      log.roll.jitter.ms: 900000 # 15 minutes
+      # log.roll.ms: 1200000 # 20 minutes
+      # log.roll.jitter.ms: 900000 # 15 minutes
       log.segment.delete.delay.ms: 60000
       log.retention.check.interval.ms: 60000
       log.flush.offset.checkpoint.interval.ms: 30000
