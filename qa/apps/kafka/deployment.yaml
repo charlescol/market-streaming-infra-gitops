@@ -50,7 +50,7 @@ spec:
       # --------------------------------------------------------------------
       log.dir: "/kafka-data/logs"
       queued.max.requests: 500
-      socket.receive.buffer.bytes: 65536
+      socket.receive.buffer.bytes: 104857600
       socket.request.max.bytes: 104857600 # 100MB
       socket.send.buffer.bytes: -1
       broker.heartbeat.interval.ms: 5000
@@ -90,12 +90,12 @@ spec:
         2@kafka-cluster-kafka-kafka-controller-only-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093
       controller.quorum.election.backoff.max.ms: 5000
       controller.quorum.election.timeout.ms: 1000
-      controller.quorum.fetch.timeout.ms: 3000
+      controller.quorum.fetch.timeout.ms: 10000
       metadata.log.max.record.bytes.between.snapshots: 20971520
-      metadata.log.max.snapshot.interval.ms: 300000 # 5 minutes
-      metadata.log.segment.bytes: 32000000 # 32MB
-      metadata.max.retention.bytes: 209715200
-      metadata.max.retention.ms: 1800000 # 30 minutes
+      metadata.log.max.snapshot.interval.ms: 20971520 # 30 minutes
+      metadata.log.segment.bytes: 1073741824 # 32MB
+      metadata.max.retention.bytes: 104857600
+      metadata.max.retention.ms: 604800000 # 30 minutes
       # --------------------------------------------------------------------
       # # Topics / ISR / Monitoring
       # --------------------------------------------------------------------
