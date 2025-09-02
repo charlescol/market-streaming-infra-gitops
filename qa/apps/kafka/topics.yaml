@@ -42,7 +42,7 @@ spec:
   partitions: 70
   replicas: 2
   config:
-    retention.ms: 900000 # 15 minutes
+    retention.ms: 300000 # 5 minutes
     retention.bytes: -1
     cleanup.policy: "delete"
 ---
