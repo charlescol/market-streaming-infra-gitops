@@ -6,7 +6,7 @@ metadata:
 data:
   kafka-source.properties: |
     fetch.min.bytes=1
-    fetch.max.wait.ms=2           
+    fetch.max.wait.ms=4           
     max.partition.fetch.bytes=262144   
     fetch.max.bytes=524288             
     max.poll.records=500

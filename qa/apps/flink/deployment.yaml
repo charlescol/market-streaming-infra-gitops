@@ -191,6 +191,15 @@ spec:
       cpu: 9
     podTemplate:
       spec:
+        affinity:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 20
+                podAffinityTerm:
+                  labelSelector:
+                    matchLabels:
+                      app: kafka-pool
+                  topologyKey: kubernetes.io/hostname
         securityContext:
           fsGroup: 999
         containers:
