@@ -110,9 +110,9 @@ spec:
     taskmanager.memory.process.size: "8096m"
     kubernetes.taskmanager.cpu.limit-factor: "1.5"
     taskmanager.network.memory.buffer-debloat.enabled: "true"
-    taskmanager.network.memory.buffer-debloat.target: 2ms
+    taskmanager.network.memory.buffer-debloat.target: 5ms
     taskmanager.network.memory.buffer-debloat.min: 2kb
-    taskmanager.network.memory.buffer-debloat.max: 32kb
+    taskmanager.network.memory.buffer-debloat.max: 64kb
     taskmanager.network.memory.buffer-debloat.period: 50ms
     # --------------------------------------------------------------------
     # Metrics
