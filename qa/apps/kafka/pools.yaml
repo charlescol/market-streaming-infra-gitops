@@ -11,7 +11,7 @@ spec:
   storage:
     type: persistent-claim
     size: 60Gi
-    class: kafka-storage
+    class: default-storage
     kraftMetadata: shared
   roles:
     - controller

@@ -108,7 +108,7 @@ spec:
     taskmanager.numberOfTaskSlots: "19"
     taskmanager.slot.timeout: 20s
     taskmanager.memory.process.size: "8096m"
-    kubernetes.taskmanager.cpu.limit-factor: "1.5"
+    kubernetes.taskmanager.cpu.limit-factor: "1"
     taskmanager.network.memory.buffer-debloat.enabled: "true"
     taskmanager.network.memory.buffer-debloat.target: 5ms
     taskmanager.network.memory.buffer-debloat.min: 2kb
@@ -188,7 +188,7 @@ spec:
   taskManager:
     resource:
       memory: "8096m"
-      cpu: 11
+      cpu: 17
     podTemplate:
       spec:
         affinity:

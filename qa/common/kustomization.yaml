@@ -5,3 +5,5 @@ resources:
   - crds
   - deamons
   - storage
+  - roles
+  - secrets

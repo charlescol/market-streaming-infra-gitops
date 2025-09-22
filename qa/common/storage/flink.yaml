@@ -9,17 +9,4 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: flink-storage
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: flink-storage
-  annotations:
-    storageclass.kubernetes.io/is-default-class: "false"
-provisioner: pd.csi.storage.gke.io
-reclaimPolicy: Delete
-allowVolumeExpansion: true
-volumeBindingMode: Immediate
-parameters:
-  type: pd-ssd
+  storageClassName: default-storage
