@@ -2,6 +2,7 @@ apiVersion: druid.apache.org/v1alpha1
 kind: Druid
 metadata:
   name: druid-cluster
+  namespace: backend
 spec:
   image: docker.io/charlescol01/druid-protobuf-kafka:druid-34.0.0-custom-0.0.2
   startScript: /druid.sh
@@ -18,14 +19,16 @@ spec:
     fsGroup: 1000
     runAsUser: 1000
     runAsGroup: 1000
-  services:
-    - spec:
-        type: ClusterIP
-        clusterIP: None
+  env:
+    - name: DRUID_METADATA_PG_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: druid-pg-auth
+          key: password
   commonConfigMountPath: "/opt/druid/conf/druid/cluster/_common"
   jvm.options: |-
     -server
-    -XX:MaxDirectMemorySize=10240g
+    -XX:MaxDirectMemorySize=2g
     -Duser.timezone=UTC
     -Dfile.encoding=UTF-8
     -Dlog4j.debug
@@ -55,11 +58,11 @@ spec:
     druid.indexer.runner.type=httpRemote
 
     # Metadata Store
-    druid.metadata.storage.type=derby
-    druid.metadata.storage.connector.connectURI=jdbc:derby://localhost:1527/druid/data/derbydb/metadata.db;create=true
-    druid.metadata.storage.connector.host=localhost
-    druid.metadata.storage.connector.port=1527
+    druid.metadata.storage.type=postgresql
+    druid.metadata.storage.connector.connectURI=jdbc:postgresql://druid-postgres-postgresql.backend.svc.cluster.local:5432/druid
+    druid.metadata.storage.connector.user=druid
     druid.metadata.storage.connector.createTables=true
+    druid.metadata.storage.connector.password={ "type": "environment", "variable": "DRUID_METADATA_PG_PASSWORD" }
 
     # Deep Storage
     druid.storage.type=local
@@ -67,7 +70,7 @@ spec:
     #
     # Extensions
     #
-    druid_extensions_loadList=["druid-histogram", "druid-datasketches", "druid-lookups-cached-global", "postgresql-metadata-storage", "druid-multi-stage-query", "druid-kafka-indexing-service", "druid-protobuf-extensions", "druid-kubernetes-extensions"]
+    druid.extensions.loadList=["druid-histogram", "druid-datasketches", "druid-lookups-cached-global", "postgresql-metadata-storage", "druid-multi-stage-query", "druid-kafka-indexing-service", "druid-protobuf-extensions", "druid-kubernetes-extensions"]
 
     #
     # Service discovery
@@ -254,15 +257,6 @@ spec:
       hostPath:
         path: /tmp/druid/deepstorage
         type: DirectoryOrCreate
-  env:
-    - name: POD_NAME
-      valueFrom:
-        fieldRef:
-          fieldPath: metadata.name
-    - name: POD_NAMESPACE
-      valueFrom:
-        fieldRef:
-          fieldPath: metadata.namespace
 
   nodes:
     brokers:
