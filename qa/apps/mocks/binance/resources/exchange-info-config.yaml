@@ -12,7 +12,7 @@ data:
           "rateLimitType": "REQUEST_WEIGHT",
           "interval": "MINUTE",
           "intervalNum": 1,
-          "limit": 200000
+          "limit": 6000
         },
         {
           "rateLimitType": "ORDERS",
