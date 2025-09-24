@@ -1,17 +1,16 @@
 ENV ?=
 
-.PHONY: check_env bootstrap_apply _create_repository_secret
+.PHONY: check_env bootstrap_apply _create_repository_secrets
 
 ifdef ENV
-CONFIG_DIR      := ./$(ENV)/.config
-CONFIG_TEMPLATE := $(CONFIG_DIR)/config.template
-CONFIG_JSON     := $(CONFIG_DIR)/config.json
-KEY_FILE        := $(CONFIG_DIR)/gcp-key.json
+CONFIG_DIR := ./$(ENV)/.config
+AR_CONFIG_TEMPLATE := $(CONFIG_DIR)/artifact-registry-config.template
+AR_CONFIG_JSON := $(CONFIG_DIR)/artifact-registry-config.json
+FLUX_READER_KEY_FILE := $(CONFIG_DIR)/flux-artifact-reader-key.json
+DRUID_STORAGE_KEY_FILE := $(CONFIG_DIR)/druid-storage-writer-key.json
 
-ifeq ($(wildcard $(KEY_FILE)), $(KEY_FILE))
 include $(CONFIG_DIR)/.env
 export
-endif
 endif
 
 bootstrap: check_env bootstrap_apply ## Bootstrap Flux and apply configuration to the environment
@@ -43,7 +42,7 @@ bootstrap_apply: ## Bootstrap Flux and apply configuration to the environment
 	--namespace=flux-system \
 	--from-literal=username=git \
 	--from-literal=password=$(GITHUB_TOKEN)
-	@$(MAKE) _create_repository_secret
+	@$(MAKE) _create_repository_secrets
 	@sleep 20
 
 	@echo "📄 Applying gotk-sync.yaml..."
@@ -72,8 +71,8 @@ check_env: ## Check if all required environment variables and files are set
 		echo "❌ Missing GCP key file: $(CONFIG_DIR)/gcp-key.json"; \
 		exit 1; \
 	fi
-	@if [ ! -f "$(CONFIG_TEMPLATE)" ]; then \
-		echo "❌ Missing config.template: $(CONFIG_TEMPLATE)"; \
+	@if [ ! -f "$(AR_CONFIG_TEMPLATE)" ]; then \
+		echo "❌ Missing config.template: $(AR_CONFIG_TEMPLATE)"; \
 		exit 1; \
 	fi
 	@if [ -z "$(GITHUB_TOKEN)" ]; then \
@@ -83,7 +82,7 @@ check_env: ## Check if all required environment variables and files are set
 
 	@echo "✅ All required environment variables and files are set."
 
-_create_repository_secret: $(CONFIG_JSON)
+_create_repository_secrets: $(AR_CONFIG_JSON)
 	@for ns in flux-system backend; do \
 	  echo "🔐 Creating image pull secret in namespace: $$ns"; \
 	  kubectl delete secret flux-gcp-key -n $$ns --ignore-not-found; \
@@ -93,14 +92,21 @@ _create_repository_secret: $(CONFIG_JSON)
 	    --type=kubernetes.io/dockerconfigjson; \
 	done
 	@rm -f $<
+	@kubectl create secret generic gcp-sa-key --from-file=gcp-key.json="${DRUID_STORAGE_KEY_FILE}" \
+		-n backend --dry-run=client -o yaml | kubectl apply -f -
+	@kubectl create secret generic druid-pg-auth \
+		--from-literal=postgres-password=$(DRUID_METADATA_PG_PASSWORD) \
+ 		--from-literal=password=$(DRUID_METADATA_AUTH_PASSWORD) \
+  		-n backend --dry-run=client -o yaml | kubectl apply -f -
 
-$(CONFIG_JSON): $(CONFIG_TEMPLATE) $(KEY_FILE)
+
+$(AR_CONFIG_JSON): $(AR_CONFIG_TEMPLATE) $(FLUX_READER_KEY_FILE)
 	@set -eu ;\
 	mkdir -p "$(CONFIG_DIR)" ;\
-	RAW_PASS=$$(tr -d '\n' < "$(KEY_FILE)") ;\
+	RAW_PASS=$$(tr -d '\n' < "$(FLUX_READER_KEY_FILE)") ;\
 	PASSWORD_ESC=$$(printf '%s' "$$RAW_PASS" | sed 's/"/\\"/g') ;\
 	AUTH=$$(printf '_json_key:%s' "$$RAW_PASS" | base64 | tr -d '\n') ;\
 	IMAGE_REPO_NAME="$(IMAGE_REPO_NAME)" \
 	PASSWORD_ESC="$$PASSWORD_ESC" \
 	AUTH="$$AUTH" \
-	envsubst '$$IMAGE_REPO_NAME $$PASSWORD_ESC $$AUTH' < "$(CONFIG_TEMPLATE)" > "$(CONFIG_JSON)"
+	envsubst '$$IMAGE_REPO_NAME $$PASSWORD_ESC $$AUTH' < "$(AR_CONFIG_TEMPLATE)" > "$(AR_CONFIG_JSON)"

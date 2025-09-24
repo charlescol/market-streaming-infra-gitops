@@ -19,12 +19,6 @@ spec:
     fsGroup: 1000
     runAsUser: 1000
     runAsGroup: 1000
-  env:
-    - name: DRUID_METADATA_PG_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: druid-pg-auth
-          key: password
   commonConfigMountPath: "/opt/druid/conf/druid/cluster/_common"
   jvm.options: |-
     -server
@@ -65,16 +59,23 @@ spec:
     druid.metadata.storage.connector.password={ "type": "environment", "variable": "DRUID_METADATA_PG_PASSWORD" }
 
     # Deep Storage
-    druid.storage.type=local
-    druid.storage.storageDirectory=/druid/deepstorage
-    #
-    # Extensions
-    #
-    druid.extensions.loadList=["druid-histogram", "druid-datasketches", "druid-lookups-cached-global", "postgresql-metadata-storage", "druid-multi-stage-query", "druid-kafka-indexing-service", "druid-protobuf-extensions", "druid-kubernetes-extensions"]
+    druid.storage.type=gcs
+    druid.google.bucket=druid-storage-market-streaming-prod
+    druid.google.prefix=druid/segments
+    druid.google.maxListingLength=1024
 
-    #
+    # Extensions
+    druid.extensions.loadList=["druid-histogram", \
+    "druid-datasketches", \
+    "druid-lookups-cached-global", \
+    "postgresql-metadata-storage", \
+    "druid-multi-stage-query", \
+    "druid-kafka-indexing-service", \
+    "druid-protobuf-extensions", \
+    "druid-kubernetes-extensions", \
+    "druid-google-extensions"]
+
     # Service discovery
-    #
     druid.selectors.indexing.serviceName=druid/overlord
     druid.selectors.coordinator.serviceName=druid/coordinator
 
@@ -246,17 +247,25 @@ spec:
     }
 
   volumeMounts:
-    - mountPath: /druid/data
-      name: data-volume
-    - mountPath: /druid/deepstorage
-      name: deepstorage-volume
+    - name: gcp-credentials
+      mountPath: /var/secrets/google
+      readOnly: true
+    - name: segment-volume
+      mountPath: /druid/data
+
   volumes:
-    - name: data-volume
-      emptyDir: {}
-    - name: deepstorage-volume
-      hostPath:
-        path: /tmp/druid/deepstorage
-        type: DirectoryOrCreate
+    - name: gcp-credentials
+      secret:
+        secretName: gcp-sa-key
+
+  env:
+    - name: DRUID_METADATA_PG_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: druid-pg-auth
+          key: password
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /var/secrets/google/gcp-key.json
 
   nodes:
     brokers:
@@ -306,6 +315,16 @@ spec:
       druid.port: 8088
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/data/historical"
       replicas: 1
+      volumeClaimTemplates:
+        - metadata:
+            name: segment-volume
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi
+            storageClassName: standard
       runtime.properties: |
         druid.service=druid/historical
         druid.server.http.numThreads=5
