@@ -1,0 +1,118 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-exchange-middleware-symbol-priority
+  namespace: backend
+data:
+  symbol-priority.yaml: |
+    queues:
+      - priority: 5
+        capacity: 500
+        symbols:
+          - FLOKIUSDT
+          - BONKUSDT
+          - XRPUSDT
+          - BTCUSDT
+          - ETHUSDT
+          - BTCFDUSD
+          - SOLUSDT
+          - PENGUUSDT
+          - XLMUSDT
+          - ETHFDUSD
+          - DOGEUSDT
+          - HBARUSDT
+          - NEIROUSDT
+          - SHIBUSDT
+          - SUIUSDT
+          - DOGEFDUSD
+          - PEPEUSDT
+          - BNBUSDT
+          - BANANAS31USDT
+          - SOLFDUSD
+          - ALGOUSDT
+          - TURBOUSDT
+          - XRPFDUSD
+          - XRPUSDC
+          - ADAUSDT
+          - SUIUSDC
+          - UNIUSDT
+          - USUALUSDT
+          - BNBFDUSD
+          - SEIUSDT
+          - ENAUSDT
+          - BTCUSDC
+          - PNUTUSDT
+          - USDCUSDT
+          - WIFUSDT
+          - LTCUSDT
+          - ETHUSDC
+          - VIRTUALUSDT
+          - AAVEUSDT
+          - INITUSDT
+          - PEPEUSDC
+          - FUNUSDT
+          - HBARUSDC
+          - SYRUPUSDT
+          - ONDOUSDT
+          - HAEDALUSDT
+          - PENGUUSDC
+          - NEARUSDT
+          - TRUMPUSDT
+          - AVAXUSDT
+      - priority: 4
+        capacity: 500
+        symbols:
+          - FDUSDUSDT
+          - LINKUSDT
+          - BANANAS31USDC
+          - LAUSDT
+          - KAITOUSDT
+          - WLDUSDT
+          - ORCAUSDT
+          - ORDIUSDT
+          - BCHUSDT
+          - ETHFIUSDT
+          - COMPUSDT
+          - GALAUSDT
+          - PENGUTRY
+          - FETUSDT
+          - BOMEUSDT
+          - JASMYUSDT
+          - TAOUSDT
+          - ARBUSDT
+          - AUSDT
+          - SPKUSDT
+          - MUBARAKUSDT
+          - CRVUSDT
+          - OMUSDT
+          - LINKFDUSD
+          - APTUSDT
+          - HYPERUSDT
+          - DOGEUSDC
+          - FORMUSDT
+          - ADAUSDC
+          - XLMUSDC
+          - SOLUSDC
+          - BIOUSDT
+          - AIXBTUSDT
+          - AUCTIONUSDT
+          - NEIROUSDC
+          - ALGOUSDC
+          - BTCEUR
+          - DOTUSDT
+          - 1INCHUSDT
+          - BANANAUSDT
+          - SUPERUSDT
+          - SEIUSDC
+          - INJUSDT
+          - FDUSDUSDC
+          - LDOUSDT
+          - OPUSDT
+          - TUTUSDT
+          - SAGAUSDT
+          - TRXUSDT
+          - PIXELUSDT
+      - priority: 1
+        capacity: 2000
+        symbols:
+          - _OTHERS_

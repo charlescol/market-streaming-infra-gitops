@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tokio-binance-mock
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tokio-binance-mock
+  template:
+    metadata:
+      labels:
+        app: tokio-binance-mock
+    spec:
+      imagePullSecrets:
+        - name: flux-gcp-key
+      containers:
+        - name: tokio
+          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/tokio-binance-mock/tokio-binance-mock:0.0.7 # {"$imagepolicy": "flux-system:tokio-binance-mock"}
+          ports:
+            - containerPort: 9000
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: config-tokio-binance-mock
+          volumeMounts:
+            - name: symbols-config
+              mountPath: /app/resources/symbols
+              readOnly: true
+            - name: depth-updates-config
+              mountPath: /app/resources/depth-updates
+              readOnly: true
+            - name: snapshot-config
+              mountPath: /app/resources/snapshot
+              readOnly: true
+            - name: exchange-info-config
+              mountPath: /app/resources/exchange-info
+              readOnly: true
+          resources:
+            requests:
+              cpu: "1"
+              memory: 500Mi
+            limits:
+              cpu: "2"
+              memory: 1Gi
+      volumes:
+        - name: symbols-config
+          configMap:
+            name: config-tokio-binance-mock-symbols
+        - name: depth-updates-config
+          configMap:
+            name: config-tokio-binance-mock-depth-updates
+        - name: snapshot-config
+          configMap:
+            name: config-tokio-binance-snapshot
+        - name: exchange-info-config
+          configMap:
+            name: config-tokio-binance-mock-exchange-info

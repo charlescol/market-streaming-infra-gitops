@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-exchange-middleware-kafka
+  namespace: backend
+data:
+  kafka-sink-config.yaml: |
+    acks: 1
+    linger.ms: 4
+    batch.size: 18000
+    compression.type: none
+    retries: 1
+    message.timeout.ms: 1000
+    broker.address.family: v4

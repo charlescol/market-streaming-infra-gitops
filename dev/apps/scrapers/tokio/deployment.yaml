@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tokio-binance-scraper
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tokio-binance-scraper
+  template:
+    metadata:
+      labels:
+        app: tokio-binance-scraper
+    spec:
+      imagePullSecrets:
+        - name: flux-gcp-key
+      containers:
+        - name: tokio
+          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-binance-scraper/msv-tokio-binance-scraper:0.3.1 # {"$imagepolicy": "flux-system:msv-tokio-binance-scraper"}
+          ports:
+            - containerPort: 9000
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: config-tokio-binance-scraper
+          volumeMounts:
+            - name: kafka-config-volume
+              mountPath: /app/resources/kafka
+              readOnly: true
+            - name: tokio-symbols-volume
+              mountPath: /app/resources/symbols
+              readOnly: true
+          resources:
+            requests:
+              cpu: "2"
+              memory: 500Mi
+            limits:
+              cpu: "3"
+              memory: 1Gi
+      volumes:
+        - name: kafka-config-volume
+          configMap:
+            name: config-tokio-kafka
+        - name: tokio-symbols-volume
+          configMap:
+            name: config-tokio-symbols

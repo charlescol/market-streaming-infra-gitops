@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tokio-binance-mock-rest
+  namespace: backend
+  labels:
+    app: tokio-binance-mock-rest
+spec:
+  selector:
+    app: tokio-binance-mock
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      name: http
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tokio-binance-mock-ws
+  namespace: backend
+  labels:
+    app: tokio-binance-mock-ws
+spec:
+  selector:
+    app: tokio-binance-mock
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001
+      name: ws
+  type: ClusterIP

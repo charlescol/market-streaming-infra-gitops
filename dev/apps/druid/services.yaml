@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: druid-postgres-hl
+  namespace: druid
+  labels:
+    app: druid-postgres
+spec:
+  clusterIP: None # headless
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+  selector:
+    app: druid-postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: druid-postgres
+  namespace: druid
+  labels:
+    app: druid-postgres
+spec:
+  type: ClusterIP
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+  selector:
+    app: druid-postgres

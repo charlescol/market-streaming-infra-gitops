@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-tokio-binance-scraper
+  namespace: backend
+data:
+  RUST_LOG: "info"
+  ENABLE_METRICS_VERBOSE: "false"
+  KAFKA_CLIENT_ID: "binance-scraper"
+  KAFKA_TOPIC: "binance-depthUpdate-raw"
+  KAFKA_BROKER_HOST: "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
+  KAFKA_CONFIG_PATH: "resources/kafka/kafka-sink-config.yaml"
+  SYMBOL_CONFIG_PATH: "resources/symbols/symbols-config.yaml"
+  SCHEMA_REGISTRY_URL: "http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"
+  BINANCE_WS_HOST: "tokio-binance-mock-ws.backend.svc.cluster.local:3001"
+  ENABLE_SCRAPER: "true"
+  SOURCE_TLS: "false"
+  TRACKED_SYMBOLS: "FLOKIUSDT"
+  MONITOR_RDKAFKA: "true"
+  MONITOR_COUNT: "50"
+  METRICS_PORT: "9000"
+  TOKIO_WORKER_THREADS: "4"
+  TOKIO_QUEUE_INTERVAL: "5"
+  TOKIO_EVENT_INTERVAL: "5"
+  PROCESS_QUEUE_CAPACITY: "50"
+  STREAM_GROUP_COUNT: "100"
+  PROCESS_GROUP_COUNT: "300"
+  MAX_INFLIGHT_BY_PROCESS_GROUP: "30"
+  MONITOR_RATIO: "0.1"
