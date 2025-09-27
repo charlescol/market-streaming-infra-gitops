@@ -16,7 +16,6 @@ spec:
     spec:
       tolerations:
         - operator: Exists
-
       containers:
         - name: prep
           image: registry.k8s.io/startup-script:v2
@@ -27,45 +26,50 @@ spec:
               value: |
                 set -euo pipefail
 
-                mkdir -p /mnt/local-ssd
+                base="/var/local-ssd"
+                mkdir -p "${base}"
 
                 i=0
                 shopt -s nullglob
 
-                # Case where Local SSD are already mounted
-                for src in /mnt/disks/ssd*; do
-                  [ -e "$src" ] || continue
-                  target="/mnt/local-ssd/${i}"
-                  mkdir -p "$target"
-                  if ! mountpoint -q "$target"; then
-                    mount -o noatime,nodiratime "$src" "$target"
-                  fi
-                  i=$((i+1))
-                done
-
-                # Case where Local SSD are not mounted yet
-                for dev in /dev/disk/by-id/google-local-ssd* /dev/nvme*n1; do
+                # Handle NVMe and SCSI Google Local SSDs
+                for dev in /dev/disk/by-id/google-local-ssd* /dev/disk/by-id/google-local-nvme-ssd* /dev/nvme*n1; do
                   [ -e "$dev" ] || continue
 
-                  # If no filesystem, use XFS
-                  if ! blkid "$dev" >/dev/null 2>&1; then
-                    mkfs.xfs -f "$dev"
+                  target="${base}/${i}"
+                  mkdir -p "$target"
+
+                  # If device already mounted somewhere, bind-mount it under ${base}/i
+                  if findmnt -n -S "$dev" >/dev/null 2>&1; then
+                    src="$(findmnt -n -S "$dev" -o TARGET)"
+                    if ! mountpoint -q "$target"; then
+                      mount --bind "$src" "$target"  # bind existing mount
+                    fi
+                  else
+                    # If no filesystem, use XFS
+                    if ! blkid "$dev" >/dev/null 2>&1; then
+                      mkfs.xfs -f "$dev"
+                    fi
+                    if ! mountpoint -q "$target"; then
+                      mount -o noatime,nodiratime "$dev" "$target"
+                    fi
                   fi
 
-                  target="/mnt/local-ssd/${i}"
-                  mkdir -p "$target"
-                  if ! mountpoint -q "$target"; then
-                    mount -o noatime,nodiratime "$dev" "$target"
-                  fi
                   i=$((i+1))
                 done
-
           volumeMounts:
-            - name: host-mnt
-              mountPath: /mnt
+            # This is a writable area on COS/Ubuntu; we propagate mounts back to the host.
+            - name: host-var-local-ssd
+              mountPath: /var/local-ssd
               mountPropagation: Bidirectional
-              readOnly: false
+            # Ensure devices are visible in the container
+            - name: host-dev
+              mountPath: /dev
       volumes:
-        - name: host-mnt
+        - name: host-var-local-ssd
           hostPath:
-            path: /mnt
+            path: /var/local-ssd
+            type: DirectoryOrCreate
+        - name: host-dev
+          hostPath:
+            path: /dev

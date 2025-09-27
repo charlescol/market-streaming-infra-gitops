@@ -14,8 +14,8 @@ metadata:
 data:
   storageClassMap: |
     local-ssd:
-      hostDir: /mnt/local-ssd
-      mountDir: /mnt/local-ssd
+      hostDir: /var/local-ssd
+      mountDir: /var/local-ssd
       blockCleanerCommand:
       - "/scripts/quick_reset.sh"
 ---
@@ -41,13 +41,13 @@ spec:
                 fieldRef: { fieldPath: spec.nodeName }
           volumeMounts:
             - { name: provisioner-config, mountPath: /etc/provisioner/config }
-            - { name: local-disks, mountPath: /mnt/local-ssd }
+            - { name: local-disks, mountPath: /var/local-ssd }
             - { name: provisioner-scripts, mountPath: /scripts }
       volumes:
         - name: provisioner-config
           configMap: { name: local-provisioner-config }
         - name: local-disks
-          hostPath: { path: /mnt/local-ssd }
+          hostPath: { path: /var/local-ssd }
         - name: provisioner-scripts
           configMap:
             name: local-provisioner-config
