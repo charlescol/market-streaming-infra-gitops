@@ -64,6 +64,7 @@ spec:
             - name: host-mnt
               mountPath: /mnt
               mountPropagation: Bidirectional
+              readOnly: false
       volumes:
         - name: host-mnt
           hostPath:
