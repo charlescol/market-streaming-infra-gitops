@@ -96,7 +96,7 @@ _create_repository_secrets: $(AR_CONFIG_JSON)
 	    --type=kubernetes.io/dockerconfigjson; \
 	done
 	@rm -f $<
-	@kubectl create secret generic gcp-sa-key --from-file=gcp-key.json="${DRUID_STORAGE_KEY_FILE}" \
+	@kubectl create secret generic gcs-sa-key --from-file=gcp-key.json="${DRUID_STORAGE_KEY_FILE}" \
 		-n backend --dry-run=client -o yaml | kubectl apply -f -
 	@kubectl create secret generic druid-pg-auth \
 		--from-literal=postgres-password=$(DRUID_METADATA_PG_PASSWORD) \

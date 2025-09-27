@@ -256,7 +256,7 @@ spec:
   volumes:
     - name: gcp-credentials
       secret:
-        secretName: gcp-sa-key
+        secretName: gcs-sa-key
 
   env:
     - name: DRUID_METADATA_PG_PASSWORD
@@ -266,6 +266,15 @@ spec:
           key: password
     - name: GOOGLE_APPLICATION_CREDENTIALS
       value: /var/secrets/google/gcp-key.json
+
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: POD_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
 
   nodes:
     brokers:

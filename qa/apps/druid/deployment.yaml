@@ -256,7 +256,7 @@ spec:
   volumes:
     - name: gcp-credentials
       secret:
-        secretName: gcp-sa-key
+        secretName: gcs-sa-key
 
   env:
     - name: DRUID_METADATA_PG_PASSWORD
