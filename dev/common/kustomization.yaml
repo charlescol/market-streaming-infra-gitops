@@ -6,4 +6,3 @@ resources:
   - deamons
   - storage
   - roles
-  - secrets
