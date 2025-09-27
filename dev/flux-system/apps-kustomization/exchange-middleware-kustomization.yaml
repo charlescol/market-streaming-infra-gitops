@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./qa/apps/exchange-middleware
+  path: ./dev/apps/exchange-middleware
   prune: true
   sourceRef:
     kind: GitRepository

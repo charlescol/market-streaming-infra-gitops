@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./qa/helm
+  path: ./dev/helm
   prune: true
   sourceRef:
     kind: GitRepository

@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./qa/apps/schema-registry
+  path: ./dev/apps/schema-registry
   prune: true
   sourceRef:
     kind: GitRepository

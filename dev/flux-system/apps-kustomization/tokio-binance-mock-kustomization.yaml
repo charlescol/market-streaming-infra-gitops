@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./qa/apps/mocks/binance
+  path: ./dev/apps/mocks/binance
   prune: true
   sourceRef:
     kind: GitRepository

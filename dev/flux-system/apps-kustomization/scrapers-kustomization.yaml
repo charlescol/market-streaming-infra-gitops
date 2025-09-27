@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./qa/apps/scrapers
+  path: ./dev/apps/scrapers
   prune: true
   sourceRef:
     kind: GitRepository

@@ -108,4 +108,4 @@ spec:
     push:
       branch: main
   update:
-    path: ./qa/apps
+    path: ./dev/apps
