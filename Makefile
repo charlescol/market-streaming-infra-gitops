@@ -67,8 +67,12 @@ check_env: ## Check if all required environment variables and files are set
 		echo "❌ Environment directory './$(ENV)' does not exist"; \
 		exit 1; \
 	fi
-	@if [ ! -f "$(CONFIG_DIR)/gcp-key.json" ]; then \
-		echo "❌ Missing GCP key file: $(CONFIG_DIR)/gcp-key.json"; \
+	@if [ ! -f "$(FLUX_READER_KEY_FILE)" ]; then \
+		echo "❌ Missing GCP key file: $(FLUX_READER_KEY_FILE)"; \
+		exit 1; \
+	fi
+	@if [ ! -f "$(DRUID_STORAGE_KEY_FILE)" ]; then \
+		echo "❌ Missing GCP key file: $(DRUID_STORAGE_KEY_FILE)"; \
 		exit 1; \
 	fi
 	@if [ ! -f "$(AR_CONFIG_TEMPLATE)" ]; then \
