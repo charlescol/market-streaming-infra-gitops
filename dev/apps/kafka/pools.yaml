@@ -10,8 +10,8 @@ spec:
   replicas: 3
   storage:
     type: persistent-claim
-    size: 60Gi
-    class: default-storage
+    size: 350Gi
+    class: local-ssd
     kraftMetadata: shared
   roles:
     - controller
@@ -19,10 +19,10 @@ spec:
   resources:
     requests:
       memory: 9Gi
-      cpu: "5"
+      cpu: "4"
     limits:
       memory: 9Gi
-      cpu: "6"
+      cpu: "5"
   jvmOptions:
     -Xms: "2048m"
     -Xmx: "2048m"

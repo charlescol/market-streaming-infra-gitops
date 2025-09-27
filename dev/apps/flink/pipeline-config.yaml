@@ -5,10 +5,10 @@ metadata:
   namespace: backend
 data:
   flink-pipeline.properties: |
-    parallelism.source.depthupdate=2
+    parallelism.source.depthupdate=1
     parallelism.source.snapshot=1
-    parallelism.orderbook=5
-    parallelism.metrics.extraction1=3
-    parallelism.metrics.extraction2=3
+    parallelism.orderbook=2
+    parallelism.metrics.extraction1=1
+    parallelism.metrics.extraction2=1
     parallelism.metrics.extraction3=1
-    parallelism.sink=4
+    parallelism.sink=3

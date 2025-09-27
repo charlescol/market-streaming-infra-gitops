@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: prepare-local-ssd
+  namespace: kube-system
+  labels:
+    app: prepare-local-ssd
+spec:
+  selector:
+    matchLabels:
+      app: prepare-local-ssd
+  template:
+    metadata:
+      labels:
+        app: prepare-local-ssd
+    spec:
+      tolerations:
+        - operator: Exists
+
+      containers:
+        - name: prep
+          image: registry.k8s.io/startup-script:v1
+          securityContext:
+            privileged: true
+          env:
+            - name: STARTUP_SCRIPT
+              value: |
+                set -euo pipefail
+
+                mkdir -p /mnt/local-ssd
+
+                i=0
+                shopt -s nullglob
+
+                # Case where Local SSD are already mounted
+                for src in /mnt/disks/ssd*; do
+                  [ -e "$src" ] || continue
+                  target="/mnt/local-ssd/${i}"
+                  mkdir -p "$target"
+                  if ! mountpoint -q "$target"; then
+                    mount -o noatime,nodiratime "$src" "$target"
+                  fi
+                  i=$((i+1))
+                done
+
+                # Case where Local SSD are not mounted yet
+                for dev in /dev/disk/by-id/google-local-ssd* /dev/nvme*n1; do
+                  [ -e "$dev" ] || continue
+
+                  # If no filesystem, use XFS
+                  if ! blkid "$dev" >/dev/null 2>&1; then
+                    mkfs.xfs -f "$dev"
+                  fi
+
+                  target="/mnt/local-ssd/${i}"
+                  mkdir -p "$target"
+                  if ! mountpoint -q "$target"; then
+                    mount -o noatime,nodiratime "$dev" "$target"
+                  fi
+                  i=$((i+1))
+                done
+
+          volumeMounts:
+            - name: host-mnt
+              mountPath: /mnt
+              mountPropagation: Bidirectional
+      volumes:
+        - name: host-mnt
+          hostPath:
+            path: /mnt

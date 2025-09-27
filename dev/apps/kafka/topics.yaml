@@ -7,7 +7,7 @@ metadata:
     strimzi.io/cluster: kafka-cluster
 spec:
   topicName: binance-depthUpdate-raw
-  partitions: 30
+  partitions: 10
   replicas: 2
   config:
     retention.ms: 900000 # 15 minutes
@@ -39,7 +39,7 @@ metadata:
     strimzi.io/cluster: kafka-cluster
 spec:
   topicName: binance-microstructure-raw
-  partitions: 70
+  partitions: 35
   replicas: 2
   config:
     retention.ms: 900000 # 15 minutes

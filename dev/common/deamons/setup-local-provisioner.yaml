@@ -1,0 +1,54 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-ssd
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: false
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: local-provisioner-config
+  namespace: kube-system
+data:
+  storageClassMap: |
+    local-ssd:
+      hostDir: /mnt/local-ssd
+      mountDir: /mnt/local-ssd
+      blockCleanerCommand:
+      - "/scripts/quick_reset.sh"
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: local-volume-provisioner
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels: { app: local-volume-provisioner }
+  template:
+    metadata:
+      labels: { app: local-volume-provisioner }
+    spec:
+      serviceAccountName: local-storage-admin
+      containers:
+        - name: provisioner
+          image: registry.k8s.io/sig-storage/local-volume-provisioner:v2.5.0
+          env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef: { fieldPath: spec.nodeName }
+          volumeMounts:
+            - { name: provisioner-config, mountPath: /etc/provisioner/config }
+            - { name: local-disks, mountPath: /mnt/local-ssd }
+            - { name: provisioner-scripts, mountPath: /scripts }
+      volumes:
+        - name: provisioner-config
+          configMap: { name: local-provisioner-config }
+        - name: local-disks
+          hostPath: { path: /mnt/local-ssd }
+        - name: provisioner-scripts
+          configMap:
+            name: local-provisioner-config
+            defaultMode: 0744

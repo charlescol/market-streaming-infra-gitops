@@ -188,7 +188,7 @@ spec:
   taskManager:
     resource:
       memory: "8096m"
-      cpu: 17
+      cpu: 12
     podTemplate:
       spec:
         affinity:
