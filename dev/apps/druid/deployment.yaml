@@ -250,8 +250,6 @@ spec:
     - name: gcp-credentials
       mountPath: /var/secrets/google
       readOnly: true
-    - name: segment-volume
-      mountPath: /druid/data
 
   volumes:
     - name: gcp-credentials
@@ -334,6 +332,9 @@ spec:
               requests:
                 storage: 10Gi
             storageClassName: standard
+      volumeMounts:
+        - name: segment-volume
+          mountPath: /druid/data
       runtime.properties: |
         druid.service=druid/historical
         druid.server.http.numThreads=5
