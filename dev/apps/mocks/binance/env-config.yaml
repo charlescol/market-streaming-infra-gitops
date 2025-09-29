@@ -14,3 +14,4 @@ data:
   TOKIO_EVENT_INTERVAL: "20"
   WS_PORT: "3001"
   REST_PORT: "3000"
+  LOG_VERBOSE: "true"
