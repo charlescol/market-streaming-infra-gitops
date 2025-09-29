@@ -4,7 +4,7 @@ metadata:
   name: local-ssd
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
-allowVolumeExpansion: false
+reclaimPolicy: Delete
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -14,41 +14,110 @@ metadata:
 data:
   storageClassMap: |
     local-ssd:
-      hostDir: /var/local-ssd
+      hostDir: /var/local-ssd       
       mountDir: /var/local-ssd
+      fsType: xfs
+      volumeMode: Filesystem
       blockCleanerCommand:
-      - "/scripts/quick_reset.sh"
+        - "/scripts/shred.sh"
+        - "2"
+
 ---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: local-volume-provisioner
   namespace: kube-system
+  labels:
+    app: local-volume-provisioner
 spec:
   selector:
-    matchLabels: { app: local-volume-provisioner }
+    matchLabels:
+      app: local-volume-provisioner
   template:
     metadata:
-      labels: { app: local-volume-provisioner }
+      labels:
+        app: local-volume-provisioner
     spec:
-      serviceAccountName: local-storage-admin
+      serviceAccountName: local-provisioner-sa
+      tolerations:
+        - operator: Exists
       containers:
         - name: provisioner
-          image: registry.k8s.io/sig-storage/local-volume-provisioner:v2.5.0
+          image: registry.k8s.io/sig-storage/local-volume-provisioner:v2.8.0
+          securityContext:
+            privileged: true
           env:
             - name: MY_NODE_NAME
               valueFrom:
-                fieldRef: { fieldPath: spec.nodeName }
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: DISCOVERY_CONFIGMAP
+              value: local-provisioner-config
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
           volumeMounts:
-            - { name: provisioner-config, mountPath: /etc/provisioner/config }
-            - { name: local-disks, mountPath: /var/local-ssd }
-            - { name: provisioner-scripts, mountPath: /scripts }
+            - name: local-disks
+              mountPath: /var/local-ssd
+              mountPropagation: HostToContainer
+            - name: provisioner-cm
+              mountPath: /etc/provisioner/config
+            - name: sys
+              mountPath: /sys
+            - name: dev
+              mountPath: /dev
       volumes:
-        - name: provisioner-config
-          configMap: { name: local-provisioner-config }
         - name: local-disks
-          hostPath: { path: /var/local-ssd }
-        - name: provisioner-scripts
+          hostPath:
+            path: /var/local-ssd
+            type: Directory
+        - name: provisioner-cm
           configMap:
             name: local-provisioner-config
-            defaultMode: 0744
+        - name: sys
+          hostPath:
+            path: /sys
+            type: Directory
+        - name: dev
+          hostPath:
+            path: /dev
+            type: Directory
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: local-provisioner-sa
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: local-provisioner
+rules:
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: local-provisioner-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: local-provisioner
+subjects:
+  - kind: ServiceAccount
+    name: local-provisioner-sa
+    namespace: kube-system
