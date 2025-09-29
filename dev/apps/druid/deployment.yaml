@@ -287,7 +287,7 @@ spec:
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/query/broker"
       replicas: 1
       runtime.properties: |
-        druid.host=${POD_IP} 
+        druid.host=${env:POD_IP}
         druid.service=druid/broker
         # HTTP server threads
         druid.broker.http.numConnections=5
@@ -308,7 +308,7 @@ spec:
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/master/coordinator-overlord"
       replicas: 1
       runtime.properties: |
-        druid.host=${POD_IP} 
+        druid.host=${env:POD_IP}
         druid.service=druid/coordinator
 
         # HTTP server threads
@@ -343,7 +343,7 @@ spec:
         - name: segment-volume
           mountPath: /druid/data
       runtime.properties: |
-        druid.host=${POD_IP} 
+        druid.host=${env:POD_IP}
         druid.service=druid/historical
         druid.server.http.numThreads=5
         druid.processing.buffer.sizeBytes=536870912
@@ -363,7 +363,7 @@ spec:
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/query/router"
       replicas: 1
       runtime.properties: |
-        druid.host=${POD_IP} 
+        druid.host=${env:POD_IP}
         druid.service=druid/router
 
         # HTTP proxy
