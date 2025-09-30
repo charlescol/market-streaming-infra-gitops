@@ -51,6 +51,15 @@ spec:
         adminPasswordKey: postgres-password
         userPasswordKey: password
     primary:
+      podSecurityContext:
+        enabled: true
+        fsGroup: 1001
+      containerSecurityContext:
+        enabled: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
       persistence:
         enabled: true
         storageClass: default-storage
@@ -77,7 +86,7 @@ spec:
         enabled: true
         initialDelaySeconds: 10
     volumePermissions:
-      enabled: true
+      enabled: false
     service:
       type: ClusterIP
       ports:
