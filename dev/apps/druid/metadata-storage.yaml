@@ -51,7 +51,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: druid-postgres-secret
-                  key: POSTGRES_PASSWORD
+                  key: password
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
             - name: POSTGRES_INITDB_ARGS
