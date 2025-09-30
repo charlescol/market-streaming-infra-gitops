@@ -38,6 +38,9 @@ spec:
         name: bitnami-oci
         namespace: flux-system
   values:
+    global:
+      imagePullSecrets:
+        - name: dockerhub-creds
     architecture: standalone
     auth:
       enablePostgresUser: true
