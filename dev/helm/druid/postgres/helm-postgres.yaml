@@ -5,7 +5,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://charts.bitnami.com/bitnami
+  type: oci
+  url: oci://registry-1.docker.io/bitnamicharts
 ---
 apiVersion: v1
 kind: Secret
@@ -31,10 +32,10 @@ spec:
   chart:
     spec:
       chart: postgresql
-      version: 16.7.26
+      version: "^16.0.0"
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: bitnami-oci
         namespace: flux-system
   values:
     architecture: standalone
