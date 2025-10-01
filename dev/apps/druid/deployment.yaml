@@ -19,6 +19,7 @@ spec:
     fsGroup: 1000
     runAsUser: 1000
     runAsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
   commonConfigMountPath: "/opt/druid/conf/druid/cluster/_common"
   jvm.options: |-
     -server
@@ -306,11 +307,23 @@ spec:
       druid.port: 8088
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/master/coordinator-overlord"
       replicas: 1
-      podSecurityContext:
+      securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
+        fsGroupChangePolicy: Always
+      initContainers:
+        - name: fix-permissions
+          image: alpine
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p /druid/data/persistent/task /druid/data/indexing-logs && \
+              chown -R 1000:1000 /druid/data
+          volumeMounts:
+            - name: druid-data
+              mountPath: /druid/data
       volumeClaimTemplates:
         - metadata:
             name: druid-data
