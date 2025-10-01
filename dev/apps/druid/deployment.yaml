@@ -302,14 +302,29 @@ spec:
         -Xms512M
 
     coordinators:
-      kind: Deployment
       nodeType: "coordinator"
       druid.port: 8088
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/master/coordinator-overlord"
       replicas: 1
+      volumeClaimTemplates:
+        - metadata:
+            name: druid-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 5Gi
+            storageClassName: standard
+      volumeMounts:
+        - name: druid-data
+          mountPath: /druid/data
       runtime.properties: |
         druid.host=${env:POD_IP}
         druid.service=druid/coordinator
+        druid.indexer.task.baseDir=/druid/data/persistent/task
+        druid.indexer.logs.type=file
+        druid.indexer.logs.directory=/druid/data/indexing-logs
 
         # HTTP server threads
         druid.coordinator.startDelay=PT30S
