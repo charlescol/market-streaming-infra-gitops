@@ -307,36 +307,29 @@ spec:
       druid.port: 8088
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/master/coordinator-overlord"
       replicas: 1
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: Always
-      initContainers:
-        - name: fix-permissions
-          image: alpine
-          command:
-            - sh
-            - -c
-            - |
-              mkdir -p /druid/data/persistent/task /druid/data/indexing-logs && \
-              chown -R 1000:1000 /druid/data
-          volumeMounts:
-            - name: druid-data
-              mountPath: /druid/data
       volumeClaimTemplates:
         - metadata:
-            name: druid-data
+            name: druid-task-data
           spec:
-            accessModes:
-              - ReadWriteOnce
+            accessModes: ["ReadWriteOnce"]
             resources:
               requests:
                 storage: 5Gi
             storageClassName: standard
+        - metadata:
+            name: druid-logs
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 2Gi
+            storageClassName: standard
+
       volumeMounts:
-        - name: druid-data
-          mountPath: /druid/data
+        - name: druid-task-data
+          mountPath: /druid/data/persistent/task
+        - name: druid-logs
+          mountPath: /druid/data/indexing-logs
       runtime.properties: |
         druid.host=${env:POD_IP}
         druid.service=druid/coordinator
