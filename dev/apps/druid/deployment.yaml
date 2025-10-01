@@ -1,7 +1,7 @@
 apiVersion: druid.apache.org/v1alpha1
 kind: Druid
 metadata:
-  name: druid-cluster
+  name: cluster
   namespace: backend
 spec:
   image: docker.io/charlescol01/druid-protobuf-kafka:druid-34.0.0-custom-0.0.2
