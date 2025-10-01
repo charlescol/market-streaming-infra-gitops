@@ -59,7 +59,7 @@ spec:
     druid.metadata.storage.connector.password={ "type": "environment", "variable": "DRUID_METADATA_PG_PASSWORD" }
 
     # Deep Storage
-    druid.storage.type=gcs
+    druid.storage.type=google
     druid.google.bucket=druid-storage-market-streaming-prod
     druid.google.prefix=druid/segments
     druid.google.maxListingLength=1024
