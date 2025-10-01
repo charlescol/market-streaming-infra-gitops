@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: druid-postgres-hl
-  namespace: druid
+  namespace: backend
   labels:
     app: druid-postgres
 spec:
@@ -18,7 +18,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: druid-postgres
-  namespace: druid
+  namespace: backend
   labels:
     app: druid-postgres
 spec:
