@@ -29,3 +29,18 @@ spec:
       targetPort: 5432
   selector:
     app: druid-postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: druid-router
+  namespace: backend
+spec:
+  selector:
+    app: druid
+    component: router
+  ports:
+    - name: http
+      port: 8088
+      targetPort: 8088
+  type: ClusterIP
