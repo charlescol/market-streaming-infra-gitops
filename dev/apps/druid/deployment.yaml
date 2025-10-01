@@ -319,7 +319,6 @@ spec:
         druid.coordinator.asOverlord.enabled=true
         druid.coordinator.asOverlord.overlordService=druid/overlord
         druid.indexer.queue.startDelay=PT30S
-        druid.indexer.runner.type=local
       extra.jvm.options: |-
         -Xmx512M
         -Xms512M
@@ -369,8 +368,8 @@ spec:
         # HTTP proxy
         druid.router.http.numConnections=10
         druid.router.http.readTimeout=PT5M
-        druid.router.http.numMaxThreads=10
-        druid.server.http.numThreads=10
+        druid.router.http.numMaxThreads=15
+        druid.server.http.numThreads=12
 
         # Service discovery
         druid.router.defaultBrokerServiceName=druid/broker
@@ -381,3 +380,27 @@ spec:
       extra.jvm.options: |-
         -Xmx512M
         -Xms512M
+
+    indexers:
+      kind: Deployment
+      nodeType: "indexer"
+      druid.port: 8088
+      nodeConfigMountPath: "/opt/druid/conf/druid/cluster/data/indexer"
+      replicas: 1
+      volumeMounts:
+        - name: task-tmp
+          mountPath: /druid/data
+      volumes:
+        - name: task-tmp
+          emptyDir: {}
+      runtime.properties: |
+        druid.host=${env:POD_IP}
+        druid.service=druid/indexer
+        druid.worker.capacity=2
+        druid.worker.globalIngestionHeapLimitBytes=512Mi
+        druid.indexer.task.baseDir=/druid/data/persistent/task
+        druid.indexer.logs.type=file
+        druid.indexer.logs.directory=/druid/data/indexing-logs
+      extra.jvm.options: |-
+        -Xms1g
+        -Xmx1g
