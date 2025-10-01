@@ -4,3 +4,4 @@ resources:
   - deployment.yaml
   - services.yaml
   - ingestion-config.yaml
+  - metadata-storage.yaml
