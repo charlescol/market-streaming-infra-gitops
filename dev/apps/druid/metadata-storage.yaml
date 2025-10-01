@@ -15,7 +15,6 @@ spec:
         app: druid-postgres
     spec:
       securityContext:
-        runAsNonRoot: true
         fsGroup: 999
         fsGroupChangePolicy: OnRootMismatch
       containers:
