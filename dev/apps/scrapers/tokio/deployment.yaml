@@ -13,6 +13,18 @@ spec:
       labels:
         app: tokio-binance-scraper
     spec:
+      initContainers:
+        - name: wait-for-kafka
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              chmod +x /scripts/wait-for-kafka.sh
+              /scripts/wait-for-kafka.sh
+          volumeMounts:
+            - name: wait-for-volume
+              mountPath: /scripts
       imagePullSecrets:
         - name: flux-gcp-key
       containers:
@@ -45,3 +57,7 @@ spec:
         - name: tokio-symbols-volume
           configMap:
             name: config-tokio-symbols
+        - name: wait-for-volume
+          configMap:
+            name: wait-for-script
+            defaultMode: 0755

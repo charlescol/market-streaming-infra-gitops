@@ -1,9 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - namespaces
-  - crds
-  - deamons
-  - storage
-  - roles
-  - scripts
+  - wait-for-kafka.yaml
