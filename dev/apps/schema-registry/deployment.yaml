@@ -14,17 +14,34 @@ spec:
         app: schema-registry
     spec:
       containers:
-      - name: schema-registry
-        image: confluentinc/cp-schema-registry:7.6.5
-        ports:
-        - containerPort: 8081
-        env:
-        - name: SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS
-          value: PLAINTEXT://kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092  
-        - name: SCHEMA_REGISTRY_LISTENERS
-          value: http://0.0.0.0:8081
-        - name: SCHEMA_REGISTRY_HOST_NAME
-          value: schema-registry
-        - name: SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR
-          value: "1"
+        - name: schema-registry
+          image: confluentinc/cp-schema-registry:7.6.5
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS
+              value: PLAINTEXT://kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092
+            - name: SCHEMA_REGISTRY_LISTENERS
+              value: http://0.0.0.0:8081
+            - name: SCHEMA_REGISTRY_HOST_NAME
+              value: schema-registry
+            - name: SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR
+              value: "2"
 
+          readinessProbe:
+            httpGet:
+              path: /subjects
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /subjects
+              port: 8081
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3

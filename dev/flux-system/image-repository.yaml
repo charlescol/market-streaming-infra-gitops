@@ -23,6 +23,17 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
+  name: init-schema-registry
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/init-schema-registry/init-schema-registry
+  secretRef:
+    name: flux-gcp-key
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
   name: tokio-exchange-middleware
   namespace: flux-system
 spec:
@@ -50,6 +61,18 @@ metadata:
 spec:
   imageRepositoryRef:
     name: flink-microstructures-extractor
+  policy:
+    semver:
+      range: ">=0.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: init-schema-registry
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: init-schema-registry
   policy:
     semver:
       range: ">=0.0.0"
