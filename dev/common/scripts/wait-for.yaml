@@ -23,3 +23,28 @@ data:
     done
 
     echo "Kafka is up!"
+
+  wait-for-schema-registry.sh: |
+    #!/bin/sh
+    URL="http://schema-registry-cluster-ip.backend.svc.cluster.local:8081/subjects"
+    TIMEOUT=300
+    START=$(date +%s)
+
+    echo "Waiting for Schema Registry at $URL ..."
+    while true; do
+      RESPONSE=$(wget -qO- "$URL" || true)
+      NOW=$(date +%s)
+
+      if [ $((NOW-START)) -gt $TIMEOUT ]; then
+        echo "Schema Registry not ready after $TIMEOUT seconds, exiting."
+        exit 1
+      fi
+
+      if [ -n "$RESPONSE" ] && [ "$RESPONSE" != "[]" ]; then
+        echo "Schema Registry is ready: found subjects $RESPONSE"
+        break
+      fi
+
+      echo "Still waiting for Schema Registry..."
+      sleep 5
+    done
