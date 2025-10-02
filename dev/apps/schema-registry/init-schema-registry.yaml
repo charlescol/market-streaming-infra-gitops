@@ -16,7 +16,7 @@ spec:
             - sh
             - -c
             - |
-              until nc -z schema-registry.backend.svc.cluster.local 8081; do
+              until nc -z schema-registry-cluster-ip.backend.svc.cluster.local 8081; do
                 echo "Waiting for Schema Registry...";
                 sleep 5;
               done
