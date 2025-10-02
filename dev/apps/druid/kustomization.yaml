@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - services.yaml
-  - ingestion-config.yaml
+  - ingestion.yaml
   - metadata-storage.yaml
