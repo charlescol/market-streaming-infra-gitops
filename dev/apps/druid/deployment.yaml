@@ -386,12 +386,10 @@ spec:
       druid.port: 8088
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/query/router"
       replicas: 1
-      service:
-        type: ClusterIP
-        ports:
-          - name: http
-            port: 8088
-            targetPort: 8088
+      services:
+        - spec:
+            type: ClusterIP
+            clusterIP: None
       runtime.properties: |
         druid.host=${env:POD_IP}
         druid.service=druid/router
