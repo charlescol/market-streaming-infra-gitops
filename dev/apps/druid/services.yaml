@@ -33,7 +33,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cluster-router
+  name: cluster-routers
   namespace: backend
 spec:
   type: ClusterIP
