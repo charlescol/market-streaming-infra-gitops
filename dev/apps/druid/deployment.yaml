@@ -382,7 +382,6 @@ spec:
         -Xms512M
 
     indexers:
-      kind: Deployment
       nodeType: "indexer"
       druid.port: 8088
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/data/indexer"
