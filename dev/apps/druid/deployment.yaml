@@ -431,11 +431,21 @@ spec:
               requests:
                 storage: 2Gi
             storageClassName: standard
+        - metadata:
+            name: segment-volume
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 5Gi
+      storageClassName: standard
       volumeMounts:
         - name: druid-task-data
           mountPath: /druid/data/persistent/task
         - name: druid-logs
           mountPath: /druid/data/indexing-logs
+        - name: segment-volume
+          mountPath: /druid/data/segments
       volumes:
         - name: task-tmp
           emptyDir: {}
@@ -447,6 +457,8 @@ spec:
         druid.indexer.task.baseDir=/druid/data/persistent/task
         druid.indexer.logs.type=file
         druid.indexer.logs.directory=/druid/data/indexing-logs
+        druid.segmentCache.locations=[{"path":"/druid/data/segments","maxSize":5368709120}]
+        druid.server.maxSize=5368709120
       extra.jvm.options: |-
         -Xms1g
         -Xmx1g
