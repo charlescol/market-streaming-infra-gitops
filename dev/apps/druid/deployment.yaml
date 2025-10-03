@@ -305,9 +305,36 @@ spec:
       druid.port: 8088
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/master/coordinator-overlord"
       replicas: 1
+      volumeClaimTemplates:
+        - metadata:
+            name: druid-task-data
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 5Gi
+            storageClassName: standard
+        - metadata:
+            name: druid-logs
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 2Gi
+            storageClassName: standard
+
+      volumeMounts:
+        - name: druid-task-data
+          mountPath: /druid/data/persistent/task
+        - name: druid-logs
+          mountPath: /druid/data/indexing-logs
       runtime.properties: |
         druid.host=${env:POD_IP}
         druid.service=druid/coordinator
+        druid.indexer.task.baseDir=/druid/data/persistent/task
+        druid.indexer.logs.type=file
+        druid.indexer.logs.directory=/druid/data/indexing-logs
+
         # HTTP server threads
         druid.coordinator.startDelay=PT30S
         druid.coordinator.period=PT30S
@@ -315,6 +342,7 @@ spec:
         # Configure this coordinator to also run as Overlord
         druid.coordinator.asOverlord.enabled=true
         druid.coordinator.asOverlord.overlordService=druid/overlord
+        druid.indexer.queue.startDelay=PT30S
       extra.jvm.options: |-
         -Xmx512M
         -Xms512M
