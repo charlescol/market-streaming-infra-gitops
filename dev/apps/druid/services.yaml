@@ -33,14 +33,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: druid-router
+  name: cluster-router
   namespace: backend
 spec:
+  type: ClusterIP
   selector:
     app: druid
     component: router
+    druid_cr: cluster
   ports:
     - name: http
       port: 8088
       targetPort: 8088
-  type: ClusterIP
