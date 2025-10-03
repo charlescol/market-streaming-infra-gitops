@@ -35,6 +35,10 @@ kind: Service
 metadata:
   name: cluster-routers
   namespace: backend
+  labels:
+    app: druid
+    component: router
+    druid_cr: cluster
 spec:
   type: ClusterIP
   selector:
