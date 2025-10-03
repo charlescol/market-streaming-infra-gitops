@@ -438,7 +438,7 @@ spec:
             resources:
               requests:
                 storage: 5Gi
-      storageClassName: standard
+            storageClassName: standard
       volumeMounts:
         - name: druid-task-data
           mountPath: /druid/data/persistent/task
