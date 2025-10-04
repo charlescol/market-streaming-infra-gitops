@@ -2,82 +2,82 @@ apiVersion: druid.apache.org/v1alpha1
 kind: DruidIngestion
 metadata:
   name: binance-microstructure-kafka
-  namespace: backend
+  labels:
+    app.kubernetes.io/name: druidingestion
+    app.kubernetes.io/instance: binance-microstructure
 spec:
   suspend: false
   druidCluster: cluster
+
   ingestion:
     type: kafka
-    compaction:
-      tuningConfig:
-        type: kafka
-        partitionsSpec:
-          type: dynamic
-      skipOffsetFromLatest: PT0S
-      granularitySpec:
-        segmentGranularity: DAY
-    rules:
-      - type: dropByPeriod
-        period: P1M
-        includeFuture: true
-      - type: broadcastByPeriod
-        period: P1M
-        includeFuture: true
-    nativeSpec:
-      type: kafka
-      spec:
-        ioConfig:
-          type: kafka
-          consumerProperties:
-            bootstrap.servers: kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092
-          topic: binance-microstructure-raw
-          useEarliestOffset: true
-          inputFormat:
-            type: protobuf
-            protoBytesDecoder:
-              type: schema_registry
-              urls:
-                - http://schema-registry-cluster-ip.backend.svc.cluster.local:8081
-              config:
-                value.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
-            protoMessageType: binanceMicrostructureRaw.v1.Microstructure
-        tuningConfig:
-          type: kafka
-        dataSchema:
-          dataSource: binance-microstructure
-          timestampSpec:
-            column: timestampMilli
-            format: millis
-          transformSpec:
-            transforms:
-              - type: expression
-                name: side
-                expression: "nvl(side, 0)"
-              - type: expression
-                name: exchange
-                expression: "nvl(exchange, 0)"
-              - type: expression
-                name: levelCount
-                expression: "nvl(levelCount, 0)"
-              - type: expression
-                name: value
-                expression: "nvl(value, 0)"
-          dimensionsSpec:
-            dimensions:
-              - symbol
-              - name
-              - type: long
-                name: levelCount
-              - type: string
-                name: exchange
-              - type: string
-                name: side
-              - type: double
-                name: value
-              - type: long
-                name: receptionTimeMicro
-          metricsSpec: []
-          granularitySpec:
-            segmentGranularity: day
-            queryGranularity: none
-            rollup: false
+
+    spec: |-
+      {
+        "type": "kafka",
+        "spec": {
+          "ioConfig": {
+            "type": "kafka",
+            "consumerProperties": {
+              "bootstrap.servers": "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
+            },
+            "topic": "binance-microstructure-raw",
+            "useEarliestOffset": true,
+
+            "inputFormat": {
+              "type": "protobuf",
+              "protoBytesDecoder": {
+                "type": "schema_registry",
+
+                "urls": ["http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"],
+                "config": {
+                  "value.subject.name.strategy": "io.confluent.kafka.serializers.subject.RecordNameStrategy"
+                }
+              },
+              "protoMessageType": "binanceMicrostructureRaw.v1.Microstructure"
+            }
+          },
+
+          "tuningConfig": {
+            "type": "kafka"
+          },
+
+          "dataSchema": {
+            "dataSource": "binance-microstructure",
+
+            "timestampSpec": {
+              "column": "timestampMilli",
+              "format": "millis"
+            },
+
+            "transformSpec": {
+              "transforms": [
+                { "type": "expression", "name": "side",        "expression": "nvl(side, 0)" },
+                { "type": "expression", "name": "exchange",    "expression": "nvl(exchange, 0)" },
+                { "type": "expression", "name": "levelCount",  "expression": "nvl(levelCount, 0)" },
+                { "type": "expression", "name": "value",       "expression": "nvl(value, 0)" }
+              ]
+            },
+
+            "dimensionsSpec": {
+              "dimensions": [
+                "symbol",
+                "name",
+                { "type": "long",   "name": "levelCount" },
+                { "type": "string", "name": "exchange" },
+                { "type": "string", "name": "side" },
+                { "type": "double", "name": "value" },
+                { "type": "long",   "name": "receptionTimeMicro" }
+              ]
+            },
+
+            "metricsSpec": [],
+
+            "granularitySpec": {
+              "segmentGranularity": "day",
+              "queryGranularity": "none",
+              "rollup": false
+            }
+          }
+        }
+      }
