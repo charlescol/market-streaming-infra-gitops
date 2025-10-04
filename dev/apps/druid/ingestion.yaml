@@ -2,6 +2,7 @@ apiVersion: druid.apache.org/v1alpha1
 kind: DruidIngestion
 metadata:
   name: binance-microstructure-kafka
+  namespace: backend
   labels:
     app.kubernetes.io/name: druidingestion
     app.kubernetes.io/instance: binance-microstructure
