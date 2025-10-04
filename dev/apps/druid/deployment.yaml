@@ -52,6 +52,16 @@ spec:
     druid.coordinator.loadqueuepeon.type=http
     druid.indexer.runner.type=httpRemote
 
+    # Monitoring
+    druid.emitter=prometheus
+    druid.emitter.prometheus.strategy=exporter
+    druid.emitter.prometheus.port=9000
+    druid.emitter.prometheus.endpoint=/metrics
+    druid.emitter.prometheus.namespace=druid
+    druid.emitter.prometheus.dimensionMapPath=/opt/druid/conf/druid/cluster/_common/metricDimensions.json
+    druid.emitter.prometheus.addHostAsLabel=true
+    druid.emitter.prometheus.addServiceAsLabel=true
+
     # Metadata Store
     druid.metadata.storage.type=postgresql
     druid.metadata.storage.connector.connectURI=jdbc:postgresql://druid-postgres.backend.svc.cluster.local:5432/druid
@@ -74,6 +84,7 @@ spec:
     "druid-kafka-indexing-service", \
     "druid-protobuf-extensions", \
     "druid-kubernetes-extensions", \
+    "prometheus-emitter", \
     "druid-google-extensions"]
 
     # Service discovery
