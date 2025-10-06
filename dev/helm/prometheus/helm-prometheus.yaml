@@ -42,7 +42,7 @@ spec:
         retention: 1d
     grafana:
       plugins:
-        - grafana-druid-datasource
+        - grafadruid-druid-datasource
       enabled: true
       defaultDashboardsEnabled: false
       additionalDataSources:
@@ -52,7 +52,7 @@ spec:
           url: http://pyroscope.backend.svc.cluster.local:4040
 
         - name: Druid
-          type: grafana-druid-datasource
+          type: grafadruid-druid-datasource
           access: proxy
           url: http://druid-router.backend.svc.cluster.local:8088
           jsonData:
