@@ -39,6 +39,9 @@ metadata:
     app: druid-cluster
 spec:
   type: ClusterIP
+  selector:
+    app: druid-cluster
+    component: broker
   ports:
     - name: tcp-prometheus
       protocol: TCP
@@ -54,6 +57,9 @@ metadata:
     app: druid-cluster
 spec:
   type: ClusterIP
+  selector:
+    app: druid-cluster
+    component: router
   ports:
     - name: tcp-prometheus
       protocol: TCP
@@ -68,6 +74,9 @@ metadata:
   labels:
     app: druid-cluster
 spec:
+  selector:
+    app: druid-cluster
+    component: coordinator
   type: ClusterIP
   ports:
     - name: tcp-prometheus
@@ -83,6 +92,9 @@ metadata:
   labels:
     app: druid-cluster
 spec:
+  selector:
+    app: druid-cluster
+    component: historical
   type: ClusterIP
   ports:
     - name: tcp-prometheus
@@ -98,6 +110,9 @@ metadata:
   labels:
     app: druid-cluster
 spec:
+  selector:
+    app: druid-cluster
+    component: indexer
   type: ClusterIP
   ports:
     - name: tcp-prometheus
