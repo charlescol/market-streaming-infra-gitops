@@ -5,3 +5,4 @@ resources:
   - flink-monitors.yaml
   - tokio-scraper-monitors.yaml
   - exchange-middleware-monitors.yaml
+  - druid-monitors.yaml
