@@ -252,6 +252,7 @@ spec:
 
         # Management proxy to coordinator / overlord: required for unified web console.
         druid.router.managementProxy.enabled=true
+        druid.router.sql.enable=true
       extra.jvm.options: |-
         -Xmx512M
         -Xms512M
