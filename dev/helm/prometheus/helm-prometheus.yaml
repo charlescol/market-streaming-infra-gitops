@@ -41,6 +41,8 @@ spec:
         serviceMonitorNamespaceSelector: {}
         retention: 1d
     grafana:
+      plugins:
+        - grafana-druid-datasource
       enabled: true
       defaultDashboardsEnabled: false
       additionalDataSources:
@@ -48,6 +50,16 @@ spec:
           type: pyroscope
           access: proxy
           url: http://pyroscope.backend.svc.cluster.local:4040
+
+        - name: Druid
+          type: grafana-druid-datasource
+          access: proxy
+          url: http://druid-router.backend.svc.cluster.local:8088
+          jsonData:
+            druidQueryType: sql
+            timeout: 120
+            maxRows: 5000
+          editable: true
       resources:
         requests:
           cpu: "400m"
