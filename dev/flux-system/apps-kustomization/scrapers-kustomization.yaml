@@ -15,4 +15,4 @@ spec:
     - name: app-kafka
     - name: app-flink
     - name: app-exchange-middleware
-    - name: app-tokio-binance-mock
+    # - name: app-tokio-binance-mock
