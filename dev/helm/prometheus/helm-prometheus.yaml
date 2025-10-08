@@ -48,15 +48,12 @@ spec:
           http_addr: 0.0.0.0
           http_port: 3000
           root_url: https://grafana.charlescolella.com/
+      service:
+        annotations:
+          cloud.google.com/neg: '{"ingress": true}'
 
       plugins:
         - grafadruid-druid-datasource
-
-      serviceMonitor:
-        enabled: true
-        scheme: https
-        tlsConfig:
-          insecureSkipVerify: true
 
       defaultDashboardsEnabled: false
       additionalDataSources:
