@@ -44,41 +44,13 @@ spec:
       enabled: true
       grafana.ini:
         server:
-          protocol: https
+          protocol: http
           http_addr: 0.0.0.0
           http_port: 3000
-          cert_file: /etc/grafana/certs/tls.crt
-          cert_key: /etc/grafana/certs/tls.key
-          root_url: https://35.194.99.139/
-
-      auth:
-        disable_login_form: false
-        oauth_auto_login: false
-      auth.google:
-        enabled: false
-      auth.generic_oauth:
-        enabled: false
-
-      extraSecretMounts:
-        - name: grafana-certs
-          secretName: grafana-tls
-          mountPath: /etc/grafana/certs
-          readOnly: true
-          defaultMode: 0440
+          root_url: https://grafana.charlescolella.com/
 
       plugins:
         - grafadruid-druid-datasource
-
-      livenessProbe:
-        httpGet:
-          path: /api/health
-          port: 3000
-          scheme: HTTPS
-      readinessProbe:
-        httpGet:
-          path: /api/health
-          port: 3000
-          scheme: HTTPS
 
       serviceMonitor:
         enabled: true
