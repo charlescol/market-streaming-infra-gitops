@@ -49,6 +49,15 @@ spec:
           http_port: 3000
           cert_file: /etc/grafana/certs/tls.crt
           cert_key: /etc/grafana/certs/tls.key
+          root_url: https://35.194.99.139/
+
+      auth:
+        disable_login_form: false
+        oauth_auto_login: false
+      auth.google:
+        enabled: false
+      auth.generic_oauth:
+        enabled: false
 
       extraSecretMounts:
         - name: grafana-certs
