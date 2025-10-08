@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: grafana-lb
   namespace: backend
-  annotations:
-    networking.gke.io/load-balancer-ipv4: 35.194.99.139
 spec:
   type: LoadBalancer
+  loadBalancerIP: 35.194.99.139
   ports:
-    - port: 80
+    - name: https
+      port: 443
       targetPort: 3000
       protocol: TCP
   selector:
