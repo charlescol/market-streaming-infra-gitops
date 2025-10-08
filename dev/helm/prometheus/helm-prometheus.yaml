@@ -41,6 +41,7 @@ spec:
         serviceMonitorNamespaceSelector: {}
         retention: 1d
     grafana:
+      enabled: true
       grafana.ini:
         server:
           protocol: https
@@ -58,7 +59,24 @@ spec:
 
       plugins:
         - grafadruid-druid-datasource
-      enabled: true
+
+      livenessProbe:
+        httpGet:
+          path: /api/health
+          port: 3000
+          scheme: HTTPS
+      readinessProbe:
+        httpGet:
+          path: /api/health
+          port: 3000
+          scheme: HTTPS
+
+      serviceMonitor:
+        enabled: true
+        scheme: https
+        tlsConfig:
+          insecureSkipVerify: true
+
       defaultDashboardsEnabled: false
       additionalDataSources:
         - name: Pyroscope
