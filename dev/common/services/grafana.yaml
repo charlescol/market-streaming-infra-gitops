@@ -6,10 +6,13 @@ metadata:
 spec:
   type: LoadBalancer
   loadBalancerIP: 35.194.99.139
+  externalTrafficPolicy: Local
+  healthCheckNodePort: 32080
+  selector:
+    app.kubernetes.io/name: grafana
   ports:
     - name: https
       port: 443
       targetPort: 3000
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: grafana
+      nodePort: 31853
