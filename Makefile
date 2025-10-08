@@ -8,6 +8,8 @@ AR_CONFIG_TEMPLATE := $(CONFIG_DIR)/artifact-registry-config.template
 AR_CONFIG_JSON := $(CONFIG_DIR)/artifact-registry-config.json
 FLUX_READER_KEY_FILE := $(CONFIG_DIR)/flux-artifact-reader-key.json
 DRUID_STORAGE_KEY_FILE := $(CONFIG_DIR)/druid-storage-writer-key.json
+GRAFANA_TLS_CERT := $(CONFIG_DIR)/grafana-tls.crt
+GRAFANA_TLS_KEY := $(CONFIG_DIR)/grafana-tls.key
 
 include $(CONFIG_DIR)/.env
 export
@@ -75,6 +77,14 @@ check_env: ## Check if all required environment variables and files are set
 		echo "❌ Missing GCP key file: $(DRUID_STORAGE_KEY_FILE)"; \
 		exit 1; \
 	fi
+	@if [ ! -f "$(GRAFANA_TLS_CERT)" ]; then \
+		echo "❌ Missing Grafana TLS cert file: $(GRAFANA_TLS_CERT)"; \
+		exit 1; \
+	fi
+	@if [ ! -f "$(GRAFANA_TLS_KEY)" ]; then \
+		echo "❌ Missing Grafana TLS key file: $(GRAFANA_TLS_KEY)"; \
+		exit 1; \
+	fi
 	@if [ ! -f "$(AR_CONFIG_TEMPLATE)" ]; then \
 		echo "❌ Missing config.template: $(AR_CONFIG_TEMPLATE)"; \
 		exit 1; \
@@ -102,6 +112,10 @@ _create_repository_secrets: $(AR_CONFIG_JSON)
 		--from-literal=postgres-password=$(DRUID_METADATA_PG_PASSWORD) \
  		--from-literal=password=$(DRUID_METADATA_AUTH_PASSWORD) \
   		-n backend --dry-run=client -o yaml | kubectl apply -f -
+	@kubectl -n backend create secret tls grafana-tls \
+		--cert="$(GRAFANA_TLS_CERT)" \
+		--key="$(GRAFANA_TLS_KEY)" \
+		--dry-run=client -o yaml | kubectl apply -f -
 
 
 $(AR_CONFIG_JSON): $(AR_CONFIG_TEMPLATE) $(FLUX_READER_KEY_FILE)

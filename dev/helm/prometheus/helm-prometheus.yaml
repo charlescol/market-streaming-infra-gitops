@@ -41,6 +41,21 @@ spec:
         serviceMonitorNamespaceSelector: {}
         retention: 1d
     grafana:
+      grafana.ini:
+        server:
+          protocol: https
+          http_addr: 0.0.0.0
+          http_port: 3000
+          cert_file: /etc/grafana/certs/tls.crt
+          cert_key: /etc/grafana/certs/tls.key
+
+      extraSecretMounts:
+        - name: grafana-certs
+          secretName: grafana-tls
+          mountPath: /etc/grafana/certs
+          readOnly: true
+          defaultMode: 0440
+
       plugins:
         - grafadruid-druid-datasource
       enabled: true
