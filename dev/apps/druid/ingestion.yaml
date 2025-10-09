@@ -41,6 +41,11 @@ spec:
 
           "tuningConfig": {
             "type": "kafka"
+            "intermediatePersistPeriod": "PT5M",
+            "maxRowsPerSegment": 5000000,
+            "maxRowsInMemory": 250000,
+            "logParseExceptions": false
+
           },
 
           "dataSchema": {
