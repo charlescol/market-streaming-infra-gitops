@@ -75,7 +75,7 @@ spec:
             "metricsSpec": [],
 
             "granularitySpec": {
-              "segmentGranularity": "day",
+              "segmentGranularity": "fifteen_minute",
               "queryGranularity": "none",
               "rollup": false
             }
