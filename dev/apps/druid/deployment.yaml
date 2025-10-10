@@ -28,7 +28,7 @@ spec:
     -Dfile.encoding=UTF-8
     -Dlog4j.debug
     -Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager
-    -Djava.io.tmpdir=/druid/data
+    -Djava.io.tmpdir=/tmp
   log4j.config: |-
     <?xml version="1.0" encoding="UTF-8" ?>
     <Configuration status="WARN">
