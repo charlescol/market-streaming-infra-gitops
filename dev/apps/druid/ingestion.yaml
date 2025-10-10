@@ -24,6 +24,8 @@ spec:
             },
             "topic": "binance-microstructure-raw",
             "useEarliestOffset": true,
+            "taskDuration": "PT1H",
+            "completionTimeout": "PT10M",
 
             "inputFormat": {
               "type": "protobuf",
@@ -40,7 +42,7 @@ spec:
           },
 
           "tuningConfig": {
-            "type": "kafka"
+            "type": "kafka",
             "intermediatePersistPeriod": "PT5M",
             "maxRowsPerSegment": 5000000,
             "maxRowsInMemory": 250000,
