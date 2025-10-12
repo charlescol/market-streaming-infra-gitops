@@ -5,7 +5,7 @@ metadata:
   namespace: backend
 data:
   symbols-config.yaml: |
-       symbols:
+    symbols:
       - FLOKIUSDT
       - ETHUSDT
       - BTCFDUSD
