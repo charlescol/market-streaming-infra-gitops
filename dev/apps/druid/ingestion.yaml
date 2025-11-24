@@ -75,7 +75,8 @@ spec:
                 { "type": "string", "name": "exchange" },
                 { "type": "string", "name": "side" },
                 { "type": "double", "name": "value" },
-                { "type": "long",   "name": "receptionTimeMicro" }
+                { "type": "long",   "name": "receptionTimeMicro" },
+                { "type": "long", "name": "extractionTimeMicro" }
               ]
             },
 
