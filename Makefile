@@ -116,6 +116,9 @@ _create_repository_secrets: $(AR_CONFIG_JSON)
 		--cert="$(GRAFANA_TLS_CERT)" \
 		--key="$(GRAFANA_TLS_KEY)" \
 		--dry-run=client -o yaml | kubectl apply -f -
+	@kubectl create secret generic binance-api-key \
+		--from-literal=api-key="$(BINANCE_API_KEY)" \
+		-n backend --dry-run=client -o yaml | kubectl apply -f -
 
 
 $(AR_CONFIG_JSON): $(AR_CONFIG_TEMPLATE) $(FLUX_READER_KEY_FILE)
