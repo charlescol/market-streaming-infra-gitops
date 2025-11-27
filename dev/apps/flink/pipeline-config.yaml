@@ -4,11 +4,27 @@ metadata:
   name: config-flink-pipeline
   namespace: backend
 data:
-  flink-pipeline.properties: |
-    parallelism.source.depthupdate=1
-    parallelism.source.snapshot=1
-    parallelism.orderbook=2
-    parallelism.metrics.extraction1=1
-    parallelism.metrics.extraction2=1
-    parallelism.metrics.extraction3=1
-    parallelism.sink=3
+  flink-pipeline.yaml: |
+    source:
+      depthupdate:
+        parallelism: 1
+        sharing-group: "default"
+      snapshot:
+        parallelism: 1
+        sharing-group: "default"
+    orderbook:
+      parallelism: 2
+      sharing-group: "orderbook-group"
+    metrics:
+      extraction1:
+        parallelism: 1
+        sharing-group: "default"
+      extraction2:
+        parallelism: 1
+        sharing-group: "default"
+      extraction3:
+        parallelism: 1
+        sharing-group: "default"
+    sink:
+      parallelism: 3
+      sharing-group: "sink-group"
