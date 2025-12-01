@@ -105,9 +105,9 @@ spec:
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
-    taskmanager.numberOfTaskSlots: "10"
+    taskmanager.numberOfTaskSlots: "5"
     taskmanager.slot.timeout: 20s
-    taskmanager.memory.process.size: "8096m"
+    taskmanager.memory.process.size: "4096m"
     kubernetes.taskmanager.cpu.limit-factor: "1"
     taskmanager.network.memory.buffer-debloat.enabled: "true"
     taskmanager.network.memory.buffer-debloat.target: 5ms
