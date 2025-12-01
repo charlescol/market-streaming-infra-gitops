@@ -22,7 +22,7 @@ spec:
               done
       containers:
         - name: init-schema-registry
-          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/init-schema-registry/init-schema-registry:0.7.1 # {"$imagepolicy": "flux-system:init-schema-registry"}
+          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/init-schema-registry/init-schema-registry:0.8.1 # {"$imagepolicy": "flux-system:init-schema-registry"}
           command: ["sh", "-c"]
           args: ["node dist/build-schemas.js && node dist/publish-schemas.js"]
           env:
