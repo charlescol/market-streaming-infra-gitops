@@ -52,13 +52,14 @@ spec:
 
           "dataSchema": {
             "dataSource": "binance-microstructure",
-
-            "timestampSpec": {
-              "column": "timestampMilli",
-              "format": "millis"
-            },
+            "timestampSpec": { "column": "timestampMicro", "format": "micro" },
 
             "transformSpec": {
+              "filter": {
+                "type": "in",
+                "dimension": "symbol",
+                "values": ["BTCUSDT", "ETHUSDT"]
+              },
               "transforms": [
                 { "type": "expression", "name": "side",        "expression": "nvl(side, 0)" },
                 { "type": "expression", "name": "exchange",    "expression": "nvl(exchange, 0)" },
