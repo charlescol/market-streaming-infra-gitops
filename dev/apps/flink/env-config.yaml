@@ -19,7 +19,7 @@ data:
   ORDER_BOOK_MIN_DEPTH_PERCENT: "35"
   ORDER_BOOK_SNAPSHOT_DEPTH: "1000"
   TIMEOUT_SNAPSHOT_REQUEST_SECONDS: "10"
-  FLINK_PIPELINE_PROPS_PATH: "/opt/flink/pipeline-config/flink-pipeline.properties"
+  FLINK_PIPELINE_PROPS_PATH: "/opt/flink/pipeline-config/flink-pipeline.yaml"
   ENABLE_EXTRACTION_VERBOSE: "false"
   ENABLE_ORDERBOOK_VERBOSE: "true"
   TRACKED_SYMBOLS: "FLOKIUSDT"
