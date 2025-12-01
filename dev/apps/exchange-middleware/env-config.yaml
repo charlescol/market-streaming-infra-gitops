@@ -8,6 +8,7 @@ data:
   BINANCE_EXCHANGE_INFO_URL: "https://api.binance.com/api/v3/exchangeInfo"
   BINANCE_SNAPSHOT_URL: "https://api.binance.com/api/v3/depth?limit=1000"
   BINANCE_PING_URL: "https://api.binance.com/api/v3/ping"
+  BINANCE_API_FORMAT: "sbe"
   KAFKA_CLIENT_ID: "exchange-middleware"
   KAFKA_TOPIC: "exchange-depthSnapshot-raw"
   KAFKA_BROKER_HOST: "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
