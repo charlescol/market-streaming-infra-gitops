@@ -7,23 +7,23 @@ data:
   flink-pipeline.yaml: |
     source:
       depthupdate:
-        parallelism: 1
+        parallelism: 2
         sharing-group: "default"
       snapshot:
         parallelism: 1
         sharing-group: "default"
     orderbook:
-      parallelism: 2
+      parallelism: 3
       sharing-group: "orderbook-group"
     metrics:
       extraction1:
-        parallelism: 1
+        parallelism: 2
         sharing-group: "default"
       extraction2:
-        parallelism: 1
+        parallelism: 2
         sharing-group: "default"
       extraction3:
-        parallelism: 1
+        parallelism: 2
         sharing-group: "default"
     sink:
       parallelism: 3
