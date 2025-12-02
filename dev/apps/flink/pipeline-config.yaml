@@ -17,14 +17,14 @@ data:
       sharing-group: "orderbook-group"
     metrics:
       extraction1:
-        parallelism: 2
-        sharing-group: "default"
+        parallelism: 3
+        sharing-group: "feature1"
       extraction2:
-        parallelism: 2
-        sharing-group: "default"
+        parallelism: 3
+        sharing-group: "feature2"
       extraction3:
-        parallelism: 2
-        sharing-group: "default"
+        parallelism: 3
+        sharing-group: "feature3"
     sink:
       parallelism: 3
       sharing-group: "sink-group"
