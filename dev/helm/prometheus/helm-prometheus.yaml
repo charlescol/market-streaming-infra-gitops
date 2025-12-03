@@ -37,6 +37,7 @@ spec:
       enabled: false
     prometheus:
       prometheusSpec:
+        enableAdminAPI: true
         serviceMonitorSelectorNilUsesHelmValues: true
         serviceMonitorNamespaceSelector: {}
         retention: 1d
