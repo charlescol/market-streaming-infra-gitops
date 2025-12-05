@@ -5,7 +5,7 @@ metadata:
   namespace: backend
 data:
   RUST_LOG: "info"
-  ENABLE_METRICS_VERBOSE: "true"
+  ENABLE_METRICS_VERBOSE: "false"
   KAFKA_CLIENT_ID: "binance-scraper"
   KAFKA_TOPIC: "binance-depthUpdate-raw"
   KAFKA_BROKER_HOST: "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
