@@ -120,8 +120,8 @@ spec:
       log.segment.bytes: 1073741824
       log.roll.ms: 3600000 # 60 minutes
       log.roll.jitter.ms: 2700000 # 45 minutes
-      log.segment.delete.delay.ms: 180000
-      log.retention.check.interval.ms: 60000
+      log.segment.delete.delay.ms: 180000 # 3 minutes
+      log.retention.check.interval.ms: 120000 # 2 minute
       log.flush.offset.checkpoint.interval.ms: 30000
       log.flush.interval.messages: 9223372036854775807
       log.flush.scheduler.interval.ms: 9223372036854775807
