@@ -4,7 +4,7 @@ metadata:
   name: flink-cluster
   namespace: backend
 spec:
-  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.9.2 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.10.0 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
@@ -105,7 +105,7 @@ spec:
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
-    taskmanager.numberOfTaskSlots: "6"
+    taskmanager.numberOfTaskSlots: "7"
     taskmanager.slot.timeout: 20s
     taskmanager.memory.process.size: "4096m"
     kubernetes.taskmanager.cpu.limit-factor: "1"
@@ -200,7 +200,7 @@ spec:
     replicas: 2
     resource:
       memory: "4096m"
-      cpu: 6
+      cpu: 7
     podTemplate:
       spec:
         affinity:
