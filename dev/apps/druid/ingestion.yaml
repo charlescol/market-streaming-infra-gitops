@@ -64,7 +64,7 @@ spec:
                 { "type": "expression", "name": "side",        "expression": "nvl(side, 0)" },
                 { "type": "expression", "name": "exchange",    "expression": "nvl(exchange, 0)" },
                 { "type": "expression", "name": "levelCount",  "expression": "nvl(levelCount, 0)" },
-                { "type": "expression", "name": "value",       "expression": "nvl(value, 0)" }
+                { "type": "expression", "name": "value",       "expression": "nvl(value, 0)" },
                 { "type": "expression", "name": "isFirstUpdateAfterResume", "expression": "if(isFirstUpdateAfterResume, 1, 0)" }
               ]
             },
