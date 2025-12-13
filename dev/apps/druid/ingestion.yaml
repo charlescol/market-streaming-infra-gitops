@@ -19,11 +19,12 @@ spec:
         "spec": {
           "ioConfig": {
             "type": "kafka",
+            "taskCount": 4,
             "consumerProperties": {
               "bootstrap.servers": "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
             },
             "topic": "binance-microstructure-raw",
-            "useEarliestOffset": true,
+            "useEarliestOffset": false,
             "taskDuration": "PT1H",
             "completionTimeout": "PT10M",
 
@@ -46,8 +47,8 @@ spec:
             "intermediatePersistPeriod": "PT5M",
             "maxRowsPerSegment": 5000000,
             "maxRowsInMemory": 250000,
-            "logParseExceptions": false
-
+            "logParseExceptions": false,
+            "resetOffsetAutomatically": true
           },
 
           "dataSchema": {

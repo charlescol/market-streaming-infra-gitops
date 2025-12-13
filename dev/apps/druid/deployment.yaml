@@ -261,7 +261,14 @@ spec:
       nodeType: "indexer"
       druid.port: 8088
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/data/indexer"
-      replicas: 1
+      replicas: 2
+      resources:
+        requests:
+          cpu: "3"
+          memory: "3Gi"
+        limits:
+          cpu: "5"
+          memory: "3Gi"
       volumeClaimTemplates:
         - metadata:
             name: druid-task-data
@@ -301,7 +308,7 @@ spec:
         druid.host=${env:POD_IP}
         druid.service=druid/indexer
         druid.worker.capacity=2
-        druid.worker.globalIngestionHeapLimitBytes=536870912
+        druid.worker.globalIngestionHeapLimitBytes=1073741824
         druid.indexer.task.baseDir=/druid/data
         druid.indexer.logs.type=file
         druid.indexer.logs.directory=/druid/data/indexing-logs
