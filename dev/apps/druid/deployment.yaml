@@ -315,5 +315,5 @@ spec:
         druid.segmentCache.locations=[{"path":"/druid/data/segments","maxSize":5368709120}]
         druid.server.maxSize=5368709120
       extra.jvm.options: |-
-        -Xms1g
-        -Xmx1g
+        -Xms2g
+        -Xmx3g
