@@ -316,4 +316,4 @@ spec:
         druid.server.maxSize=5368709120
       extra.jvm.options: |-
         -Xms4g
-        -Xmx4.5g
+        -Xmx4608m
