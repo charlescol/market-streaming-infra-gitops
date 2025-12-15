@@ -264,11 +264,11 @@ spec:
       replicas: 2
       resources:
         requests:
-          cpu: "2"
-          memory: "3.5Gi"
-        limits:
           cpu: "4"
-          memory: "5Gi"
+          memory: "4Gi"
+        limits:
+          cpu: "6"
+          memory: "6Gi"
       volumeClaimTemplates:
         - metadata:
             name: druid-task-data

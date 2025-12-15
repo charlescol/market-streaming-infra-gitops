@@ -21,8 +21,8 @@ spec:
       memory: 9Gi
       cpu: "4"
     limits:
-      memory: 9Gi
-      cpu: "5"
+      memory: 12Gi
+      cpu: "5.5"
   jvmOptions:
     -Xms: "2048m"
     -Xmx: "2048m"
