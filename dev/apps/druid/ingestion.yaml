@@ -21,7 +21,10 @@ spec:
             "type": "kafka",
             "taskCount": 4,
             "consumerProperties": {
-              "bootstrap.servers": "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
+              "bootstrap.servers": "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092",
+              "request.timeout.ms": "120000",
+              "session.timeout.ms": "45000",
+              "connections.max.idle.ms": "540000"
             },
             "topic": "binance-microstructure-raw",
             "useEarliestOffset": false,
