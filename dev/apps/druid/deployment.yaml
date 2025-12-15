@@ -265,7 +265,7 @@ spec:
       resources:
         requests:
           cpu: "2"
-          memory: "3Gi"
+          memory: "3.5Gi"
         limits:
           cpu: "4"
           memory: "5Gi"
