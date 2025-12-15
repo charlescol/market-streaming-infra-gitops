@@ -307,7 +307,7 @@ spec:
       runtime.properties: |
         druid.host=${env:POD_IP}
         druid.service=druid/indexer
-        druid.worker.capacity=2
+        druid.worker.capacity=1
         druid.worker.globalIngestionHeapLimitBytes=3758096384
         druid.indexer.task.baseDir=/druid/data
         druid.indexer.logs.type=file

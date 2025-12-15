@@ -19,7 +19,7 @@ spec:
         "spec": {
           "ioConfig": {
             "type": "kafka",
-            "taskCount": 4,
+            "taskCount": 2,
             "consumerProperties": {
               "bootstrap.servers": "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092",
               "request.timeout.ms": "120000",
