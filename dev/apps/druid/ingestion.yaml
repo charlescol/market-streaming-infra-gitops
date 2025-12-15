@@ -51,7 +51,9 @@ spec:
             "maxRowsPerSegment": 5000000,
             "maxRowsInMemory": 250000,
             "logParseExceptions": false,
-            "resetOffsetAutomatically": true
+            "resetOffsetAutomatically": true,
+            "maxBytesInMemory": 536870912,
+            "maxPendingPersists": 1
           },
 
           "dataSchema": {

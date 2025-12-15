@@ -265,10 +265,10 @@ spec:
       resources:
         requests:
           cpu: "4"
-          memory: "4Gi"
+          memory: "5Gi"
         limits:
           cpu: "6"
-          memory: "6Gi"
+          memory: "7Gi"
       volumeClaimTemplates:
         - metadata:
             name: druid-task-data
@@ -292,7 +292,7 @@ spec:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
-                storage: 5Gi
+                storage: 10Gi
             storageClassName: standard
       volumeMounts:
         - name: druid-task-data
@@ -308,12 +308,12 @@ spec:
         druid.host=${env:POD_IP}
         druid.service=druid/indexer
         druid.worker.capacity=2
-        druid.worker.globalIngestionHeapLimitBytes=2147483648
+        druid.worker.globalIngestionHeapLimitBytes=3758096384
         druid.indexer.task.baseDir=/druid/data
         druid.indexer.logs.type=file
         druid.indexer.logs.directory=/druid/data/indexing-logs
-        druid.segmentCache.locations=[{"path":"/druid/data/segments","maxSize":5368709120}]
+        druid.segmentCache.locations=[{"path":"/druid/data/segments","maxSize":10737418240}]
         druid.server.maxSize=5368709120
       extra.jvm.options: |-
-        -Xms2g
-        -Xmx3g
+        -Xms4g
+        -Xmx4.5g
