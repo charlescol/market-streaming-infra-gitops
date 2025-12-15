@@ -200,7 +200,7 @@ spec:
     replicas: 2
     resource:
       memory: "4096m"
-      cpu: 7
+      cpu: 6
     podTemplate:
       spec:
         affinity:
