@@ -15,7 +15,7 @@ data:
   BINANCE_WS_HOST: "stream-sbe.binance.com"
   BINANCE_WS_PORT: "9443"
   BINANCE_WS_FORMAT: "sbe"
-  ENABLE_SCRAPER: "true"
+  ENABLE_SCRAPER: "false"
   SOURCE_TLS: "true"
   TRACKED_SYMBOLS: "ETHUSDT,BTCUSDT"
   MONITOR_RDKAFKA: "true"
