@@ -197,7 +197,7 @@ spec:
               name: wait-for-script
               defaultMode: 0755
   taskManager:
-    replicas: 2
+    replicas: 3
     resource:
       memory: "4096m"
       cpu: 6
