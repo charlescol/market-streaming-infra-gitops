@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-tokio-kucoin-middleware
+  namespace: backend
+data:
+  RUST_LOG: "debug"
+  SYMBOL_PRIORITY_CONFIG_PATH: "resources/symbols/symbol-priority.yaml"
+  PORT: "3000"
+  METRICS_PORT: "9000"
+  WORKFLOW_TICK_INTERVAL_SECONDS: "5"
+  WORKFLOW_LIMIT_FACTOR: "0.8"
+  WORKFLOW_MAX_IN_FLIGHT_REQUESTS: "100"
+  EXCHANGE_DEFAULT_LIMIT_COUNT: "1000"
+  EXCHANGE_DEFAULT_RESET_INTERVAL_MILLIS: "30000"
+  EXCHANGE_WARM_UP_URL: "https://api.kucoin.com/api/v1/market/orderbook/level2_100?symbol=ETH-USDT"
+  EXCHANGE_SNAPSHOT_URL: "https://api.kucoin.com/api/v1/market/orderbook/level2_100?"
+  EXCHANGE_ORDERBOOK_REQUEST_WEIGHT: "2"
+  TOKIO_WORKER_THREADS: "1"
+  TOKIO_QUEUE_INTERVAL: "20"
+  TOKIO_EVENT_INTERVAL: "5"
+  KAFKA_CLIENT_ID: "kucoin-middleware"
+  KAFKA_TOPIC: "kucoin-depthSnapshot-raw"
+  KAFKA_BROKER_HOST: "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
+  KAFKA_CONFIG_PATH: "resources/kafka/kafka-sink-config.yaml"
+  SCHEMA_REGISTRY_URL: "http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"

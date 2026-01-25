@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-tokio-kucoin-scraper
+  namespace: backend
+data:
+  RUST_LOG: "info"
+  KAFKA_CLIENT_ID: "kucoin-scraper"
+  KAFKA_TOPIC: "kucoin-depthUpdate-raw"
+  KAFKA_BROKER_HOST: "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
+  KAFKA_CONFIG_PATH: "resources/kafka/kafka-sink-config.yaml"
+  SCHEMA_REGISTRY_URL: "http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"
+  KUCOIN_API_HOST: "https://api.kucoin.com"
+  KUCOIN_PING_INTERVAL_SECONDS: "18"
+  ENABLE_METRICS_VERBOSE: "false"
+  TRACKED_SYMBOLS: ""
+  METRICS_PORT: "9000"
+  MONITOR_RDKAFKA: "true"
+  MONITOR_MSG: "true"
+  MONITORING_RATIO: "1"
+  ENABLE_SCRAPER: "true"
+  SYMBOL_CONFIG_PATH: "resources/symbols/symbols-config.yaml"
+  TOKIO_WORKER_THREADS: "4"
+  TOKIO_QUEUE_INTERVAL: "5"
+  TOKIO_EVENT_INTERVAL: "5"
+  PROCESS_QUEUE_CAPACITY: "500"
+  STREAM_GROUP_COUNT: "300"
+  PROCESS_GROUP_COUNT: "700"
+  MAX_INFLIGHT_BY_PROCESS_GROUP: "30"

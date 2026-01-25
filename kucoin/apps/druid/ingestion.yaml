@@ -1,0 +1,101 @@
+apiVersion: druid.apache.org/v1alpha1
+kind: DruidIngestion
+metadata:
+  name: kucoin-microstructure-kafka
+  namespace: backend
+  labels:
+    app.kubernetes.io/name: druidingestion
+    app.kubernetes.io/instance: kucoin-microstructure
+spec:
+  suspend: false
+  druidCluster: cluster
+
+  ingestion:
+    type: kafka
+
+    spec: |-
+      {
+        "type": "kafka",
+        "spec": {
+          "ioConfig": {
+            "type": "kafka",
+            "taskCount": 2,
+            "consumerProperties": {
+              "bootstrap.servers": "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092",
+              "request.timeout.ms": "120000",
+              "session.timeout.ms": "45000",
+              "connections.max.idle.ms": "540000"
+            },
+            "topic": "kucoin-microstructure-raw",
+            "useEarliestOffset": false,
+            "taskDuration": "PT1H",
+            "completionTimeout": "PT10M",
+
+            "inputFormat": {
+              "type": "protobuf",
+              "protoBytesDecoder": {
+                "type": "schema_registry",
+
+                "urls": ["http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"],
+                "config": {
+                  "value.subject.name.strategy": "io.confluent.kafka.serializers.subject.RecordNameStrategy"
+                }
+              },
+              "protoMessageType": "exchangeMicrostructureRaw.v1.Microstructure"
+            }
+          },
+
+          "tuningConfig": {
+            "type": "kafka",
+            "intermediatePersistPeriod": "PT5M",
+            "maxRowsPerSegment": 5000000,
+            "maxRowsInMemory": 250000,
+            "logParseExceptions": false,
+            "resetOffsetAutomatically": true,
+            "maxBytesInMemory": 536870912,
+            "maxPendingPersists": 1
+          },
+
+          "dataSchema": {
+            "dataSource": "kucoin-microstructure",
+            "timestampSpec": { "column": "timestampMicro", "format": "micro" },
+
+            "transformSpec": {
+              "filter": {
+                "type": "expression",
+                "name": "isMonitoredInt",
+                "expression": "if(isMonitored, 1, 0)"
+              },
+              "transforms": [
+                { "type": "expression", "name": "side",        "expression": "nvl(side, 0)" },
+                { "type": "expression", "name": "exchange",    "expression": "nvl(exchange, 0)" },
+                { "type": "expression", "name": "levelCount",  "expression": "nvl(levelCount, 0)" },
+                { "type": "expression", "name": "value",       "expression": "nvl(value, 0)" },
+                { "type": "expression", "name": "isFirstUpdateAfterResume", "expression": "if(isFirstUpdateAfterResume, 1, 0)" }
+              ]
+            },
+
+            "dimensionsSpec": {
+              "dimensions": [
+                "symbol",
+                "name",
+                { "type": "long",   "name": "levelCount" },
+                { "type": "string", "name": "exchange" },
+                { "type": "string", "name": "side" },
+                { "type": "double", "name": "value" },
+                { "type": "long", "name": "isFirstUpdateAfterResume" },
+                { "type": "long",   "name": "receptionTimeMicro" },
+                { "type": "long", "name": "extractionTimeMicro" }
+              ]
+            },
+
+            "metricsSpec": [],
+
+            "granularitySpec": {
+              "segmentGranularity": "fifteen_minute",
+              "queryGranularity": "none",
+              "rollup": false
+            }
+          }
+        }
+      }

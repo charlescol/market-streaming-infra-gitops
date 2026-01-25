@@ -1,0 +1,9 @@
+{
+  "auths": {
+    "${IMAGE_REPO_NAME}": {
+      "username": "_json_key",
+      "password": "${PASSWORD_ESC}",
+      "auth": "${AUTH}"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - kafka-monitors.yaml
+  - flink-monitors.yaml
+  - tokio-scraper-monitors.yaml
+  - exchange-middleware-monitors.yaml
+  - druid-monitors.yaml
