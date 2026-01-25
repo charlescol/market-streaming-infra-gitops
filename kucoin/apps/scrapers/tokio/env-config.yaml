@@ -4,7 +4,7 @@ metadata:
   name: config-tokio-kucoin-scraper
   namespace: backend
 data:
-  RUST_LOG: "info"
+  RUST_LOG: "debug"
   KAFKA_CLIENT_ID: "kucoin-scraper"
   KAFKA_TOPIC: "kucoin-depthUpdate-raw"
   KAFKA_BROKER_HOST: "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
@@ -12,7 +12,7 @@ data:
   SCHEMA_REGISTRY_URL: "http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"
   KUCOIN_API_HOST: "https://api.kucoin.com"
   KUCOIN_PING_INTERVAL_SECONDS: "18"
-  ENABLE_METRICS_VERBOSE: "false"
+  ENABLE_METRICS_VERBOSE: "true"
   TRACKED_SYMBOLS: ""
   METRICS_PORT: "9000"
   MONITOR_RDKAFKA: "true"
