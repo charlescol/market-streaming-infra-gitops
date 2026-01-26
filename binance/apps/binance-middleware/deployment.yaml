@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tokio-exchange-middleware
+  name: tokio-binance-middleware
   namespace: backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tokio-exchange-middleware
+      app: tokio-binance-middleware
   template:
     metadata:
       labels:
-        app: tokio-exchange-middleware
+        app: tokio-binance-middleware
     spec:
       imagePullSecrets:
         - name: flux-gcp-key
       containers:
         - name: tokio
-          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/tokio-exchange-middleware/tokio-exchange-middleware:1.2.4 # {"$imagepolicy": "flux-system:tokio-exchange-middleware"}
+          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/tokio-binance-middleware/tokio-binance-middleware:1.2.4 # {"$imagepolicy": "flux-system:tokio-binance-middleware"}
           ports:
             - containerPort: 3000
               name: http
@@ -26,7 +26,7 @@ spec:
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
-                name: config-tokio-exchange-middleware
+                name: config-tokio-binance-middleware
           volumeMounts:
             - name: kafka-config-volume
               mountPath: /app/resources/kafka
@@ -44,7 +44,7 @@ spec:
       volumes:
         - name: kafka-config-volume
           configMap:
-            name: config-exchange-middleware-kafka
+            name: config-binance-middleware-kafka
         - name: symbol-priority-volume
           configMap:
-            name: config-exchange-middleware-symbol-priority
+            name: config-binance-middleware-symbol-priority

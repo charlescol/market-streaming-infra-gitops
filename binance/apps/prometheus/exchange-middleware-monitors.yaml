@@ -1,14 +1,14 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: prometheus-tokio-exchange-middleware
+  name: prometheus-tokio-binance-middleware
   namespace: backend
   labels:
     release: prometheus
 spec:
   selector:
     matchLabels:
-      app: tokio-exchange-middleware-metrics
+      app: tokio-binance-middleware-metrics
   namespaceSelector:
     matchNames:
       - backend
@@ -18,6 +18,6 @@ spec:
       scrapeTimeout: 5s
       path: /metrics
       scheme: http
-  jobLabel: "tokio-exchange-middleware-metrics"
+  jobLabel: "tokio-binance-middleware-metrics"
   targetLabels:
-    - tokio-exchange-middleware-metrics
+    - tokio-binance-middleware-metrics

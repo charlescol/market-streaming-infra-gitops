@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./dev/apps/prometheus
+  path: ./binance/apps/prometheus
   prune: true
   sourceRef:
     kind: GitRepository
@@ -13,5 +13,5 @@ spec:
   dependsOn:
     - name: app-kafka
     - name: app-flink
-    - name: app-exchange-middleware
+    - name: app-binance-middleware
     - name: app-scrapers

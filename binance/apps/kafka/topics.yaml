@@ -17,12 +17,12 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: exchange-depthsnapshot-raw
+  name: binance-depthsnapshot-raw
   namespace: backend
   labels:
     strimzi.io/cluster: kafka-cluster
 spec:
-  topicName: exchange-depthSnapshot-raw
+  topicName: binance-depthsnapshot-raw
   partitions: 5
   replicas: 2
   config:

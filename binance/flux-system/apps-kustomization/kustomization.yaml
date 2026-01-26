@@ -5,7 +5,7 @@ resources:
   - schema-registry-kustomization.yaml
   - prometheus-kustomization.yaml
   - flink-kustomization.yaml
-  - exchange-middleware-kustomization.yaml
+  - binance-middleware-kustomization.yaml
   - scrapers-kustomization.yaml
   # - tokio-binance-mock-kustomization.yaml
   - druid-kustomization.yaml

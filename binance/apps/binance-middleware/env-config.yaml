@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config-tokio-exchange-middleware
+  name: config-tokio-binance-middleware
   namespace: backend
 data:
   RUST_LOG: "debug"
@@ -9,8 +9,8 @@ data:
   BINANCE_SNAPSHOT_URL: "https://api.binance.com/api/v3/depth?limit=1000"
   BINANCE_PING_URL: "https://api.binance.com/api/v3/ping"
   BINANCE_API_FORMAT: "sbe"
-  KAFKA_CLIENT_ID: "exchange-middleware"
-  KAFKA_TOPIC: "exchange-depthSnapshot-raw"
+  KAFKA_CLIENT_ID: "binance-middleware"
+  KAFKA_TOPIC: "binance-depthsnapshot-raw"
   KAFKA_BROKER_HOST: "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
   KAFKA_CONFIG_PATH: "resources/kafka/kafka-sink-config.yaml"
   SCHEMA_REGISTRY_URL: "http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"

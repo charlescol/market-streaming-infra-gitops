@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config-exchange-middleware-symbol-priority
+  name: config-binance-middleware-symbol-priority
   namespace: backend
 data:
   symbol-priority.yaml: |

@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./dev/apps/scrapers
+  path: ./binance/apps/scrapers
   prune: true
   sourceRef:
     kind: GitRepository
@@ -14,5 +14,5 @@ spec:
     - name: app-schema-registry
     - name: app-kafka
     - name: app-flink
-    - name: app-exchange-middleware
+    - name: app-binance-middleware
     # - name: app-tokio-binance-mock

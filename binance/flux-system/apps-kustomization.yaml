@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./dev/flux-system/apps-kustomization
+  path: ./binance/flux-system/apps-kustomization
   prune: true
   sourceRef:
     kind: GitRepository

@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./dev/apps/druid
+  path: ./binance/apps/druid
   prune: true
   sourceRef:
     kind: GitRepository

@@ -34,11 +34,11 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
-  name: tokio-exchange-middleware
+  name: tokio-binance-middleware
   namespace: flux-system
 spec:
   interval: 1m0s
-  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/tokio-exchange-middleware/tokio-exchange-middleware
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/tokio-binance-middleware/tokio-binance-middleware
   secretRef:
     name: flux-gcp-key
 ---
@@ -92,11 +92,11 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
-  name: tokio-exchange-middleware
+  name: tokio-binance-middleware
   namespace: flux-system
 spec:
   imageRepositoryRef:
-    name: tokio-exchange-middleware
+    name: tokio-binance-middleware
   policy:
     semver:
       range: ">=0.0.0"
@@ -131,4 +131,4 @@ spec:
     push:
       branch: main
   update:
-    path: ./dev/apps
+    path: ./binance/apps
