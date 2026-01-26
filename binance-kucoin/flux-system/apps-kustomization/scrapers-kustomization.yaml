@@ -14,4 +14,4 @@ spec:
     - name: app-schema-registry
     - name: app-kafka
     - name: app-flink
-    - name: app-exchange-middleware
+    - name: app-middleware

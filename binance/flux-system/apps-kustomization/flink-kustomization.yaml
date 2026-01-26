@@ -13,4 +13,4 @@ spec:
   dependsOn:
     - name: app-kafka
     - name: app-schema-registry
-    - name: app-binance-middleware
+    - name: app-middleware

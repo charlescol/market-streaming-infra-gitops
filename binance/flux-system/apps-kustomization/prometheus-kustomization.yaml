@@ -13,5 +13,5 @@ spec:
   dependsOn:
     - name: app-kafka
     - name: app-flink
-    - name: app-binance-middleware
-    - name: app-scrapers
+    - name: app-middleware
+    - name: app-scraper

@@ -5,6 +5,6 @@ resources:
   - schema-registry-kustomization.yaml
   - prometheus-kustomization.yaml
   - flink-kustomization.yaml
-  - exchange-middleware-kustomization.yaml
+  - middleware-kustomization.yaml
   - scrapers-kustomization.yaml
   - druid-kustomization.yaml

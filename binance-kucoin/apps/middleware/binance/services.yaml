@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tokio-binance-middleware-metrics
+  namespace: backend
+  labels:
+    app: tokio-binance-middleware-metrics
+spec:
+  selector:
+    app: tokio-binance-middleware
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+      name: tcp-prometheus
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tokio-binance-middleware-http
+  namespace: backend
+  labels:
+    app: tokio-binance-middleware-http
+spec:
+  selector:
+    app: tokio-binance-middleware
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      name: tcp-http
+  type: ClusterIP

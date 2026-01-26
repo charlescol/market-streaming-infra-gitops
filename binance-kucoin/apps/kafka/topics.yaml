@@ -1,6 +1,22 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
+  name: binance-depthupdate-raw
+  namespace: backend
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  topicName: binance-depthUpdate-raw
+  partitions: 20
+  replicas: 2
+  config:
+    retention.ms: 900000 # 15 minutes
+    retention.bytes: -1
+    cleanup.policy: "delete"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
   name: kucoin-depthupdate-raw
   namespace: backend
   labels:
@@ -8,6 +24,22 @@ metadata:
 spec:
   topicName: kucoin-depthUpdate-raw
   partitions: 20
+  replicas: 2
+  config:
+    retention.ms: 900000 # 15 minutes
+    retention.bytes: -1
+    cleanup.policy: "delete"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: binance-depthsnapshot-raw
+  namespace: backend
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  topicName: binance-depthSnapshot-raw
+  partitions: 5
   replicas: 2
   config:
     retention.ms: 900000 # 15 minutes
@@ -33,13 +65,29 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
+  name: binance-microstructure-raw
+  namespace: backend
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  topicName: binance-microstructure-raw
+  partitions: 30
+  replicas: 2
+  config:
+    retention.ms: 900000 # 15 minutes
+    retention.bytes: -1
+    cleanup.policy: "delete"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
   name: kucoin-microstructure-raw
   namespace: backend
   labels:
     strimzi.io/cluster: kafka-cluster
 spec:
   topicName: kucoin-microstructure-raw
-  partitions: 60
+  partitions: 30
   replicas: 2
   config:
     retention.ms: 900000 # 15 minutes
