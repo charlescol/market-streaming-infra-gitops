@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config-exchange-middleware-kafka
+  name: config-kucoin-middleware-kafka
   namespace: backend
 data:
   kafka-sink-config.yaml: |

@@ -44,7 +44,7 @@ spec:
       volumes:
         - name: kafka-config-volume
           configMap:
-            name: config-exchange-middleware-kafka
+            name: config-kucoin-middleware-kafka
         - name: symbol-priority-volume
           configMap:
-            name: config-exchange-middleware-symbol-priority
+            name: config-kucoin-middleware-symbol-priority

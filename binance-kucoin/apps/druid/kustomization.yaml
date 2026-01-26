@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - services.yaml
-  - ingestion.yaml
+  - binance-ingestion.yaml
+  - kucoin-ingestion.yaml
   - metadata-storage.yaml
