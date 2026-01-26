@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: schema-registry-cluster-ip
+  namespace: backend
+spec:
+  selector:
+    app: schema-registry
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type: ClusterIP

@@ -1,0 +1,62 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: binance-depthupdate-raw
+  namespace: backend
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  topicName: binance-depthUpdate-raw
+  partitions: 20
+  replicas: 2
+  config:
+    retention.ms: 900000 # 15 minutes
+    retention.bytes: -1
+    cleanup.policy: "delete"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: exchange-depthsnapshot-raw
+  namespace: backend
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  topicName: exchange-depthSnapshot-raw
+  partitions: 5
+  replicas: 2
+  config:
+    retention.ms: 900000 # 15 minutes
+    retention.bytes: -1
+    cleanup.policy: "delete"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: binance-microstructure-raw
+  namespace: backend
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  topicName: binance-microstructure-raw
+  partitions: 60
+  replicas: 2
+  config:
+    retention.ms: 900000 # 15 minutes
+    retention.bytes: -1
+    cleanup.policy: "delete"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: schemas
+  namespace: backend
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  topicName: _schemas
+  partitions: 1
+  replicas: 2
+  config:
+    cleanup.policy: "compact"
+    retention.ms: -1

@@ -1,0 +1,17 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: app-prometheus
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./dev/apps/prometheus
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: app-kafka
+    - name: app-flink
+    - name: app-exchange-middleware
+    - name: app-scrapers

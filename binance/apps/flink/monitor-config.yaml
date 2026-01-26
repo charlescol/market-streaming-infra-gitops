@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-flink-monitor
+  namespace: backend
+data:
+  monitor-conf.yaml: |
+    symbols:
+     - BTCUSDT
+     - ETHUSDT
