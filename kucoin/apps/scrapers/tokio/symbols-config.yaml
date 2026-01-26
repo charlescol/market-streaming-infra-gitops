@@ -7,16 +7,51 @@ data:
   symbols-config.yaml: |
     symbols:
       - ETH-USDT
-      - LTC-USDT
-      - XRP-USDT
-      - BCH-USDT
-      - ADA-USDT
-      - DOT-USDT
-      - LINK-USDT
-      - XLM-USDT
-      - DOGE-USDT
       - SOL-USDT
-      - MATIC-USDT
-      - AVAX-USDT
-      - SHIB-USDT
+      - XRP-USDT
+      - XMR-USDT
+      - BTC-USDC
+      - LTC-USDT
+      - ETH-USDC
+      - FIGHT-USDT
+      - SUI-USDT
+      - USDC-USDT
+      - ZEC-USDT
+      - HYPE-USDT
+      - BNB-USDT
+      - SPACE-USD1
+      - DOGE-USDT
+      - PAXG-USDT
+      - TON-USDT
+      - ADA-USDT
+      - PEPE-USDT
+      - ENSO-USDT
+      - TAO-USDT
+      - ROSE-USDT
+      - LINK-USDT
+      - DASH-USDT
+      - SOMI-USDT
       - TRX-USDT
+      - NEAR-USDT
+      - ZKC-USDT
+      - USDT-USDC
+      - IMU-USDT
+      - GWEI-USDT
+      - SOL-USDC
+      - AVAX-USDT
+      - LINEA-USDT
+      - DMC-USDT
+      - SPACE-USDT
+      - SKR-USDT
+      - FF-USDT
+      - WLFI-USDT
+      - SENT-USDT
+      - PUMP-USDT
+      - UNI-USDT
+      - PYBOBO-USDT
+      - FOGO-USDT
+      - ACU-USDT
+      - XRP-USDC
+      - AVNT-USDT
+      - CC-USDT
+      - XMR-USDC
