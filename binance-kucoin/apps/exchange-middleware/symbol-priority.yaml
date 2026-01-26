@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-exchange-middleware-symbol-priority
+  namespace: backend
+data:
+  symbol-priority.yaml: |
+    queues:
+      - priority: 1
+        capacity: 2000
+        symbols:
+          - _OTHERS_

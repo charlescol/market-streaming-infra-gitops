@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-tokio-kucoin-scraper
+  namespace: backend
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: tokio-kucoin-scraper-metrics
+  namespaceSelector:
+    matchNames:
+      - backend
+  endpoints:
+    - port: "tcp-prometheus"
+      interval: 10s
+      scrapeTimeout: 5s
+      path: /metrics
+      scheme: http
+  jobLabel: "tokio-kucoin-scraper-metrics"
+  targetLabels:
+    - tokio-kucoin-scraper-metrics
