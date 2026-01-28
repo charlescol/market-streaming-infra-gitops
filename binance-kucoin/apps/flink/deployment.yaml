@@ -4,7 +4,7 @@ metadata:
   name: flink-cluster
   namespace: backend
 spec:
-  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.12.4 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
+  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:v0.12.5 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
@@ -105,7 +105,7 @@ spec:
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
-    taskmanager.numberOfTaskSlots: "7"
+    taskmanager.numberOfTaskSlots: "6"
     taskmanager.slot.timeout: 20s
     taskmanager.memory.process.size: "4096m"
     kubernetes.taskmanager.cpu.limit-factor: "1"
@@ -138,7 +138,6 @@ spec:
       # --------------------------------------------------------------------
       appender.Async.type = Async
       appender.Async.name = Async
-      appender.Async.includeThreadContext = true
       appender.Async.appenderRef.type = AppenderRef
       appender.Async.appenderRef.ref = Console
       # --------------------------------------------------------------------
@@ -163,39 +162,21 @@ spec:
           fsGroup: 999
         containers:
           - name: flink-main-container
-            envFrom:
-              - configMapRef:
-                  name: config-flink-env
             volumeMounts:
-              - name: flink-volume
-                mountPath: /flink-data
-                readOnly: false
-              - name: kafka-config-volume
-                mountPath: /opt/flink/kafka-config
+              - name: job-config-binance
+                mountPath: /opt/flink/job-configs/binance
                 readOnly: true
-              - name: monitor-config-volume
-                mountPath: /opt/flink/monitor-config
-                readOnly: true
-              - name: pipeline-config-volume
-                mountPath: /opt/flink/pipeline-config
+              - name: job-config-kucoin
+                mountPath: /opt/flink/job-configs/kucoin
                 readOnly: true
         volumes:
-          - name: flink-volume
-            persistentVolumeClaim:
-              claimName: flink-pvc
-          - name: kafka-config-volume
+          - name: job-config-binance
             configMap:
-              name: config-flink-kafka
-          - name: pipeline-config-volume
+              name: config-flink-job-binance
+          - name: job-config-kucoin
             configMap:
-              name: config-flink-pipeline
-          - name: monitor-config-volume
-            configMap:
-              name: config-flink-monitor
-          - name: wait-for-volume
-            configMap:
-              name: wait-for-script
-              defaultMode: 0755
+              name: config-flink-job-kucoin
+
   taskManager:
     replicas: 3
     resource:
@@ -216,30 +197,17 @@ spec:
           fsGroup: 999
         containers:
           - name: flink-main-container
-            envFrom:
-              - configMapRef:
-                  name: config-flink-env
             volumeMounts:
-              - name: kafka-config-volume
-                mountPath: /opt/flink/kafka-config
+              - name: job-config-binance
+                mountPath: /opt/flink/job-configs/binance
                 readOnly: true
-              - name: monitor-config-volume
-                mountPath: /opt/flink/monitor-config
-                readOnly: true
-              - name: pipeline-config-volume
-                mountPath: /opt/flink/pipeline-config
+              - name: job-config-kucoin
+                mountPath: /opt/flink/job-configs/kucoin
                 readOnly: true
         volumes:
-          - name: kafka-config-volume
+          - name: job-config-binance
             configMap:
-              name: config-flink-kafka
-          - name: pipeline-config-volume
+              name: config-flink-job-binance
+          - name: job-config-kucoin
             configMap:
-              name: config-flink-pipeline
-          - name: monitor-config-volume
-            configMap:
-              name: config-flink-monitor
-  job:
-    jarURI: local:///opt/flink/usrlib/app.jar
-    upgradeMode: stateless
-    parallelism: 1 # Overriden with pipeline-config.yaml
+              name: config-flink-job-kucoin

@@ -1,0 +1,20 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkSessionJob
+metadata:
+  name: kucoin-session-job
+  namespace: backend
+spec:
+  deploymentName: flink-cluster
+
+  flinkConfiguration:
+    pipeline.name: "kucoin-session-job"
+
+  job:
+    jarURI: local:///opt/flink/usrlib/app.jar
+    entryClass: "com.marketanalysis.microstructuresextractor.ExtractMicrostructures"
+    args:
+      - "--job-conf-dir"
+      - "/opt/flink/job-configs/kucoin"
+    parallelism: 1
+    upgradeMode: stateless
+    state: running
