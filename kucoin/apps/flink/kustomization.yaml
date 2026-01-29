@@ -5,3 +5,4 @@ resources:
   - services.yaml
   - job-config.yaml
   - kucoin-session-job.yaml
+  - jar-server.yaml

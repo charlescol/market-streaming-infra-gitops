@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flink-jar-server
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flink-jar-server
+  template:
+    metadata:
+      labels:
+        app: flink-jar-server
+    spec:
+      volumes:
+        - name: jar-volume
+          emptyDir: {}
+      initContainers:
+        - name: copy-jar
+          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.12.5
+          command:
+            [
+              "sh",
+              "-lc",
+              "cp /opt/flink/usrlib/app.jar /jar/app.jar && ls -lah /jar",
+            ]
+          volumeMounts:
+            - name: jar-volume
+              mountPath: /jar
+      containers:
+        - name: nginx
+          image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: jar-volume
+              mountPath: /usr/share/nginx/html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flink-jar-server
+  namespace: backend
+spec:
+  selector:
+    app: flink-jar-server
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
