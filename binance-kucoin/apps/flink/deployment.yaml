@@ -169,6 +169,9 @@ spec:
               - name: job-config-kucoin
                 mountPath: /opt/flink/job-configs/kucoin
                 readOnly: true
+              - name: flink-volume
+                mountPath: /flink-data
+                readOnly: false
         volumes:
           - name: job-config-binance
             configMap:
@@ -181,8 +184,8 @@ spec:
               name: wait-for-script
               defaultMode: 0755
           - name: flink-volume
-            mountPath: /flink-data
-            readOnly: false
+            persistentVolumeClaim:
+              claimName: flink-pvc
   taskManager:
     replicas: 3
     resource:
