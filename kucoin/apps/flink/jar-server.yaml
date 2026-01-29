@@ -18,7 +18,7 @@ spec:
           emptyDir: {}
       initContainers:
         - name: copy-jar
-          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.12.5
+          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.12.5 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
           command:
             [
               "sh",

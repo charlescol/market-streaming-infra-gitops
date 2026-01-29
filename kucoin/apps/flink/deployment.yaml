@@ -4,7 +4,7 @@ metadata:
   name: flink-cluster
   namespace: backend
 spec:
-  image: asia-northeast1-docker.pkg.dev/market-streaming-prod/flink-microstructures-extractor/flink-microstructures-extractor:0.12.5 # {"$imagepolicy": "flux-system:flink-microstructures-extractor"}
+  image: flink:1.20-java17
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
