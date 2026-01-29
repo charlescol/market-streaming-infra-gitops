@@ -4,3 +4,4 @@ resources:
   - deployment.yaml
   - services.yaml
   - job-config.yaml
+  - kucoin-session-job.yaml
