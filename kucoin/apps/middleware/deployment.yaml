@@ -17,7 +17,7 @@ spec:
         - name: flux-gcp-key
       containers:
         - name: tokio
-          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/tokio-kucoin-middleware/tokio-kucoin-middleware:0.0.1 # {"$imagepolicy": "flux-system:tokio-kucoin-middleware"}
+          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/tokio-kucoin-middleware/tokio-kucoin-middleware:0.1.0 # {"$imagepolicy": "flux-system:tokio-kucoin-middleware"}
           ports:
             - containerPort: 3000
               name: http
@@ -27,6 +27,27 @@ spec:
           envFrom:
             - configMapRef:
                 name: config-tokio-kucoin-middleware
+          env:
+            - name: EXCHANGE_KUCOIN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: kucoin-api-key
+                  key: api-key
+            - name: EXCHANGE_KUCOIN_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: kucoin-api-key
+                  key: api-secret
+            - name: EXCHANGE_KUCOIN_API_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: kucoin-api-key
+                  key: api-passphrase
+            - name: EXCHANGE_KUCOIN_API_KEY_VERSION
+              valueFrom:
+                secretKeyRef:
+                  name: kucoin-api-key
+                  key: api-key-version
           volumeMounts:
             - name: kafka-config-volume
               mountPath: /app/resources/kafka

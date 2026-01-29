@@ -119,6 +119,12 @@ _create_repository_secrets: $(AR_CONFIG_JSON)
 	@kubectl create secret generic binance-api-key \
 		--from-literal=api-key="$(BINANCE_API_KEY)" \
 		-n backend --dry-run=client -o yaml | kubectl apply -f -
+	@kubectl create secret generic kucoin-api-key \
+		--from-literal=api-key="$(KUCOIN_API_KEY)" \
+		--from-literal=api-secret="$(KUCOIN_API_SECRET)" \
+		--from-literal=api-passphrase="$(KUCOIN_API_PASSPHRASE)" \
+		--from-literal=api-key-version="$(KUCOIN_API_KEY_VERSION)" \
+		-n backend --dry-run=client -o yaml | kubectl apply -
 
 
 $(AR_CONFIG_JSON): $(AR_CONFIG_TEMPLATE) $(FLUX_READER_KEY_FILE)
