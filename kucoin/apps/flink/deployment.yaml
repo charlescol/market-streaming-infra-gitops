@@ -170,6 +170,10 @@ spec:
           - name: job-config-kucoin
             configMap:
               name: config-flink-job-kucoin
+          - name: wait-for-volume
+            configMap:
+              name: wait-for-script
+              defaultMode: 0755
   taskManager:
     replicas: 3
     resource:
@@ -198,3 +202,7 @@ spec:
           - name: job-config-kucoin
             configMap:
               name: config-flink-job-kucoin
+          - name: wait-for-volume
+            configMap:
+              name: wait-for-script
+              defaultMode: 0755
