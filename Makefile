@@ -124,7 +124,7 @@ _create_repository_secrets: $(AR_CONFIG_JSON)
 		--from-literal=api-secret="$(KUCOIN_API_SECRET)" \
 		--from-literal=api-passphrase="$(KUCOIN_API_PASSPHRASE)" \
 		--from-literal=api-key-version="$(KUCOIN_API_KEY_VERSION)" \
-		-n backend --dry-run=client -o yaml | kubectl apply -
+		-n backend --dry-run=client -o yaml | kubectl apply -f -
 
 
 $(AR_CONFIG_JSON): $(AR_CONFIG_TEMPLATE) $(FLUX_READER_KEY_FILE)
