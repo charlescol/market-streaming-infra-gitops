@@ -180,6 +180,9 @@ spec:
             configMap:
               name: wait-for-script
               defaultMode: 0755
+          - name: flink-volume
+            mountPath: /flink-data
+            readOnly: false
   taskManager:
     replicas: 3
     resource:
