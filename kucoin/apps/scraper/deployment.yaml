@@ -24,7 +24,7 @@ spec:
         - name: flux-gcp-key
       containers:
         - name: tokio
-          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-kucoin-scraper/msv-tokio-kucoin-scraper:0.1.0 # {"$imagepolicy": "flux-system:msv-tokio-kucoin-scraper"}
+          image: asia-northeast1-docker.pkg.dev/market-streaming-prod/msv-tokio-kucoin-scraper/msv-tokio-kucoin-scraper:0.1.1 # {"$imagepolicy": "flux-system:msv-tokio-kucoin-scraper"}
           ports:
             - containerPort: 9000
           imagePullPolicy: IfNotPresent
