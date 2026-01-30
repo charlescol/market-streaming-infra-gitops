@@ -18,7 +18,7 @@ spec:
       scrapeTimeout: 5s
       path: /metrics
       scheme: http
-  jobLabel: "tokio-kucoin-scraper-metrics"
+  jobLabel: app
   targetLabels:
-    - tokio-kucoin-scraper-metrics
+    - app
     - exchange
