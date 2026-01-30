@@ -5,6 +5,7 @@ metadata:
   namespace: backend
   labels:
     app: tokio-binance-middleware-metrics
+    exchange: binance
 spec:
   selector:
     app: tokio-binance-middleware

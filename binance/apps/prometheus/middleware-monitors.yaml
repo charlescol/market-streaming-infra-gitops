@@ -21,3 +21,4 @@ spec:
   jobLabel: "tokio-binance-middleware-metrics"
   targetLabels:
     - tokio-binance-middleware-metrics
+    - exchange

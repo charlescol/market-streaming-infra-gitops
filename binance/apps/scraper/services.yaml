@@ -5,6 +5,7 @@ metadata:
   namespace: backend
   labels:
     app: tokio-binance-scraper-metrics
+    exchange: binance
 spec:
   selector:
     app: tokio-binance-scraper

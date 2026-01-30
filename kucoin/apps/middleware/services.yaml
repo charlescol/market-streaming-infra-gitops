@@ -5,6 +5,7 @@ metadata:
   namespace: backend
   labels:
     app: tokio-kucoin-middleware-metrics
+    exchange: kucoin
 spec:
   selector:
     app: tokio-kucoin-middleware

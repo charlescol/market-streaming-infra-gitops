@@ -21,3 +21,4 @@ spec:
   jobLabel: "tokio-binance-scraper-metrics"
   targetLabels:
     - tokio-binance-scraper-metrics
+    - exchange

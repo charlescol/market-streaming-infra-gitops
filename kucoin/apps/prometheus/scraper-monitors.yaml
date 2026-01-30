@@ -21,3 +21,4 @@ spec:
   jobLabel: "tokio-kucoin-scraper-metrics"
   targetLabels:
     - tokio-kucoin-scraper-metrics
+    - exchange
