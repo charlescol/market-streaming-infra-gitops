@@ -18,7 +18,7 @@ spec:
       scrapeTimeout: 5s
       path: /metrics
       scheme: http
-  jobLabel: "tokio-binance-middleware-metrics"
+  jobLabel: app
   targetLabels:
-    - tokio-binance-middleware-metrics
+    - app
     - exchange
