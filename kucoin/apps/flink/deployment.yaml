@@ -152,6 +152,7 @@ spec:
     podTemplate:
       spec:
         serviceAccountName: flink
+        automountServiceAccountToken: false
         initContainers:
           - name: wait-for-schema-registry
             image: busybox:1.36
@@ -159,8 +160,6 @@ spec:
             volumeMounts:
               - name: wait-for-volume
                 mountPath: /scripts
-        securityContext:
-          fsGroup: 999
         containers:
           - name: flink-main-container
             volumeMounts:
@@ -170,6 +169,9 @@ spec:
               - name: flink-volume
                 mountPath: /flink-data
                 readOnly: false
+              - name: sa-token
+                mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+                readOnly: true
         volumes:
           - name: job-config-kucoin
             configMap:
@@ -181,6 +183,23 @@ spec:
           - name: flink-volume
             persistentVolumeClaim:
               claimName: flink-pvc
+          - name: sa-token
+            projected:
+              defaultMode: 0444
+              sources:
+                - serviceAccountToken:
+                    path: token
+                    expirationSeconds: 3600
+                - configMap:
+                    name: kube-root-ca.crt
+                    items:
+                      - key: ca.crt
+                        path: ca.crt
+                - downwardAPI:
+                    items:
+                      - path: namespace
+                        fieldRef:
+                          fieldPath: metadata.namespace
   taskManager:
     replicas: 3
     resource:
@@ -189,6 +208,7 @@ spec:
     podTemplate:
       spec:
         serviceAccountName: flink
+        automountServiceAccountToken: false
         affinity:
           podAntiAffinity:
             preferredDuringSchedulingIgnoredDuringExecution:
@@ -206,11 +226,27 @@ spec:
               - name: job-config-kucoin
                 mountPath: /opt/flink/job-configs/kucoin
                 readOnly: true
+              - name: sa-token
+                mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+                readOnly: true
         volumes:
+          - name: sa-token
+            projected:
+              defaultMode: 0444
+              sources:
+                - serviceAccountToken:
+                    path: token
+                    expirationSeconds: 3600
+                - configMap:
+                    name: kube-root-ca.crt
+                    items:
+                      - key: ca.crt
+                        path: ca.crt
+                - downwardAPI:
+                    items:
+                      - path: namespace
+                        fieldRef:
+                          fieldPath: metadata.namespace
           - name: job-config-kucoin
             configMap:
               name: config-flink-job-kucoin
-          - name: wait-for-volume
-            configMap:
-              name: wait-for-script
-              defaultMode: 0755
