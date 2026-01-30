@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - services.yaml
-  - kafka-config.yaml
-  - pipeline-config.yaml
-  - env-config.yaml
-  - monitor-config.yaml
+  - job-config.yaml
+  - binance-session-job.yaml
+  - jar-server.yaml

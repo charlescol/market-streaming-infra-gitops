@@ -4,3 +4,4 @@ resources:
   - jobs
   - deployment.yaml
   - services.yaml
+  - jar-server.yaml
