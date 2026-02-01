@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config-tokio-symbols
+  name: config-binance-scraper-symbols
   namespace: backend
 data:
   symbols-config.yaml: |

@@ -54,10 +54,10 @@ spec:
       volumes:
         - name: kafka-config-volume
           configMap:
-            name: config-tokio-kafka
+            name: config-binance-scraper-kafka
         - name: tokio-symbols-volume
           configMap:
-            name: config-tokio-symbols
+            name: config-binance-scraper-symbols
         - name: wait-for-volume
           configMap:
             name: wait-for-script

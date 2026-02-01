@@ -48,10 +48,10 @@ spec:
       volumes:
         - name: kafka-config-volume
           configMap:
-            name: config-tokio-kafka
+            name: config-kucoin-scraper-kafka
         - name: tokio-symbols-volume
           configMap:
-            name: config-tokio-symbols
+            name: config-kucoin-scraper-symbols
         - name: wait-for-volume
           configMap:
             name: wait-for-script
