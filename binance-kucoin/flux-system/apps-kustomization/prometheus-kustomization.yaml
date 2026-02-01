@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./kucoin/apps/prometheus
+  path: ./binance-kucoin/apps/prometheus
   prune: true
   sourceRef:
     kind: GitRepository

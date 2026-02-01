@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./kucoin/apps/middleware
+  path: ./binance-kucoin/apps/middleware
   prune: true
   sourceRef:
     kind: GitRepository

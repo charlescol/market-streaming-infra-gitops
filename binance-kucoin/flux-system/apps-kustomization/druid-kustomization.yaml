@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./kucoin/apps/druid
+  path: ./binance-kucoin/apps/druid
   prune: true
   sourceRef:
     kind: GitRepository

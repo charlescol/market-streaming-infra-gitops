@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./kucoin/apps/flink
+  path: ./binance-kucoin/apps/flink
   prune: true
   sourceRef:
     kind: GitRepository
