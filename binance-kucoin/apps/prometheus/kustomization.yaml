@@ -3,7 +3,8 @@ kind: Kustomization
 resources:
   - kafka-monitors.yaml
   - flink-monitors.yaml
-  - tokio-scraper-monitors.yaml
   - kucoin-middleware-monitors.yaml
   - binance-middleware-monitors.yaml
   - druid-monitors.yaml
+  - binance-scraper-monitors.yaml
+  - kucoin-scraper-monitors.yaml
