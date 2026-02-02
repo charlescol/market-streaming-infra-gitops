@@ -10,7 +10,7 @@ data:
   BINANCE_PING_URL: "https://api.binance.com/api/v3/ping"
   BINANCE_API_FORMAT: "sbe"
   KAFKA_CLIENT_ID: "binance-middleware"
-  KAFKA_TOPIC: "binance-depthsnapshot-raw"
+  KAFKA_TOPIC: "binance-depthSnapshot-raw"
   KAFKA_BROKER_HOST: "kafka-cluster-kafka-bootstrap.backend.svc.cluster.local:9092"
   KAFKA_CONFIG_PATH: "resources/kafka/kafka-sink-config.yaml"
   SCHEMA_REGISTRY_URL: "http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"
