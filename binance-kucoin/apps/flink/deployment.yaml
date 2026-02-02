@@ -105,7 +105,7 @@ spec:
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
-    taskmanager.numberOfTaskSlots: "7"
+    taskmanager.numberOfTaskSlots: "11"
     taskmanager.slot.timeout: 20s
     taskmanager.memory.process.size: "4096m"
     kubernetes.taskmanager.cpu.limit-factor: "1"
@@ -190,7 +190,7 @@ spec:
     replicas: 3
     resource:
       memory: "4096m"
-      cpu: 6
+      cpu: 7
     podTemplate:
       spec:
         affinity:
