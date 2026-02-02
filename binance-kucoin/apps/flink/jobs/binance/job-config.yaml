@@ -53,6 +53,7 @@ data:
     fetch.min.bytes=1
     fetch.max.wait.ms=4           
     max.partition.fetch.bytes=262144   
+    client.id.prefix=binance-microstructure-extractor
     fetch.max.bytes=524288             
     max.poll.records=500
     receive.buffer.bytes=524288
