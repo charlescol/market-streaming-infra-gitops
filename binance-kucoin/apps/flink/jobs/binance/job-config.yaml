@@ -53,7 +53,7 @@ data:
     fetch.min.bytes=1
     fetch.max.wait.ms=4           
     max.partition.fetch.bytes=262144   
-    client.id.prefix=binance-microstructure-extractor
+    client.id=binance-microstructure-source
     fetch.max.bytes=524288             
     max.poll.records=500
     receive.buffer.bytes=524288
@@ -62,6 +62,7 @@ data:
     linger.ms=4
     batch.size=10000
     buffer.memory=67108864 
+    client.id=binance-microstructure-sink
     compression.type=none
     request.timeout.ms=1000
     connections.max.idle.ms=540000
