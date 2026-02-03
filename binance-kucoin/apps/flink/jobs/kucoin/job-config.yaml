@@ -34,7 +34,7 @@ data:
         parallelism: 1
         sharing-group: "kucoin-default"
     orderbook:
-      parallelism: 7
+      parallelism: 9
       sharing-group: "kucoin-orderbook-group"
     metrics:
       extraction1:
@@ -47,7 +47,7 @@ data:
         parallelism: 4
         sharing-group: "kucoin-feature3"
     sink:
-      parallelism: 7
+      parallelism: 6
       sharing-group: "kucoin-sink-group"
   kafka-source.properties: |
     fetch.min.bytes=1
