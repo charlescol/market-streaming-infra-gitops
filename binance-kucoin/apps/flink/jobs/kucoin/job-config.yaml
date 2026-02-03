@@ -34,7 +34,7 @@ data:
         parallelism: 1
         sharing-group: "default"
     orderbook:
-      parallelism: 5
+      parallelism: 7
       sharing-group: "orderbook-group"
     metrics:
       extraction1:
