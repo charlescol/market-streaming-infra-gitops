@@ -28,27 +28,27 @@ data:
   flink-pipeline.yaml: |
     source:
       depthupdate:
-        parallelism: 3
-        sharing-group: "default"
+        parallelism: 4
+        sharing-group: "kucoin-default"
       snapshot:
         parallelism: 1
-        sharing-group: "default"
+        sharing-group: "kucoin-default"
     orderbook:
       parallelism: 7
-      sharing-group: "orderbook-group"
+      sharing-group: "kucoin-orderbook-group"
     metrics:
       extraction1:
-        parallelism: 3
-        sharing-group: "feature1"
+        parallelism: 4
+        sharing-group: "kucoin-feature1"
       extraction2:
-        parallelism: 3
-        sharing-group: "feature2"
+        parallelism: 4
+        sharing-group: "kucoin-feature2"
       extraction3:
-        parallelism: 3
-        sharing-group: "feature3"
+        parallelism: 4
+        sharing-group: "kucoin-feature3"
     sink:
-      parallelism: 4
-      sharing-group: "sink-group"
+      parallelism: 7
+      sharing-group: "kucoin-sink-group"
   kafka-source.properties: |
     fetch.min.bytes=1
     fetch.max.wait.ms=4           

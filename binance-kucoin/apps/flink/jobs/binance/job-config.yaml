@@ -29,26 +29,26 @@ data:
     source:
       depthupdate:
         parallelism: 2
-        sharing-group: "default"
+        sharing-group: "binance-default"
       snapshot:
         parallelism: 1
-        sharing-group: "default"
+        sharing-group: "binance-default"
     orderbook:
       parallelism: 3
-      sharing-group: "orderbook-group"
+      sharing-group: "binance-orderbook-group"
     metrics:
       extraction1:
         parallelism: 1
-        sharing-group: "feature1"
+        sharing-group: "binance-feature1"
       extraction2:
         parallelism: 1
-        sharing-group: "feature2"
+        sharing-group: "binance-feature2"
       extraction3:
         parallelism: 1
-        sharing-group: "feature3"
+        sharing-group: "binance-feature3"
     sink:
       parallelism: 2
-      sharing-group: "sink-group"
+      sharing-group: "binance-sink-group"
   kafka-source.properties: |
     fetch.min.bytes=1
     fetch.max.wait.ms=4           
