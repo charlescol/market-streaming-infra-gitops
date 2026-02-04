@@ -97,7 +97,7 @@ spec:
     # JobManager
     # --------------------------------------------------------------------
     jobstore.cache-size: "1048576"
-    jobstore.max-capacity: "10"
+    jobstore.max-capacity: "11"
     blob.storage.directory: file:///flink-data/blob-storage
     kubernetes.jobmanager.cpu.limit-factor: "1.5"
     # JVM non-Flink
