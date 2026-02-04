@@ -28,7 +28,7 @@ data:
   flink-pipeline.yaml: |
     source:
       depthupdate:
-        parallelism: 4
+        parallelism: 5
         sharing-group: "kucoin-default"
       snapshot:
         parallelism: 1
@@ -38,13 +38,13 @@ data:
       sharing-group: "kucoin-orderbook-group"
     metrics:
       extraction1:
-        parallelism: 3
+        parallelism: 4
         sharing-group: "kucoin-feature1"
       extraction2:
-        parallelism: 3
+        parallelism: 4
         sharing-group: "kucoin-feature2"
       extraction3:
-        parallelism: 3
+        parallelism: 4
         sharing-group: "kucoin-feature3"
     sink:
       parallelism: 5
