@@ -26,12 +26,22 @@ spec:
   jvmOptions:
     -Xms: "2048m"
     -Xmx: "2048m"
-    # -XX:
-    #   UseG1GC: "true"
-    #   MaxGCPauseMillis: "10"
-    #   InitiatingHeapOccupancyPercent: "30"
-    #   ExplicitGCInvokesConcurrent: "true"
-    #   UnlockExperimentalVMOptions: "true"
-    #   AlwaysPreTouch: "true"
-    #   G1NewSizePercent: "25"
-    #   G1MaxNewSizePercent: "50"
+  template:
+    pod:
+      nodeSelector:
+        pool: ssd
+      tolerations:
+        - key: "local-ssd"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: strimzi.io/cluster
+                    operator: In
+                    values:
+                      - kafka-cluster
+              topologyKey: kubernetes.io/hostname

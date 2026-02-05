@@ -20,14 +20,6 @@ spec:
         port: 9092
         type: internal
         tls: false # TODO: Change to true
-        configuration:
-          brokers:
-            - broker: 0
-              advertisedHost: kafka-cluster-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local
-              advertisedPort: 9092
-            - broker: 1
-              advertisedHost: kafka-cluster-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local
-              advertisedPort: 9092
     template:
       kafkaContainer:
         env:
@@ -54,7 +46,6 @@ spec:
       socket.request.max.bytes: 104857600 # 100MB
       socket.send.buffer.bytes: -1
       broker.heartbeat.interval.ms: 5000
-
       # --------------------------------------------------------------------
       # # Threads
       # --------------------------------------------------------------------
@@ -80,14 +71,6 @@ spec:
       # --------------------------------------------------------------------
       # # Kraft
       # --------------------------------------------------------------------
-      controller.quorum.bootstrap.servers: |
-        kafka-cluster-kafka-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
-        kafka-cluster-kafka-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
-        kafka-cluster-kafka-kafka-controller-only-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093
-      controller.quorum.voters: |
-        0@kafka-cluster-kafka-kafka-broker-controller-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
-        1@kafka-cluster-kafka-kafka-broker-controller-pool-1.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093,
-        2@kafka-cluster-kafka-kafka-controller-only-pool-0.kafka-cluster-kafka-brokers.backend.svc.cluster.local:9093
       controller.quorum.election.backoff.max.ms: 5000
       controller.quorum.election.timeout.ms: 1000
       controller.quorum.fetch.timeout.ms: 10000
