@@ -34,7 +34,7 @@ data:
         parallelism: 1
         sharing-group: "kucoin-default"
     orderbook:
-      parallelism: 5
+      parallelism: 7
       sharing-group: "kucoin-orderbook-group"
     metrics:
       extraction1:

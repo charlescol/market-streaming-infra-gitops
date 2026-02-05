@@ -38,7 +38,7 @@ spec:
     # --------------------------------------------------------------------
     execution.runtime-mode: STREAMING
     execution.buffer-timeout.enabled: "true"
-    execution.buffer-timeout.interval: 2ms
+    execution.buffer-timeout.interval: 0ms
     # --------------------------------------------------------------------
     # Pipeline
     # --------------------------------------------------------------------
@@ -88,7 +88,7 @@ spec:
     # --------------------------------------------------------------------
     # TaskManager
     # --------------------------------------------------------------------
-    taskmanager.numberOfTaskSlots: "8"
+    taskmanager.numberOfTaskSlots: "6"
     taskmanager.slot.timeout: 20s
     taskmanager.memory.process.size: "4096m"
     kubernetes.taskmanager.cpu.limit-factor: "1.5"
@@ -171,7 +171,7 @@ spec:
             persistentVolumeClaim:
               claimName: flink-pvc
   taskManager:
-    replicas: 5
+    replicas: 7
     resource:
       memory: "4096m"
       cpu: 5
