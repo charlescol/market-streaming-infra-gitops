@@ -114,6 +114,7 @@ spec:
     taskmanager.network.memory.buffer-debloat.min: 2kb
     taskmanager.network.memory.buffer-debloat.max: 64kb
     taskmanager.network.memory.buffer-debloat.period: 50ms
+    taskmanager.memory.network.min: 256mb
     # --------------------------------------------------------------------
     # Metrics
     # --------------------------------------------------------------------

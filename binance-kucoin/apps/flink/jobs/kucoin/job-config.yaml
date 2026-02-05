@@ -55,7 +55,7 @@ data:
     max.partition.fetch.bytes=262144   
     client.id=kucoin-microstructure-source
     fetch.max.bytes=524288             
-    max.poll.records=1000
+    max.poll.records=500
     receive.buffer.bytes=524288
   kafka-sink.properties: |
     acks=0
