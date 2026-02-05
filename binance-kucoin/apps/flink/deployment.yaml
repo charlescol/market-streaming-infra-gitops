@@ -8,23 +8,6 @@ spec:
   flinkVersion: v1_20
   serviceAccount: flink
   flinkConfiguration:
-    # env.java.opts.taskmanager: >-
-    #   -XX:+UseG1GC
-    #   -XX:MaxGCPauseMillis=10
-    #   -XX:InitiatingHeapOccupancyPercent=45
-    #   -XX:+AlwaysPreTouch
-    #   -Dscala.usejavacp=false
-    #   -Dlog4j2.Script.enableLanguages=none
-    #   -XX:G1NewSizePercent=25
-    #   -XX:G1MaxNewSizePercent=50
-    # env.java.opts.jobmanager: >-
-    #   -XX:+UseG1GC
-    #   -XX:MaxGCPauseMillis=50
-    #   -XX:+AlwaysPreTouch
-    #   -Dscala.usejavacp=false
-    #   -Dlog4j2.Script.enableLanguages=none
-    #   -XX:+UnlockExperimentalVMOptions
-    #   -XX:+ExplicitGCInvokesConcurrent
     # --------------------------------------------------------------------
     # Metric reporter
     # --------------------------------------------------------------------
@@ -99,7 +82,6 @@ spec:
     jobstore.cache-size: "1048576"
     jobstore.max-capacity: "11"
     blob.storage.directory: file:///flink-data/blob-storage
-    kubernetes.jobmanager.cpu.limit-factor: "1.5"
     # JVM non-Flink
     jobmanager.memory.process.size: "1248m"
     # --------------------------------------------------------------------
@@ -108,7 +90,7 @@ spec:
     taskmanager.numberOfTaskSlots: "8"
     taskmanager.slot.timeout: 20s
     taskmanager.memory.process.size: "4096m"
-    kubernetes.taskmanager.cpu.limit-factor: "1"
+    kubernetes.taskmanager.cpu.limit-factor: "1.5"
     taskmanager.network.memory.buffer-debloat.enabled: "true"
     taskmanager.network.memory.buffer-debloat.target: 5ms
     taskmanager.network.memory.buffer-debloat.min: 2kb
@@ -149,7 +131,7 @@ spec:
   jobManager:
     resource:
       memory: "1248m"
-      cpu: 1.5
+      cpu: 5
     podTemplate:
       spec:
         initContainers:
@@ -191,7 +173,7 @@ spec:
     replicas: 5
     resource:
       memory: "4096m"
-      cpu: 7
+      cpu: 4.5
     podTemplate:
       spec:
         affinity:
