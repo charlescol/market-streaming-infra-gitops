@@ -8,14 +8,14 @@ metadata:
     app: kafka-pool
 spec:
   replicas: 3
+  roles:
+    - controller
+    - broker
   storage:
     type: persistent-claim
     size: 350Gi
     class: local-ssd
     kraftMetadata: shared
-  roles:
-    - controller
-    - broker
   resources:
     requests:
       memory: 9Gi
@@ -28,21 +28,28 @@ spec:
     -Xmx: "2048m"
   template:
     pod:
-      spec:
-        nodeSelector:
-          pool: ssd
-        tolerations:
-          - key: "local-ssd"
-            operator: "Equal"
-            value: "true"
-            effect: "NoSchedule"
-        affinity:
-          podAntiAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                    - key: strimzi.io/cluster
-                      operator: In
-                      values:
-                        - kafka-cluster
-                topologyKey: kubernetes.io/hostname
+      tolerations:
+        - key: "local-ssd"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: pool
+                    operator: In
+                    values:
+                      - ssd
+
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: strimzi.io/cluster
+                    operator: In
+                    values:
+                      - kafka-cluster
+              topologyKey: kubernetes.io/hostname
