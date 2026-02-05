@@ -28,20 +28,21 @@ spec:
     -Xmx: "2048m"
   template:
     pod:
-      nodeSelector:
-        pool: ssd
-      tolerations:
-        - key: "local-ssd"
-          operator: "Equal"
-          value: "true"
-          effect: "NoSchedule"
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: strimzi.io/cluster
-                    operator: In
-                    values:
-                      - kafka-cluster
-              topologyKey: kubernetes.io/hostname
+      spec:
+        nodeSelector:
+          pool: ssd
+        tolerations:
+          - key: "local-ssd"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: strimzi.io/cluster
+                      operator: In
+                      values:
+                        - kafka-cluster
+                topologyKey: kubernetes.io/hostname
