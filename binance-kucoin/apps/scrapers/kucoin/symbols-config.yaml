@@ -6,10 +6,8 @@ metadata:
 data:
   symbols-config.yaml: |
     symbols:
-      - BTC-USDT
       - ETH-USDT
       - SOL-USDT
-      - XRP-USDT
       - BTC-USDC
       - LTC-USDT
       - ETH-USDC
