@@ -82,6 +82,7 @@ spec:
     jobstore.cache-size: "1048576"
     jobstore.max-capacity: "11"
     blob.storage.directory: file:///flink-data/blob-storage
+    kubernetes.jobmanager.cpu.limit-factor: "1.5"
     # JVM non-Flink
     jobmanager.memory.process.size: "1248m"
     # --------------------------------------------------------------------
@@ -131,7 +132,7 @@ spec:
   jobManager:
     resource:
       memory: "1248m"
-      cpu: 5
+      cpu: 1.5
     podTemplate:
       spec:
         initContainers:
@@ -173,7 +174,7 @@ spec:
     replicas: 5
     resource:
       memory: "4096m"
-      cpu: 4.5
+      cpu: 5
     podTemplate:
       spec:
         affinity:
