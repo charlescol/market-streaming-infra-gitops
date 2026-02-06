@@ -11,7 +11,7 @@ spec:
   storageClassName: cluster-retain
   csi:
     driver: pd.csi.storage.gke.io
-    volumeHandle: projects/market-streaming-prod/zones/asia-northeast1-a/disks/gce-pv-disk
+    volumeHandle: projects/market-streaming-prod/zones/asia-northeast1-b/disks/gce-pv-disk
     fsType: ext4
     readOnly: false
 ---
