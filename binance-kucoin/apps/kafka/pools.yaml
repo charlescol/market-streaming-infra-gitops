@@ -18,10 +18,10 @@ spec:
     kraftMetadata: shared
   resources:
     requests:
-      memory: 9Gi
+      memory: 12Gi
       cpu: "4.5"
     limits:
-      memory: 12Gi
+      memory: 16Gi
       cpu: "6"
   jvmOptions:
     -Xms: "2048m"
