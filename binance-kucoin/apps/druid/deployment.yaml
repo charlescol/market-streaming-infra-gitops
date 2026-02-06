@@ -261,13 +261,13 @@ spec:
       nodeType: "indexer"
       druid.port: 8088
       nodeConfigMountPath: "/opt/druid/conf/druid/cluster/data/indexer"
-      replicas: 2
+      replicas: 4
       resources:
         requests:
-          cpu: "4"
+          cpu: "2"
           memory: "8Gi"
         limits:
-          cpu: "6"
+          cpu: "4"
       volumeClaimTemplates:
         - metadata:
             name: druid-task-data
