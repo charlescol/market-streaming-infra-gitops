@@ -23,8 +23,8 @@ data:
     ENABLE_ORDERBOOK_VERBOSE: "true"
     TRACKED_SYMBOLS: ""
     SNAPSHOT_REQUEST_URL: "http://tokio-kucoin-middleware-http.backend.svc.cluster.local:3000/request/snapshot"
-    MAX_BUFFER_LENGTH: "10000"
-    MAX_BUFFER_CLEAR_COUNT: "3"
+    MAX_BUFFER_LENGTH: "20000"
+    MAX_BUFFER_CLEAR_COUNT: "10"
   flink-pipeline.yaml: |
     source:
       depthupdate:
