@@ -266,9 +266,10 @@ spec:
       resources:
         requests:
           cpu: "2"
-          memory: "8Gi"
+          memory: "12Gi"
         limits:
           cpu: "4"
+          memory: "12Gi"
       volumeClaimTemplates:
         - metadata:
             name: druid-task-data
@@ -276,7 +277,7 @@ spec:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
-                storage: 5Gi
+                storage: 20Gi
             storageClassName: standard
         - metadata:
             name: druid-logs
