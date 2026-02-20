@@ -18,7 +18,7 @@ data:
   MONITOR_RDKAFKA: "true"
   MONITOR_MSG: "true"
   MONITORING_RATIO: "1"
-  ENABLE_SCRAPER: "true"
+  ENABLE_SCRAPER: "false"
   SYMBOL_CONFIG_PATH: "resources/symbols/symbols-config.yaml"
   TOKIO_WORKER_THREADS: "4"
   TOKIO_QUEUE_INTERVAL: "5"
