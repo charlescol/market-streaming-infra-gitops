@@ -23,7 +23,7 @@ spec:
   commonConfigMountPath: "/opt/druid/conf/druid/cluster/_common"
   jvm.options: |-
     -server
-    -XX:MaxDirectMemorySize=4g
+    -XX:MaxDirectMemorySize=2g
     -Duser.timezone=UTC
     -Dfile.encoding=UTF-8
     -Dlog4j.debug
@@ -140,13 +140,12 @@ spec:
         druid.broker.http.numConnections=5
         druid.server.http.numThreads=10
         # Processing threads and buffers
-        druid.processing.buffer.sizeBytes=268435456
-        druid.processing.numMergeBuffers=2
+        druid.processing.buffer.sizeBytes=1
+        druid.processing.numMergeBuffers=1
         druid.processing.numThreads=1
         druid.sql.enable=true
       extra.jvm.options: |-
-        -Xms2g
-        -Xmx2g
+        -Xms512M
 
     coordinators:
       nodeType: "coordinator"
@@ -160,7 +159,7 @@ spec:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
-                storage: 10Gi
+                storage: 5Gi
             storageClassName: standard
         - metadata:
             name: druid-logs
@@ -192,8 +191,8 @@ spec:
         druid.coordinator.asOverlord.overlordService=druid/overlord
         druid.indexer.queue.startDelay=PT30S
       extra.jvm.options: |-
-        -Xms2g
-        -Xmx2g
+        -Xmx512M
+        -Xms512M
 
     historicals:
       nodeType: "historical"
@@ -266,10 +265,9 @@ spec:
       resources:
         requests:
           cpu: "2"
-          memory: "12Gi"
+          memory: "8Gi"
         limits:
           cpu: "4"
-          memory: "12Gi"
       volumeClaimTemplates:
         - metadata:
             name: druid-task-data
@@ -277,7 +275,7 @@ spec:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
-                storage: 20Gi
+                storage: 5Gi
             storageClassName: standard
         - metadata:
             name: druid-logs
@@ -315,9 +313,6 @@ spec:
         druid.indexer.logs.directory=/druid/data/indexing-logs
         druid.segmentCache.locations=[{"path":"/druid/data/segments","maxSize":10737418240}]
         druid.server.maxSize=5368709120
-        druid.processing.buffer.sizeBytes=134217728   # 128MiB
-        druid.processing.numMergeBuffers=2
-        druid.processing.numThreads=1
       extra.jvm.options: |-
         -Xms4g
         -Xmx4608m
