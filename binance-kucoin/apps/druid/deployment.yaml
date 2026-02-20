@@ -23,7 +23,7 @@ spec:
   commonConfigMountPath: "/opt/druid/conf/druid/cluster/_common"
   jvm.options: |-
     -server
-    -XX:MaxDirectMemorySize=2g
+    -XX:MaxDirectMemorySize=4g
     -Duser.timezone=UTC
     -Dfile.encoding=UTF-8
     -Dlog4j.debug
@@ -140,12 +140,13 @@ spec:
         druid.broker.http.numConnections=5
         druid.server.http.numThreads=10
         # Processing threads and buffers
-        druid.processing.buffer.sizeBytes=1
-        druid.processing.numMergeBuffers=1
+        druid.processing.buffer.sizeBytes=268435456
+        druid.processing.numMergeBuffers=2
         druid.processing.numThreads=1
         druid.sql.enable=true
       extra.jvm.options: |-
-        -Xms512M
+        -Xms2g
+        -Xmx2g
 
     coordinators:
       nodeType: "coordinator"
@@ -159,7 +160,7 @@ spec:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
-                storage: 5Gi
+                storage: 10Gi
             storageClassName: standard
         - metadata:
             name: druid-logs
@@ -191,8 +192,8 @@ spec:
         druid.coordinator.asOverlord.overlordService=druid/overlord
         druid.indexer.queue.startDelay=PT30S
       extra.jvm.options: |-
-        -Xmx512M
-        -Xms512M
+        -Xms2g
+        -Xmx2g
 
     historicals:
       nodeType: "historical"
