@@ -12,6 +12,7 @@ data:
   SCHEMA_REGISTRY_URL: "http://schema-registry-cluster-ip.backend.svc.cluster.local:8081"
   KUCOIN_API_HOST: "https://api.kucoin.com"
   KUCOIN_PING_INTERVAL_SECONDS: "18"
+  KUCOIN_USE_PRO_API: "true"
   ENABLE_METRICS_VERBOSE: "true"
   TRACKED_SYMBOLS: ""
   METRICS_PORT: "9000"
