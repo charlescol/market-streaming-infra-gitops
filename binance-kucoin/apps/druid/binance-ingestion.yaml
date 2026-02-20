@@ -84,6 +84,7 @@ spec:
                 { "type": "string", "name": "side" },
                 { "type": "double", "name": "value" },
                 { "type": "long", "name": "isFirstUpdateAfterResume" },
+                { "type": "long",   "name": "timestampMicro" },
                 { "type": "long",   "name": "receptionTimeMicro" },
                 { "type": "long", "name": "extractionTimeMicro" }
               ]

@@ -83,6 +83,7 @@ spec:
                 { "type": "string", "name": "exchange" },
                 { "type": "string", "name": "side" },
                 { "type": "double", "name": "value" },
+                { "type": "long", "name": "timestampMicro" },
                 { "type": "long", "name": "isFirstUpdateAfterResume" },
                 { "type": "long",   "name": "receptionTimeMicro" },
                 { "type": "long", "name": "extractionTimeMicro" }
