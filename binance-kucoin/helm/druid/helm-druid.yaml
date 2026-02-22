@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: datainfra-helm-charts
+  name: druid-operator
   namespace: flux-system
 spec:
   interval: 1h
@@ -23,9 +23,8 @@ spec:
   interval: 1h
   chart:
     spec:
-      chart: druid-operator
-      version: 0.3.9
+      chart: ./helm-releases/druid-operator-0.3.9.tgz
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: druid-operator
         namespace: flux-system
