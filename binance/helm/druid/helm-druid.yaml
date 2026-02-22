@@ -1,11 +1,16 @@
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: GitRepository
 metadata:
   name: druid-operator
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://charts.datainfra.io
+  url: https://github.com/datainfrahq/helm-charts
+  ref:
+    branch: main
+  ignore: |
+    /*
+    !/helm-releases/
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -18,9 +23,8 @@ spec:
   interval: 1h
   chart:
     spec:
-      chart: druid-operator
-      version: 0.3.9
+      chart: ./helm-releases/druid-operator-0.3.9.tgz
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: druid-operator
         namespace: flux-system
