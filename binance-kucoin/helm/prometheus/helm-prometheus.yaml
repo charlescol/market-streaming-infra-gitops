@@ -49,7 +49,7 @@ spec:
                 requests:
                   storage: 20Gi
     grafana:
-      enabled: false
+      enabled: true
       grafana.ini:
         server:
           protocol: http
