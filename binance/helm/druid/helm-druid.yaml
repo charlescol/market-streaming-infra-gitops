@@ -28,3 +28,9 @@ spec:
         kind: GitRepository
         name: druid-operator
         namespace: flux-system
+  values:
+    kube_rbac_proxy:
+      image:
+        repository: public.ecr.aws/muon/mirror/gcr.io/kubebuilder/kube-rbac-proxy
+        tag: v0.13.1
+        pullPolicy: IfNotPresent
